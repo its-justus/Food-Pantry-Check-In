@@ -1,5 +1,5 @@
 {
-  "name": "food-bank-check-in",
+  "name": "food-pantry-check-in",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:5000",
