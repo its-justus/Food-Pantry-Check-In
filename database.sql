@@ -43,7 +43,7 @@ CREATE TABLE "order" (
 
 
 CREATE TABLE "location" (
-	"id" serial NOT NULL,
+	"id" INTEGER PRIMARY KEY,
 	"description" varchar(100) NOT NULL UNIQUE,
 	CONSTRAINT "location_pk" PRIMARY KEY ("id")
 ) WITH (
