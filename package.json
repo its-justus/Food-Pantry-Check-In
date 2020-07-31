@@ -25,7 +25,6 @@
     "start": "node server/server.js",
     "client": "react-scripts start",
     "server": "nodemon --watch server server/server.js",
-    "testServer": "jest server/tests/*.test.js --forceExit",
     "build": "react-scripts build",
     "test": "jest",
     "eject": "react-scripts eject"
