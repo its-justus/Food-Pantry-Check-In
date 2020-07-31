@@ -44,8 +44,7 @@ CREATE TABLE "order" (
 
 CREATE TABLE "location" (
 	"id" INTEGER PRIMARY KEY,
-	"description" varchar(100) NOT NULL UNIQUE,
-	CONSTRAINT "location_pk" PRIMARY KEY ("id")
+	"description" varchar(100) NOT NULL UNIQUE
 ) WITH (
   OIDS=FALSE
 );
