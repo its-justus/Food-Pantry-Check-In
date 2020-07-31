@@ -28,7 +28,7 @@ describe("GET /api/location/", () => {
       .set("Accept", "application/json")
       // .expect("Content-Type", /json/)
 			.expect(200);
-		expect(typeof res.body).toBe('array');
+		expect(Array.isArray(res.body)).toBe(true);
 		expect(res.body[0]).toEqual({
 			id: 1,
 			description: "test location",
