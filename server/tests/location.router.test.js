@@ -1,6 +1,7 @@
 const app = require("../server");
 const request = require("supertest")(app);
 const pool = require('../modules/pool');
+const { response } = require("../server");
 
 // Start with posting a new location
 describe("POST /api/location", () => {
@@ -36,3 +37,12 @@ describe("GET /api/location/", () => {
 		done();
   });
 });
+
+describe("DELETE /api/location/id", () => {
+	it("responds with status code 204 OK", async (done) => {
+		const res = await request
+		.delete("/api/location/1")
+		.expect(204);
+	done();
+	})
+})
