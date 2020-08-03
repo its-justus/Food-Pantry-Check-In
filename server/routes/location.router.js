@@ -54,7 +54,6 @@ router.get('/', (req, res) => {
       console.log("Error GET /api/location", error);
       res.sendStatus(500);
     });
-<<<<<<< HEAD
 })
 
 router.delete("/:id", (req, res) => {
@@ -68,8 +67,3 @@ router.delete("/:id", (req, res) => {
 });
 
 module.exports = router;
-=======
-});
-
-module.exports = router;
->>>>>>> 5747a78d6173f893540dd9b7d3a896df5520d58c

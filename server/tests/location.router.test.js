@@ -1,10 +1,5 @@
 const app = require("../server");
 const request = require("supertest")(app);
-<<<<<<< HEAD
-const pool = require('../modules/pool');
-const { response } = require("../server");
-=======
->>>>>>> 5747a78d6173f893540dd9b7d3a896df5520d58c
 
 // Start with posting a new location
 // describe("POST /api/location", () => {
