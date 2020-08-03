@@ -12,7 +12,7 @@ on:
 jobs:
   with:
     env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      DATABASE_URL: Luke
   build:
 
     runs-on: ubuntu-latest
