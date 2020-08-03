@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Nav from "../Nav/Nav";
 
 class RegisterPage extends Component {
   state = {
@@ -13,7 +12,7 @@ class RegisterPage extends Component {
   registerUser = (event) => {
     event.preventDefault();
 
-    if (this.state.name && this.state.password) {
+    if (this.state.name && this.state.email && this.state.household_id && this.state.password) {
       this.props.dispatch({
         type: "REGISTER",
         payload: {
@@ -38,7 +37,6 @@ class RegisterPage extends Component {
     return (
       <div>
         <div>
-          <Nav />
         </div>
         {this.props.errors.registrationMessage && (
           <h2 className="alert" role="alert">
@@ -100,7 +98,7 @@ class RegisterPage extends Component {
               className="register"
               type="submit"
               name="submit"
-              value="Create Account"
+              value="Register"
             />
           </div>
         </form>
