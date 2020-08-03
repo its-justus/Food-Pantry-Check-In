@@ -25,7 +25,7 @@
   "scripts": {
     "start": "node server/server.js",
     "client": "react-scripts start",
-    "server": "nodemon --watch server server/server.js",
+    "server": "nodemon --watch server server/start.js",
     "build": "react-scripts build",
     "test": "jest",
     "eject": "react-scripts eject"
@@ -41,15 +41,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  {
-    "environments": {
-      "test": {
-        "addons": [
-          "heroku-redis:in-dyno"
-        ]
-      }
-    }
   },
   "devDependencies": {
     "redux-logger": "^3.0.6"
