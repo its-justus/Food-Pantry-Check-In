@@ -21,6 +21,24 @@ describe("POST /api/location", () => {
   });
 });
 
+describe("PUT /api/location/:id", () => {
+  it("responds with json", async (done) => {
+    const res = await request
+      .put("/api/location/1")
+      .send({
+        id: 1,
+        description: "test location edited",
+      })
+      //.expect("Content-Type", /json/)
+      .expect(200);
+    expect(res.body).toEqual({
+      id: 1,
+      description: "test location edited",
+    });
+    done();
+  });
+});
+
 describe("GET /api/location/", () => {
   it("responds with json", async (done) => {
     const res = await request
@@ -31,7 +49,7 @@ describe("GET /api/location/", () => {
 		expect(Array.isArray(res.body)).toBe(true);
 		expect(res.body[0]).toEqual({
 			id: 1,
-			description: "test location",
+			description: "test location edited",
 		});
 		done();
   });
