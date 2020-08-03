@@ -55,4 +55,15 @@ router.get('/', (req, res) => {
       res.sendStatus(500);
     });
 })
+
+router.delete("/:id", (req, res) => {
+  let id = req.params.id;
+  let queryText = `
+    DELETE FROM location WHERE id = $1`;
+  pool
+    .query(queryText, [id])
+    .then(() => res.sendStatus(204))
+    .catch((error) => res.send(error));
+});
+
 module.exports = router;
