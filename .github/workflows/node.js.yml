@@ -28,4 +28,4 @@ jobs:
     - run: npm run build --if-present
     - run: npm test
       env:
-        DATABASE_URL: postgres://oou:9644b7b@ec2-184-73-249-9.compute-1.amazonaws.com:5432/d1o
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
