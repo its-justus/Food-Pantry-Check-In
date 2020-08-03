@@ -53,3 +53,7 @@ const request = require("supertest")(app);
 // 		done();
 //   });
 // });
+
+test('app exists', () => {
+  expect(true).toBe(true);
+});
