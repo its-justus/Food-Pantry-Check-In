@@ -3,8 +3,18 @@ const router = express.Router();
 const pool = require("../modules/pool");
 
 // GET to /api/order
-router.get("/", (req, res) => {
-  res.status(200).send(req.body);
+router.get("/", async (req, res) => {
+	const conn = await pool.connect();
+	try {
+		const query = {};
+		query.text = `SELECT * FROM "order";`;
+		query.values = [];
+		const result = await conn.query(query.text, query.values);
+		res.status(200).send(result.rows[0]);
+	} catch (error) {
+		console.log(`Error GET /api/location/`, error);
+		res.sendStatus(500);
+	}
 });
 // end GET
 
