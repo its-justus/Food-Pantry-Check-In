@@ -4,7 +4,7 @@ CREATE TABLE "account" (
 	"id" serial NOT NULL,
 	"name" varchar(60) NOT NULL,
 	"email" varchar(320) NOT NULL UNIQUE,
-	"password" varchar(320) NOT NULL UNIQUE,
+	"password" varchar(320) NOT NULL,
 	"access_level" integer NOT NULL DEFAULT '1',
 	CONSTRAINT "account_pk" PRIMARY KEY ("id")
 ) WITH (

@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const pool = require('../modules/pool');
-
 const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
@@ -10,15 +8,29 @@ const pool = require("../modules/pool");
 const userStrategy = require("../strategies/user.strategy");
 
 // Handles Ajax request for user information if user is authenticated
-router.get("/", rejectUnauthenticated, (req, res) => {
-  // Send back user object from the session (previously queried from the database)
+router.get('/:id', rejectUnauthenticated, async (req, res) => {
+  const id = req.params.id;
+  const conn = await pool.connect();
+  try {
+    const query = {};
+    query.text = 'SELECT * FROM "account" WHERE id = $1;';
+    query.values = [id];
+    await conn.query('BEGIN');
+    const result = await conn.query(query.text, query.values);
+    await conn.query('COMMIT');
+    res.status(200).send(result.rows);
+  } catch (error) {
+    conn.query('ROLLBACK');
+    console.log('Error POST /register', error);
+    res.sendStatus(500);
+  }
   res.send(req.user);
 });
 
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
-router.post("/register", async (req, res) => {
+router.post('/', async (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
   const houseId = req.body.household_id;
@@ -28,15 +40,14 @@ router.post("/register", async (req, res) => {
     const profileQuery = {};
     profileQuery.text = `INSERT INTO "account" (name, email, password)
                          VALUES ($1, $2, $3)
-                         RETURNING id;`; 
+                         RETURNING id;`;
     profileQuery.values = [name, email, password];
     await conn.query("BEGIN");
     const result = await conn.query(profileQuery.text, profileQuery.values);
     const accountQuery = {};
     accountQuery.text = `INSERT INTO "profile" (account_id, household_id)
-                         SELECT id FROM "account"
-                         VALUES ($4);`;
-    accountQuery.values = [result.rows, houseId];
+                         VALUES ($1, $2) RETURNING account_id`;
+    accountQuery.values = [result.rows[0].id, houseId];
     await conn.query(accountQuery.text, accountQuery.values);
     await conn.query("COMMIT");
     res.status(200).send(result.rows);
@@ -60,19 +71,6 @@ router.post("/logout", (req, res) => {
   // Use passport's built-in method to log out the user
   req.logout();
   res.sendStatus(200);
-});
-
-router.post('/', (req, res) => {
-  const name = req.body.name;
-  const email = req.body.email;
-  const password = req.body.password;
-  const queryText = 'INSERT INTO "account" ("name", "email", "password") VALUES ($1, $2, $3) returning "id", "name", "email", "password";';
-  pool.query(queryText, [name, email, password])
-    .then(queryResponse => res.send(queryResponse.rows))
-    .catch((error) => {
-      console.log(error);
-      res.status(500).send(error);
-    });
 });
 
 module.exports = router;
