@@ -10,9 +10,9 @@ on:
     branches: [ master, dev ]
 
 jobs:
-  env:
-    DATABASE_URL: ${{ secrets.DATABASE_URL }}
-    run: echo 'The database url is' $DATABASE_URL
+  with:
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
   build:
 
     runs-on: ubuntu-latest
