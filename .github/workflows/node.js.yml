@@ -5,11 +5,14 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ dev ]
+    branches: [ master, dev ]
   pull_request:
-    branches: [ dev ]
+    branches: [ master, dev ]
 
 jobs:
+  env:
+    DATABASE_URL: "Test url"
+    # DATABASE_URL: ${{ secrets.DATABASE_URL }}
   build:
 
     runs-on: ubuntu-latest
