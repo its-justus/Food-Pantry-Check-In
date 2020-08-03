@@ -12,7 +12,7 @@ on:
 jobs:
   with:
     env:
-      DATABASE_URL: Luke
+      DATABASE_URL: "Luke"
   build:
 
     runs-on: ubuntu-latest
