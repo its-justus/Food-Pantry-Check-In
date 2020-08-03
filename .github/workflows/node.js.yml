@@ -20,7 +20,7 @@ jobs:
 
     steps:
       env:
-        DATABASE_URL: "Test url"
+        DATABASE_URL: Test_url
         # DATABASE_URL: ${{ secrets.DATABASE_URL }}
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
