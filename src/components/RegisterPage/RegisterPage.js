@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import Card from "react-bootstrap/Card";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import "./RegisterPage.css";
 
 
 class RegisterPage extends Component {
@@ -38,87 +43,90 @@ class RegisterPage extends Component {
   render() {
     return (
       <div>
-        <div>
-        </div>
+        <div></div>
         {this.props.errors.registrationMessage && (
           <h2 className="alert" role="alert">
             {this.props.errors.registrationMessage}
           </h2>
         )}
-        <form onSubmit={this.registerUser}>
-          <h1 id="register">Register</h1>
-          <div>
-            <label htmlFor="name">
-              Name:
-              <input
-                type="text"
-                name="name"
-                placeholder="Name"
-                value={this.state.name}
-                onChange={this.handleInputChangeFor("name")}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="username">
-              Email:
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={this.state.email}
-                onChange={this.handleInputChangeFor("email")}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="household_id">
-              Household ID:
-              <input
-                type="text"
-                name="household_id"
-                placeholder="Household ID"
-                value={this.state.household_id}
-                onChange={this.handleInputChangeFor("household_id")}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor("password")}
-              />
-            </label>
-          </div>
-          <div>
-            <input
-              className="register"
-              type="submit"
-              name="submit"
-              value="Register"
-            />
-          </div>
-        </form>
-        <center>
-          Already have an account?{" "}
-          <Link to="/login">
-            <button>Login</button>
-          </Link>
-          {/* <button
-            type="button"
-            className="link-button"
-            onClick={() => {
-              this.props.dispatch({ type: "SET_TO_LOGIN_MODE" });
-            }}
-          >
-            Login
-          </button> */}
-        </center>
+        <Container id="registerContainer">
+          <Row id="registerRow">
+            <Card id="registerCard">
+              <form onSubmit={this.registerUser}>
+                <h1 id="register">Register</h1>
+                <div id="registerDiv">
+                  <div>
+                    <label htmlFor="name" className="label">
+                      Name:
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder="Name"
+                        className="userRegisterInput"
+                        value={this.state.name}
+                        onChange={this.handleInputChangeFor("name")}
+                      />
+                    </label>
+                  </div>
+                  <div>
+                    <label htmlFor="username" className="label">
+                      Email:
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        className="userRegisterInput"
+                        value={this.state.email}
+                        onChange={this.handleInputChangeFor("email")}
+                      />
+                    </label>
+                  </div>
+                  <div>
+                    <label htmlFor="household_id" className="label">
+                      Household ID:
+                      <input
+                        type="text"
+                        name="household_id"
+                        placeholder="Household ID"
+                        className="userRegisterInput"
+                        value={this.state.household_id}
+                        onChange={this.handleInputChangeFor("household_id")}
+                      />
+                    </label>
+                  </div>
+                  <div>
+                    <label htmlFor="password" className="label">
+                      Password:
+                      <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        className="userRegisterInput"
+                        value={this.state.password}
+                        onChange={this.handleInputChangeFor("password")}
+                      />
+                    </label>
+                  </div>
+                </div>
+                <div>
+                  <input
+                    className="register"
+                    type="submit"
+                    name="submit"
+                    value="Register"
+                    id="loginButton"
+                  />
+                </div>
+              </form>
+              <center id="center">
+                Already have an account?{" "}
+                <Link to="/login">
+                  <button className="changeButton">Login</button>
+                </Link>
+              </center>
+            </Card>
+          </Row>
+        </Container>
       </div>
     );
   }

@@ -2,17 +2,19 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import LogOutButton from "../LogOutButton/LogOutButton"
+import Navbar from "react-bootstrap/Navbar";
 import './Header.css';
 
 const Header = (props) => (
   <>
-    <div className="nav">
-      <Link to="/home">
-        <button className="navTitle">Emergency Food Pantry</button>
-      </Link>
-    </div>
-    <div className="navRight">
-    </div>
+    <Navbar bg="light">
+      <Navbar.Brand href="#home" id="navTitle">
+        <img
+        src="efp_logo.png"
+        />
+        Emergency Food Pantry
+      </Navbar.Brand>
+    </Navbar>
   </>
 );
 
