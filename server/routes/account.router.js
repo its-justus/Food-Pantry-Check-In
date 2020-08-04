@@ -30,7 +30,7 @@ router.get('/:id', async (req, res) => {
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
-router.post('/register', async (req, res) => {
+router.post('/', async (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
   const houseId = req.body.household_id;
