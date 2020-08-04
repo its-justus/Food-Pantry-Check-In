@@ -1,22 +1,23 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import {
   HashRouter as Router,
   Route,
   Redirect,
   Switch,
-} from "react-router-dom";
-import { connect } from "react-redux";
+} from 'react-router-dom';
+import { connect } from 'react-redux';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import LoginPage from '../LoginPage/LoginPage'
+import LoginPage from '../LoginPage/LoginPage';
 import Header from '../Header/Header';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import TestHome from'../TestHome';
+import TestHome from '../TestHome';
 
 class App extends Component {
-  //   componentDidMount() {
-  //   this.props.dispatch({ type: "FETCH_USER" });
-  // }
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_USER' });
+  }
+
   render() {
     return (
       <Router>
