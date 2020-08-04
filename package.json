@@ -1,7 +1,6 @@
 {
   "name": "food-pantry-check-in",
   "version": "0.1.0",
-  "react-scripts": "2.0.0-next.3e165448",
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {
@@ -35,12 +34,7 @@
     "test": "jest --detectOpenHandles --forceExit",
     "eject": "react-scripts eject"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
+  "browserslist": [],
   "devDependencies": {
     "redux-logger": "^3.0.6"
   }
