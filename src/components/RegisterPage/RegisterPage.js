@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+
 
 class RegisterPage extends Component {
   state = {
@@ -104,7 +106,10 @@ class RegisterPage extends Component {
         </form>
         <center>
           Already have an account?{" "}
-          <button
+          <Link to="/login">
+            <button>Login</button>
+          </Link>
+          {/* <button
             type="button"
             className="link-button"
             onClick={() => {
@@ -112,7 +117,7 @@ class RegisterPage extends Component {
             }}
           >
             Login
-          </button>
+          </button> */}
         </center>
       </div>
     );
