@@ -3,9 +3,6 @@ const url = require('url');
 
 let config = {};
 
-console.log('process.env', process.env);
-console.log('process.env.DATABASE_URL', process.env.DATABASE_URL);
-
 if (process.env.DATABASE_URL) {
   // Heroku gives a url, not a connection object:
   // https://github.com/Fetchinator7/node-pg-pool
@@ -18,20 +15,6 @@ if (process.env.DATABASE_URL) {
     host: params.hostname,
     port: params.port,
     database: params.pathname.split('/')[1],
-    ssl: { rejectUnauthorized: false },
-    // Max number of clients in the pool
-    max: 10,
-    // How long a client is allowed to remain idle before being closed.
-    idleTimeoutMillis: 30000
-  };
-} else if (process.env.HOST) {
-  console.log('host');
-  config = {
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    host: process.env.HOST,
-    port: 5432,
-    database: process.env.DATABASE_NAME,
     ssl: { rejectUnauthorized: false },
     // Max number of clients in the pool
     max: 10,
