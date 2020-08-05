@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import Card from "react-bootstrap/Card";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import AssignmentIcon from "@material-ui/icons/Assignment";
+import Toast from "react-bootstrap/Toast";
+import "./RegisterPage.css";
 
 
 class RegisterPage extends Component {
@@ -38,87 +44,98 @@ class RegisterPage extends Component {
   render() {
     return (
       <div>
-        <div>
-        </div>
-        {this.props.errors.registrationMessage && (
-          <h2 className="alert" role="alert">
-            {this.props.errors.registrationMessage}
-          </h2>
-        )}
-        <form onSubmit={this.registerUser}>
-          <h1 id="register">Register</h1>
-          <div>
-            <label htmlFor="name">
-              Name:
-              <input
-                type="text"
-                name="name"
-                placeholder="Name"
-                value={this.state.name}
-                onChange={this.handleInputChangeFor("name")}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="username">
-              Email:
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={this.state.email}
-                onChange={this.handleInputChangeFor("email")}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="household_id">
-              Household ID:
-              <input
-                type="text"
-                name="household_id"
-                placeholder="Household ID"
-                value={this.state.household_id}
-                onChange={this.handleInputChangeFor("household_id")}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor("password")}
-              />
-            </label>
-          </div>
-          <div>
-            <input
-              className="register"
-              type="submit"
-              name="submit"
-              value="Register"
-            />
-          </div>
-        </form>
-        <center>
-          Already have an account?{" "}
-          <Link to="/login">
-            <button>Login</button>
-          </Link>
-          {/* <button
-            type="button"
-            className="link-button"
-            onClick={() => {
-              this.props.dispatch({ type: "SET_TO_LOGIN_MODE" });
-            }}
-          >
-            Login
-          </button> */}
-        </center>
+        <div></div>
+        <Container id="registerContainer">
+          <Row id="registerRow">
+            <Card id="registerCard">
+              <form onSubmit={this.registerUser}>
+                <div id="welcomeDiv">
+                  <h1 id="register">Register</h1>
+                  <AssignmentIcon />
+                </div>
+                <div id="registerDiv">
+                  <div>
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Name"
+                      className="userRegisterInput"
+                      value={this.state.name}
+                      onChange={this.handleInputChangeFor("name")}
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email"
+                      className="userRegisterInput"
+                      value={this.state.email}
+                      onChange={this.handleInputChangeFor("email")}
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      name="household_id"
+                      placeholder="Household ID"
+                      className="userRegisterInput"
+                      value={this.state.household_id}
+                      onChange={this.handleInputChangeFor("household_id")}
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="Password"
+                      className="userRegisterInput"
+                      value={this.state.password}
+                      onChange={this.handleInputChangeFor("password")}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <input
+                    className="register"
+                    type="submit"
+                    name="submit"
+                    value="Register"
+                    id="loginButton"
+                  />
+                </div>
+              </form>
+            </Card>
+          </Row>
+          <Row>
+            <center id="center">
+              Already have an account?{" "}
+              <Link to="/login">
+                <button className="changeButton">Login</button>
+              </Link>
+            </center>
+            </Row>
+            <Row>
+              <div id="errorDiv">
+                {this.props.errors.registrationMessage && (
+                  <Toast style={{ border: "1px solid #b13324" }}>
+                    {/* <Toast.Header>
+                    <img
+                      src="holder.js/20x20?text=%20"
+                      className="rounded mr-2"
+                      alt=""
+                      onClick={this.handleClose}
+                    />
+                    <strong className="mr-auto" style={{ color: "#b13324" }}>
+                      !
+                    </strong>
+                  </Toast.Header> */}
+                    <Toast.Body>{this.props.errors.registrationMessage}</Toast.Body>
+                  </Toast>
+                )}
+              </div>
+            </Row>
+        </Container>
       </div>
     );
   }
