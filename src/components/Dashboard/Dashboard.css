@@ -1,10 +1,16 @@
 .dashBoard {
   text-align: center;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
   padding: inherit;
   padding-bottom: 2em;
   opacity: 95%;
+}
+
+button {
+    padding-top: 2em;
+    padding-left: 1em;
+    padding-right: 1em;
 }
