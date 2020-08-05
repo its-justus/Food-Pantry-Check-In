@@ -1,10 +1,42 @@
-.navTitle {
-  color: black;
+#navTitle {
+  color: white;
   font-size: 25px;
-  background-color: white;
   border: none;
+  font-family: 'Signika', sans-serif;
+  font-weight: bold;
+  margin: 0px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  display: inline-block;
+  font-weight: lighter;
 }
 
-.navRight {
+#navBar {
+  background-color: #726b69;
+}
+
+#navRight {
   float: right;
+  margin: 0px;
+  padding-top: 5px;
+}
+
+.navButton {
+  font-size: 15px;
+  color: white;
+  background-color: #faaf46;
+  border: 1px solid #faaf46;
+  border-radius: 50px;
+  transition: 200ms; 
+  font-family: 'Signika', sans-serif;
+}
+
+.navButton:hover {
+  border: 1px solid white;
+  transition: 200ms; 
+}
+
+header {
+  padding: 10px;
+  background-color: #726b69;
 }
