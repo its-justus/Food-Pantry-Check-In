@@ -45,7 +45,31 @@ describe("GET to /api/order", () => {
 });
 
 describe("GET to /api/order/active", () => {
-  it("Respond with 200", async (done) => {
+  it("Respond with json", async (done) => {
+    const res = await request
+			.get("/api/order/active")
+			.expect("Content-Type", /json/)
+			.expect(200);
+			
+		expect(res.body).toEqual(
+			expect.arrayContaining([expect.objectContaining({account_id: 1, location_id: 1})])
+		);
+		done();
+  });
+});
+
+describe("PUT to /api/order/id", () => {
+  it("Respond with 200 OK", async (done) => {
+    const res = await request
+      .put("/api/order/checkout/1")
+      .expect("Content-Type", /json/)
+      .expect(200)
+      
+  });
+});
+
+describe("GET to /api/order/complete/today", () => {
+  it("Respond with json", async (done) => {
     const res = await request
 			.get("/api/order/active")
 			.expect("Content-Type", /json/)

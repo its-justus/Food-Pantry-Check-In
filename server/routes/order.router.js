@@ -21,7 +21,27 @@ router.get("/active", async (req, res) => {
 	const conn = await pool.connect();
 	try {
 		const query = {};
-		query.text = `SELECT * FROM "order" WHERE checkout_at IS NULL;`;
+		query.text = `SELECT * FROM "order" 
+			WHERE checkout_at IS NULL 
+			ORDER BY checkin_at DESC;`;
+		query.values = [];
+		const result = await conn.query(query.text, query.values);
+		res.status(200).send(result.rows);
+	} catch (error) {
+		console.log(`Error GET /api/order/active`, error);
+		res.sendStatus(500);
+	}
+});
+
+router.get("/complete/today", async (req, res) => {
+	const conn = await pool.connect();
+	try {
+		const query = {};
+		query.text = `SELECT * FROM "order" 
+			WHERE checkout_at 
+			BETWEEN NOW() - INTERVAL '24 HOURS' 
+			AND NOW()
+			ORDER BY checkout_at DESC;`;
 		query.values = [];
 		const result = await conn.query(query.text, query.values);
 		res.status(200).send(result.rows);
@@ -67,9 +87,22 @@ router.post("/", async (req, res) => {
 });
 // end POST
 
-// PUT /api/order/id
-router.put("/1", (req, res) => {
-  res.status(200).send(req.body);
+// PUT /api/order/checkout/id
+router.put("/checkout/:id", (req, res) => {
+  const conn = await pool.connect();
+	try {
+		const query = {};
+		query.text = `UPDATE "order"
+			SET checkout_at = NOW()
+			WHERE id = $1
+			RETURNING *;`;
+		query.values = [req.params.id];
+		const result = await conn.query(query.text, query.values);
+		res.status(200).send(result.rows);
+	} catch (error) {
+		console.log(`Error PUT /api/order/checkout/id`, error);
+		res.sendStatus(500);
+	}
 });
 // end PUT
 
