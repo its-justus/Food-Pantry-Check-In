@@ -1,6 +1,6 @@
-#loginCard {
+#registerCard {
   width: 350px;
-  height: 350px;
+  height: 360px;
   margin: 50px auto;
   border-radius: 15px;
   border-bottom: 1px solid lightgray;
@@ -14,17 +14,16 @@
   padding-bottom: 20px;
 }
 
-#inputDiv {
-  margin-top: 50px;
+#registerDiv {
+  margin-top: 8px;
 }
 
-#login {
+#register {
   font-size: 25px;
   font-family: 'Signika', sans-serif;
-  width: 100%;
 }
 
-#loginRow {
+#registerRow {
   text-align: center;
 }
 
@@ -33,8 +32,7 @@
   font-size: 15px;
   background-color: #b13324;
   border: 1px solid #b13324;
-  border-radius: 50px;
-  width: 65%;
+  border-radius: 2px;
   transition: 200ms;
   font-family: 'Signika', sans-serif;
   margin-top: 10px;
@@ -70,7 +68,7 @@
   font-size: 16px;
 }
 
-.userLoginInput {
+.userRegisterInput {
   display: inline-block;
   margin: 10px;
   font-size: 16px;
@@ -82,14 +80,14 @@
   transition: 200ms;
 }
 
-.userLoginInput:hover {
+.userRegisterInput:hover {
   background-color: white;
   border: 1px solid #b13324;
   transition: 200ms;
 }
 
 #center {
-  margin: auto;
+  margin-top: 50px;
   font-family: 'Signika', sans-serif;
   font-size: 16px;
 }
