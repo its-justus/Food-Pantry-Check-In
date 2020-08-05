@@ -1,7 +1,7 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import LogOutButton from "../LogOutButton/LogOutButton"
+// import LogOutButton from "../LogOutButton/LogOutButton"
 import './Header.css';
 
 const Header = (props) => (
@@ -17,7 +17,7 @@ const Header = (props) => (
 );
 
 const mapStateToProps = (state) => ({
-  user: state.account,
+  user: state.account
 });
 
 export default connect(mapStateToProps)(Header);

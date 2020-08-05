@@ -1,14 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const {
-  rejectUnauthenticated,
-} = require("../modules/authentication-middleware");
-const encryptLib = require("../modules/encryption");
-const pool = require("../modules/pool");
-const userStrategy = require("../strategies/user.strategy");
+  rejectUnauthenticated
+} = require('../modules/authentication-middleware');
+const encryptLib = require('../modules/encryption');
+const pool = require('../modules/pool');
+const userStrategy = require('../strategies/user.strategy');
 
 // Handles Ajax request for user information if user is authenticated
-router.get('/:id', async (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
+  console.log('get user');
+  // Send back user object from the session (previously queried from the database)
+  res.send(req.user);
+});
+
+// Handles Ajax request for user information if user is authenticated
+router.get('/:id', rejectUnauthenticated, async (req, res) => {
   const id = req.params.id;
   const conn = await pool.connect();
   try {
@@ -42,17 +49,17 @@ router.post('/', async (req, res) => {
                          VALUES ($1, $2, $3)
                          RETURNING id;`;
     profileQuery.values = [name, email, password];
-    await conn.query("BEGIN");
+    await conn.query('BEGIN');
     const result = await conn.query(profileQuery.text, profileQuery.values);
     const accountQuery = {};
     accountQuery.text = `INSERT INTO "profile" (account_id, household_id)
                          VALUES ($1, $2) RETURNING account_id`;
     accountQuery.values = [result.rows[0].id, houseId];
     await conn.query(accountQuery.text, accountQuery.values);
-    await conn.query("COMMIT");
+    await conn.query('COMMIT');
     res.status(200).send(result.rows[0]);
   } catch (error) {
-    conn.query("ROLLBACK");
+    conn.query('ROLLBACK');
     console.log('Error POST /account', error);
     res.sendStatus(500);
   }
