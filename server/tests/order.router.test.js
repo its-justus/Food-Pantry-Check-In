@@ -2,6 +2,7 @@ const app = require("../server");
 const request = require("supertest")(app);
 const pool = require("../modules/pool");
 
+let orderID;
 describe("POST to /api/order", () => {
 	it("responds with json", async (done) => {
 		const res = await request
@@ -16,7 +17,8 @@ describe("POST to /api/order", () => {
 			})
 			.expect("Content-Type", /json/)
 			.expect(201)
-		order = res.body;
+		const order = res.body;
+		orderID = order.id;
 		expect(order).toHaveProperty('id');
 		expect(order).toHaveProperty('account_id', 1);
 		expect(order).toHaveProperty('checkin_at');
@@ -38,7 +40,7 @@ describe("GET to /api/order", () => {
       .expect(200)
 		
 		expect(res.body).toEqual(
-			expect.arrayContaining([expect.objectContaining({account_id: 1, location_id: 1})])
+			expect.arrayContaining([expect.objectContaining({id: orderID})])
 		);
 		done();
   });
@@ -52,59 +54,47 @@ describe("GET to /api/order/active", () => {
 			.expect(200);
 			
 		expect(res.body).toEqual(
-			expect.arrayContaining([expect.objectContaining({account_id: 1, location_id: 1})])
+			expect.arrayContaining([expect.objectContaining({id: orderID})])
 		);
 		done();
   });
 });
 
-describe("PUT to /api/order/id", () => {
-  it("Respond with 200 OK", async (done) => {
+describe("PUT to /api/order/checkout/id", () => {
+  it("Respond with json", async (done) => {
     const res = await request
-      .put("/api/order/checkout/1")
+      .put(`/api/order/checkout/${orderID}`)
       .expect("Content-Type", /json/)
       .expect(200)
-      
+			
+			expect(res.body).toEqual(
+				expect.arrayContaining([expect.objectContaining({id: orderID})])
+			);
+		done();
   });
 });
 
 describe("GET to /api/order/complete/today", () => {
   it("Respond with json", async (done) => {
     const res = await request
-			.get("/api/order/active")
+			.get("/api/order/complete/today")
 			.expect("Content-Type", /json/)
 			.expect(200);
 			
 		expect(res.body).toEqual(
-			expect.arrayContaining([expect.objectContaining({account_id: 1, location_id: 1})])
+			expect.arrayContaining([expect.objectContaining({id: orderID})])
 		);
 		done();
   });
 });
 
-describe("PUT to /api/order/id", () => {
-  it("Respond with 200 OK", (done) => {
-    request(app)
-      .put("/api/order/1")
-      .set("Accept", "application/json")
-      .expect(200)
-      .end(function (err, res) {
-        if (err) throw err;
-        done();
-    });
-  });
-});
-
 describe("DELETE to /api/order/id", () => {
-  it("Respond with 204", (done) => {
-    request(app)
-      .delete("/api/order/1")
-      .set("Accept", "application/json")
+  it("Respond with 204 No Content", async (done) => {
+    await request
+      .delete(`/api/order/${orderID}`)
       .expect(204)
-      .end(function (err, res) {
-        if (err) throw err;
-        done();
-      });
+
+		done();
   });
 });
 

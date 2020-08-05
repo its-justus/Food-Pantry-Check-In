@@ -88,7 +88,7 @@ router.post("/", async (req, res) => {
 // end POST
 
 // PUT /api/order/checkout/id
-router.put("/checkout/:id", (req, res) => {
+router.put("/checkout/:id", async (req, res) => {
   const conn = await pool.connect();
 	try {
 		const query = {};
@@ -97,9 +97,12 @@ router.put("/checkout/:id", (req, res) => {
 			WHERE id = $1
 			RETURNING *;`;
 		query.values = [req.params.id];
+		conn.query("BEGIN");
 		const result = await conn.query(query.text, query.values);
+		conn.query("COMMIT");
 		res.status(200).send(result.rows);
 	} catch (error) {
+		conn.query("ROLLBACK");
 		console.log(`Error PUT /api/order/checkout/id`, error);
 		res.sendStatus(500);
 	}
@@ -107,8 +110,18 @@ router.put("/checkout/:id", (req, res) => {
 // end PUT
 
 // DELETE to /api/order/:id
-router.delete("/1", (req, res) => {
-  res.status(204).send(req.body);
+router.delete("/:id", async (req, res) => {
+  const conn = await pool.connect();
+	try {
+		const query = {};
+		query.text = `DELETE FROM "order" WHERE id = $1;`;
+		query.values = [req.params.id];
+		await conn.query(query.text, query.values);
+		res.sendStatus(204);
+	} catch (error) {
+		console.log(`Error PUT /api/order/checkout/id`, error);
+		res.sendStatus(500);
+	}
 });
 // end DELETE
 
