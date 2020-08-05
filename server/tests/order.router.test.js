@@ -2,14 +2,6 @@ const app = require("../server");
 const request = require("supertest")(app);
 const pool = require("../modules/pool");
 
-// setup test environment
-// beforeAll(async () => {
-// 	pool.query(`
-// 		INSERT INTO "order" ()
-// 		VALUES `)
-// })
-
-let orderID;
 describe("POST to /api/order", () => {
 	it("responds with json", async (done) => {
 		const res = await request
@@ -24,7 +16,7 @@ describe("POST to /api/order", () => {
 			})
 			.expect("Content-Type", /json/)
 			.expect(201)
-		const order = res.body;
+		order = res.body;
 		expect(order).toHaveProperty('id');
 		expect(order).toHaveProperty('account_id', 1);
 		expect(order).toHaveProperty('checkin_at');
@@ -34,7 +26,6 @@ describe("POST to /api/order", () => {
 		expect(order).toHaveProperty('walking_home', false);
 		expect(order).toHaveProperty('pregnant', false);
 		expect(order).toHaveProperty('child_birthday', true);
-		orderID = res.body.id;
 		done();
 	});
 });
@@ -46,20 +37,24 @@ describe("GET to /api/order", () => {
 			.expect("Content-Type", /json/)
       .expect(200)
 		
-		expect(res.body.length).toBeGreaterThan(0);
+		expect(res.body).toEqual(
+			expect.arrayContaining([expect.objectContaining({account_id: 1, location_id: 1})])
+		);
 		done();
   });
 });
 
 describe("GET to /api/order/active", () => {
-  it("Respond with 200", (done) => {
-    request(app)
-      .get("/api/order")
-      .expect(200)
-      .end(function (err, res) {
-        if (err) throw err;
-        done();
-      });
+  it("Respond with 200", async (done) => {
+    const res = await request
+			.get("/api/order/active")
+			.expect("Content-Type", /json/)
+			.expect(200);
+			
+		expect(res.body).toEqual(
+			expect.arrayContaining([expect.objectContaining({account_id: 1, location_id: 1})])
+		);
+		done();
   });
 });
 
