@@ -4,11 +4,8 @@ import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import Toast from "react-bootstrap/Toast";
-import ToastHeader from "react-bootstrap/ToastHeader";
-import ToastBody from "react-bootstrap/ToastBody";
 import "./RegisterPage.css";
 
 

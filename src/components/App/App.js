@@ -13,7 +13,6 @@ import Header from '../Header/Header';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import TestHome from'../TestHome';
 import Footer from '../Footer/Footer'
-import TestHome from '../TestHome';
 import Dashboard from "../Dashboard/Dashboard";
 
 class App extends Component {

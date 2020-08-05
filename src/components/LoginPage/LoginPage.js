@@ -7,8 +7,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Toast from "react-bootstrap/Toast";
-import ToastHeader from "react-bootstrap/ToastHeader";
-import ToastBody from "react-bootstrap/ToastBody";
 import "./LoginPage.css";
 
 class LoginPage extends Component {
