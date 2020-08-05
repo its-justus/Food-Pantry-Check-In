@@ -1,5 +1,5 @@
 const app = require('../server');
-const testServer = require('supertest')(app);
+const request = require('supertest')(app);
 
 // describe('Test the account path', () => {
 //   it('It should respond 200 the account owner', async (done) => {
@@ -11,11 +11,10 @@ const testServer = require('supertest')(app);
 
 // describe('POST /api/account', () => {
 //   it('responds with account POST query result', async (done) => {
-//     const res = await testServer
-//       .post('/api/account')
+//     const res = await request
+//       .post('/api/account/login')
 //       .send({
-//         name: 'name',
-//         email: 'email',
+//         username: 'email',
 //         password: 'password'
 //       })
 //       .expect(200);
