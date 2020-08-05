@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
 		const result = await conn.query(query.text, query.values);
 		res.status(200).send(result.rows[0]);
 	} catch (error) {
-		console.log(`Error GET /api/location/`, error);
+		console.log(`Error GET /api/order/`, error);
 		res.sendStatus(500);
 	}
 });
@@ -26,15 +26,44 @@ router.get("/active", async (req, res) => {
 		const result = await conn.query(query.text, query.values);
 		res.status(200).send(result.rows[0]);
 	} catch (error) {
-		console.log(`Error GET /api/location/active`, error);
+		console.log(`Error GET /api/order/active`, error);
 		res.sendStatus(500);
 	}
 });
 // end GET
 
 // POST api/order
-router.post("/", (req, res) => {
-  res.status(201).send(req.body);
+router.post("/", async (req, res) => {
+  const conn = await pool.connect();
+	try {
+		const query = {};
+		query.text = `INSERT INTO "order" (
+			account_id,
+			location_id,
+			dietary_restrictions,
+			walking_home,
+			pregnant,
+			child_birthday
+			)
+			VALUES ($1, $2, $3, $4, $5, $6)
+			RETURNING *;`;
+		query.values = [
+			req.body.account_id,
+			req.body.location_id,
+			req.body.dietary_restrictions,
+			req.body.walking_home,
+			req.body.pregnant,
+			req.body.child_birthday,
+		];
+		await conn.query("BEGIN");
+		const result = await conn.query(query.text, query.values);
+		await conn.query("COMMIT");
+		res.status(201).send(result.rows[0]);
+	} catch (error) {
+		await conn.query("ROLLBACK");
+		console.log(`Error POST /api/order/`, error);
+		res.sendStatus(500);
+	}
 });
 // end POST
 

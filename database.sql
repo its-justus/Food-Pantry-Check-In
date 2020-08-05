@@ -57,3 +57,7 @@ ALTER TABLE "profile" ADD CONSTRAINT "profile_fk0" FOREIGN KEY ("account_id") RE
 ALTER TABLE "order" ADD CONSTRAINT "order_fk0" FOREIGN KEY ("account_id") REFERENCES "account"("id");
 ALTER TABLE "order" ADD CONSTRAINT "order_fk1" FOREIGN KEY ("location_id") REFERENCES "location"("id");
 
+-- insert a test account and location used for testing 
+-- TODO Remove from production build
+INSERT INTO account ("id", "name", "email", "password", "access_level") VALUES (1, 'test', 'test@test.com', 'test', '0');
+INSERT INTO location ("id","description") VALUES (1, 'test location');
