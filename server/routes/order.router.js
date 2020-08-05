@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
 		query.text = `SELECT * FROM "order";`;
 		query.values = [];
 		const result = await conn.query(query.text, query.values);
-		res.status(200).send(result.rows[0]);
+		res.status(200).send(result.rows);
 	} catch (error) {
 		console.log(`Error GET /api/order/`, error);
 		res.sendStatus(500);
