@@ -12,6 +12,7 @@ import LoginPage from '../LoginPage/LoginPage'
 import Header from '../Header/Header';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import TestHome from'../TestHome';
+import Footer from '../Footer/Footer'
 
 class App extends Component {
   //   componentDidMount() {
@@ -43,6 +44,7 @@ class App extends Component {
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
+          <Footer />
         </div>
       </Router>
     );

@@ -1,22 +1,27 @@
 #loginCard {
-  width: 400px;
-  height: 300px;
+  width: 350px;
+  height: 350px;
+  margin: 50px auto;
+  border-radius: 15px;
+  border-bottom: 1px solid lightgray;
+}
+
+#welcomeDiv {
+  background-color: #faaf46;
+  border-radius: 15px 15px 0px 0px;
+  color: white;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#inputDiv {
+  margin-top: 50px;
 }
 
 #login {
-  font-size: 30px;
+  font-size: 25px;
   font-family: 'Signika', sans-serif;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-#loginContainer {
-  width: 30%;
-  margin-right: 35%;
-  margin-left: 35%;
-  height: 80%;
-  margin-top: 10%;
-  margin-bottom: 10%;
+  width: 100%;
 }
 
 #loginRow {
@@ -28,7 +33,8 @@
   font-size: 15px;
   background-color: #b13324;
   border: 1px solid #b13324;
-  border-radius: 2px;
+  border-radius: 50px;
+  width: 65%;
   transition: 200ms;
   font-family: 'Signika', sans-serif;
   margin-top: 10px;
@@ -42,10 +48,10 @@
 
 .changeButton {
   font-size: 15px;
-  color: black;
-  background-color: lightgray;
-  border: 1px solid lightgray;
-  border-radius: 2px;
+  color: white;
+  background-color: #faaf46;
+  border: 1px solid #faaf46;
+  border-radius: 50px;
   transition: 200ms; 
   font-family: 'Signika', sans-serif;
 }
@@ -66,12 +72,24 @@
 
 .userLoginInput {
   display: inline-block;
-  margin-left: 8px;
+  margin: 10px;
   font-size: 16px;
+  border:1px solid lightgray;
+  border-radius: 50px;
+  width: 65%;
+  padding-left: 10px;
+  background-color: #f5f5f5;
+  transition: 200ms;
+}
+
+.userLoginInput:hover {
+  background-color: white;
+  border: 1px solid #b13324;
+  transition: 200ms;
 }
 
 #center {
-  margin-top: 50px;
+  margin: auto;
   font-family: 'Signika', sans-serif;
   font-size: 16px;
 }

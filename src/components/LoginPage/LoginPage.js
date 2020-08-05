@@ -5,6 +5,8 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Media from "react-bootstrap/Media";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import "./LoginPage.css";
 
 class LoginPage extends Component {
@@ -37,22 +39,26 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <div>
+      <div id="loginBody">
         <div></div>
         {this.props.errors.loginMessage && (
           <h2 className="alert" role="alert">
             {this.props.errors.loginMessage}
           </h2>
         )}
-        <Container id="loginContainer" xs={12} sm={12}>
-          <Row id="loginRow" xs={12} sm={12}>
-            <Card id="loginCard" xs={12} sm={12}>
-              <form onSubmit={this.login}>
-                <h1 id="login">Login</h1>
-                <div id="inputDiv">
-                  <div>
-                    <label htmlFor="email" className="label">
-                      Email:
+        <Container id="loginContainer">
+          <Row id="loginRow">
+            <Col>
+              <Card id="loginCard">
+                <form onSubmit={this.login}>
+                  <div id="welcomeDiv">
+                    <h1 id="login">Login</h1>
+                    <AccountCircleIcon />
+                  </div>
+                  <div id="inputDiv">
+                    <div>
+                      {/* <label htmlFor="email" className="label">
+                      Email: */}
                       <input
                         type="email"
                         name="email"
@@ -61,11 +67,11 @@ class LoginPage extends Component {
                         value={this.state.email}
                         onChange={this.handleInputChangeFor("email")}
                       />
-                    </label>
-                  </div>
-                  <div>
-                    <label htmlFor="password" className="label">
-                      Password:
+                      {/* </label> */}
+                    </div>
+                    <div>
+                      {/* <label htmlFor="password" className="label">
+                      Password: */}
                       <input
                         type="password"
                         name="password"
@@ -74,31 +80,34 @@ class LoginPage extends Component {
                         value={this.state.password}
                         onChange={this.handleInputChangeFor("password")}
                       />
-                    </label>
+                      {/* </label> */}
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <input
-                    className="log-in"
-                    type="submit"
-                    name="submit"
-                    value="Log In"
-                    id="loginButton"
-                  />
-                  {this.props.errors.loginMessage && (
-                    <h2 className="alert" role="alert">
-                      {this.props.errors.loginMessage}
-                    </h2>
-                  )}
-                </div>
-              </form>
-              <center id="center">
-                Don't have an account?{" "}
-                <Link to="/register">
-                  <button className="changeButton">Register</button>
-                </Link>
-              </center>
-            </Card>
+                  <div>
+                    <input
+                      className="log-in"
+                      type="submit"
+                      name="submit"
+                      value="Login"
+                      id="loginButton"
+                    />
+                    {this.props.errors.loginMessage && (
+                      <h2 className="alert" role="alert">
+                        {this.props.errors.loginMessage}
+                      </h2>
+                    )}
+                  </div>
+                </form>
+              </Card>
+            </Col>
+          </Row>
+          <Row>
+            <center id="center">
+              Don't have an account?{" "}
+              <Link to="/register">
+                <button className="changeButton">Register</button>
+              </Link>
+            </center>
           </Row>
         </Container>
       </div>

@@ -1,7 +1,6 @@
 .navTitle {
-  color: black;
+  color: #b13324;
   font-size: 25px;
-  background-color: white;
   border: none;
   font-family: 'Signika', sans-serif;
   font-weight: bold;
@@ -9,4 +8,9 @@
 
 .navRight {
   float: right;
+}
+
+header {
+  padding: 10px;
+  background-color: #f7f7f7;
 }

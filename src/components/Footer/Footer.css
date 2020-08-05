@@ -1,0 +1,12 @@
+footer {
+    padding: 20px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color:#f7f7f7;
+    font-size: 15px;
+    color: #b13324;
+    text-align: center;
+    font-family: 'Signika', sans-serif;
+}

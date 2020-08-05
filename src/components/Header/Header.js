@@ -6,16 +6,9 @@ import Navbar from "react-bootstrap/Navbar";
 import './Header.css';
 
 const Header = (props) => (
-  <>
-    <Navbar bg="light">
-      <Navbar.Brand href="#home" id="navTitle">
-        <img
-        src="efp_logo.png"
-        />
-        Emergency Food Pantry
-      </Navbar.Brand>
-    </Navbar>
-  </>
+  <header id="header">
+    <h1 className="navTitle">Emergency Food Pantry</h1>
+  </header>
 );
 
 const mapStateToProps = (state) => ({
