@@ -52,10 +52,9 @@ CREATE TABLE "location" (
 
 
 
-ALTER TABLE "profile" ADD CONSTRAINT "profile_fk0" FOREIGN KEY ("account_id") REFERENCES "account"("id");
 
-ALTER TABLE "order" ADD CONSTRAINT "order_fk0" FOREIGN KEY ("account_id") REFERENCES "account"("id");
-ALTER TABLE "order" ADD CONSTRAINT "order_fk1" FOREIGN KEY ("location_id") REFERENCES "location"("id");
+ALTER TABLE "order" ADD CONSTRAINT "order_is_linked_to_account" FOREIGN KEY ("account_id") REFERENCES "account"("id");
+ALTER TABLE "order" ADD CONSTRAINT "order_is_linked_to_location" FOREIGN KEY ("location_id") REFERENCES "location"("id");
 
 -- insert a test account and location used for testing 
 -- TODO Remove from production build
