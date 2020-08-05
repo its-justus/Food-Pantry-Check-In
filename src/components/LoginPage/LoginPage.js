@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Nav from "../Nav/Nav";
+import { Link } from "react-router-dom";
 import "./LoginPage.css";
 
 class LoginPage extends Component {
@@ -16,7 +16,7 @@ class LoginPage extends Component {
       this.props.dispatch({
         type: "LOGIN",
         payload: {
-          email: this.state.email,
+          username: this.state.email,
           password: this.state.password,
         },
       });
@@ -35,7 +35,6 @@ class LoginPage extends Component {
     return (
       <div>
         <div>
-          <Nav />
         </div>
         {this.props.errors.loginMessage && (
           <h2 className="alert" role="alert">
@@ -84,7 +83,10 @@ class LoginPage extends Component {
         </form>
         <center>
           Don't have an account?{" "}
-          <button
+          <Link to="/register">
+            <button>Register</button>
+          </Link>
+          {/* <button
             type="button"
             className="link-button"
             onClick={() => {
@@ -92,7 +94,7 @@ class LoginPage extends Component {
             }}
           >
             Create Account
-          </button>
+          </button> */}
         </center>
       </div>
     );
