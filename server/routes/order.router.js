@@ -16,6 +16,20 @@ router.get("/", async (req, res) => {
 		res.sendStatus(500);
 	}
 });
+
+router.get("/active", async (req, res) => {
+	const conn = await pool.connect();
+	try {
+		const query = {};
+		query.text = `SELECT * FROM "order" WHERE checkout_at = NULL;`;
+		query.values = [];
+		const result = await conn.query(query.text, query.values);
+		res.status(200).send(result.rows[0]);
+	} catch (error) {
+		console.log(`Error GET /api/location/active`, error);
+		res.sendStatus(500);
+	}
+});
 // end GET
 
 // POST api/order

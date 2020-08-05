@@ -1,27 +1,47 @@
 const app = require("../server");
-const request = require("supertest");
+const request = require("supertest")(app);
+const pool = require("../modules/pool");
 
-test("POST to /api/order", (done) => {
-  request(app)
-    .post("/api/order")
-    .send({
-      id: 1,
-      account_id: 1234,
-      location_id: 5,
-      dietary_restrictions: "Dairy",
-      walking_home: false,
-      pregnant: false,
-      child_birthday: true
-    })
-    .expect("Content-Type", /json/)
-    .expect(201)
-    .end(function (err, res) {
-      if (err) throw err;
-      done();
-    });
+// setup test environment
+// beforeAll(async () => {
+// 	pool.query(`
+// 		INSERT INTO "order" ()
+// 		VALUES `)
+// })
+
+
+describe("POST to /api/order", () => {
+	it("responds with json", async (done) => {
+		const res = await request
+			.post("/api/order")
+			.send({
+				account_id: 1234,
+				location_id: 5,
+				dietary_restrictions: "Dairy",
+				walking_home: false,
+				pregnant: false,
+				child_birthday: true
+			})
+			.expect("Content-Type", /json/)
+			.expect(201)
+		
+		expect(res.body.account_id).toBe(1234)
+	});
 });
 
 describe("GET to /api/order", () => {
+  it("Respond with 200", (done) => {
+    request(app)
+      .get("/api/order")
+      .expect(200)
+      .end(function (err, res) {
+        if (err) throw err;
+        done();
+      });
+  });
+});
+
+describe("GET to /api/order/active", () => {
   it("Respond with 200", (done) => {
     request(app)
       .get("/api/order")
