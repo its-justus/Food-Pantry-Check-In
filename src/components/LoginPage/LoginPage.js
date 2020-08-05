@@ -5,15 +5,20 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Media from "react-bootstrap/Media";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import Toast from "react-bootstrap/Toast";
+import ToastHeader from "react-bootstrap/ToastHeader";
+import ToastBody from "react-bootstrap/ToastBody";
 import "./LoginPage.css";
 
 class LoginPage extends Component {
   state = {
     email: "",
     password: "",
+    show: false
   };
+
+  handleClose = () => this.setState({ show: false });
 
   login = (event) => {
     event.preventDefault();
@@ -41,11 +46,6 @@ class LoginPage extends Component {
     return (
       <div id="loginBody">
         <div></div>
-        {this.props.errors.loginMessage && (
-          <h2 className="alert" role="alert">
-            {this.props.errors.loginMessage}
-          </h2>
-        )}
         <Container id="loginContainer">
           <Row id="loginRow">
             <Col>
@@ -91,11 +91,6 @@ class LoginPage extends Component {
                       value="Login"
                       id="loginButton"
                     />
-                    {this.props.errors.loginMessage && (
-                      <h2 className="alert" role="alert">
-                        {this.props.errors.loginMessage}
-                      </h2>
-                    )}
                   </div>
                 </form>
               </Card>
@@ -108,6 +103,26 @@ class LoginPage extends Component {
                 <button className="changeButton">Register</button>
               </Link>
             </center>
+          </Row>
+          <Row>
+            <div id="errorDiv">
+              {this.props.errors.loginMessage && (
+                <Toast style={{ border: "1px solid #b13324" }}>
+                  {/* <Toast.Header>
+                    <img
+                      src="holder.js/20x20?text=%20"
+                      className="rounded mr-2"
+                      alt=""
+                      onClick={this.handleClose}
+                    />
+                    <strong className="mr-auto" style={{ color: "#b13324" }}>
+                      !
+                    </strong>
+                  </Toast.Header> */}
+                  <Toast.Body>{this.props.errors.loginMessage}</Toast.Body>
+                </Toast>
+              )}
+            </div>
           </Row>
         </Container>
       </div>

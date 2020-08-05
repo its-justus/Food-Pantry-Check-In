@@ -6,6 +6,9 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import AssignmentIcon from "@material-ui/icons/Assignment";
+import Toast from "react-bootstrap/Toast";
+import ToastHeader from "react-bootstrap/ToastHeader";
+import ToastBody from "react-bootstrap/ToastBody";
 import "./RegisterPage.css";
 
 
@@ -45,11 +48,6 @@ class RegisterPage extends Component {
     return (
       <div>
         <div></div>
-        {this.props.errors.registrationMessage && (
-          <h2 className="alert" role="alert">
-            {this.props.errors.registrationMessage}
-          </h2>
-        )}
         <Container id="registerContainer">
           <Row id="registerRow">
             <Card id="registerCard">
@@ -131,7 +129,27 @@ class RegisterPage extends Component {
                 <button className="changeButton">Login</button>
               </Link>
             </center>
-          </Row>
+            </Row>
+            <Row>
+              <div id="errorDiv">
+                {this.props.errors.registrationMessage && (
+                  <Toast style={{ border: "1px solid #b13324" }}>
+                    {/* <Toast.Header>
+                    <img
+                      src="holder.js/20x20?text=%20"
+                      className="rounded mr-2"
+                      alt=""
+                      onClick={this.handleClose}
+                    />
+                    <strong className="mr-auto" style={{ color: "#b13324" }}>
+                      !
+                    </strong>
+                  </Toast.Header> */}
+                    <Toast.Body>{this.props.errors.registrationMessage}</Toast.Body>
+                  </Toast>
+                )}
+              </div>
+            </Row>
         </Container>
       </div>
     );

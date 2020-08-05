@@ -93,3 +93,7 @@
   font-family: 'Signika', sans-serif;
   font-size: 16px;
 }
+
+#errorDiv {
+  margin: 40px auto;
+}
