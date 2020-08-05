@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+form {
+  background-color: rgba(245, 245, 245, 0.555);
+  width: 30%;
+  height: 250px;
+  margin: auto;
+  padding: 25px;
+  border-radius: 2px;
+  opacity: 75%;
+  text-shadow: yellowgreen;
+  text-align: center;
+}
+
+

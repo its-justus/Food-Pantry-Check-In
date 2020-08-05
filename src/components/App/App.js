@@ -1,23 +1,26 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import {
   HashRouter as Router,
   Route,
   Redirect,
   Switch,
-} from "react-router-dom";
-import { connect } from "react-redux";
+} from 'react-router-dom';
+import { connect } from 'react-redux';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import LoginPage from '../LoginPage/LoginPage'
+import LoginPage from '../LoginPage/LoginPage';
 import Header from '../Header/Header';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import TestHome from'../TestHome';
 import Footer from '../Footer/Footer'
+import TestHome from '../TestHome';
+import Dashboard from "../Dashboard/Dashboard";
 
 class App extends Component {
-  //   componentDidMount() {
-  //   this.props.dispatch({ type: "FETCH_USER" });
-  // }
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_USER' });
+  }
+
   render() {
     return (
       <Router>
@@ -38,6 +41,7 @@ class App extends Component {
               Even though it seems like they are different pages, the user is always on localhost:3000/home */}
             {/* <ProtectedRoute exact path="/home" component={PlacesSearch} /> */}
             <ProtectedRoute exact path="/home" component={TestHome} />
+            <ProtectedRoute exact path="/dashboard" component={Dashboard} />
             {/* This works the same as the other protected route, except that if the user is logged in,
               they will see their profile page instead. */}
             {/* <ProtectedRoute exact path="/profile" component={Profile} /> */}
