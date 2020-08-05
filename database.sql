@@ -58,5 +58,5 @@ ALTER TABLE "order" ADD CONSTRAINT "order_is_linked_to_location" FOREIGN KEY ("l
 
 -- insert a test account and location used for testing 
 -- TODO Remove from production build
-INSERT INTO account ("id", "name", "email", "password", "access_level") VALUES (1, 'test', 'test@test.com', 'test', '0');
+INSERT INTO account ("id", "name", "email", "password", "access_level") VALUES (1, 'test', 'aaaa@aaaa.com', 'test', '0');
 INSERT INTO location ("id","description") VALUES (1, 'test location');
