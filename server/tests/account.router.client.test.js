@@ -74,8 +74,8 @@ describe('GET /api/account/', () => {
 describe('GET /api/account/1', () => {
   it('Reject get info for specific user because current user is not an admin', async (done) => {
     await user
-      .get('/api/account/')
-      .expect(403);
+      .get('/api/account/1')
+      .expect(401);
     done();
   });
 });

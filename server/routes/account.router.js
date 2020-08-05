@@ -15,6 +15,12 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 // Handles Ajax request for user information if user is authenticated
 router.get('/:id', rejectUnauthenticated, async (req, res) => {
+  const accessLevel = req.user.access_level;
+  // If the current user doesn't have a high enough access level return unauthorized.
+  if (accessLevel < 100) {
+    res.sendStatus(401);
+    return;
+  }
   const id = req.params.id;
   const conn = await pool.connect();
   try {
@@ -64,11 +70,15 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', rejectUnauthenticated, async (req, res) => {
   const id = req.body.id;
   const name = req.body.name;
   const email = req.body.email;
   const accessLevel = req.body.accessLevel;
+  if (!id || !name || !email || !accessLevel) {
+    res.sendStatus(400);
+    return;
+  }
   const conn = await pool.connect();
   try {
     const query = {};
@@ -86,12 +96,18 @@ router.put('/:id', async (req, res) => {
   res.send(req.user);
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', rejectUnauthenticated, async (req, res) => {
+  const accessLevel = req.user.access_level;
+  // If the current user doesn't have a high enough access level return unauthorized.
+  if (accessLevel < 100) {
+    res.sendStatus(401);
+    return;
+  }
   const id = req.params.id;
   const conn = await pool.connect();
   try {
     const query = {};
-    query.text = `DELETE from "account" WHERE "id" = $1 AND "access_level" = '100';`;
+    query.text = 'DELETE from "account" WHERE "id" = $1;';
     query.values = [id];
     await conn.query('BEGIN');
     await conn.query(query.text, query.values);
