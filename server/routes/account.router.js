@@ -25,18 +25,21 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
   const conn = await pool.connect();
   try {
     const query = {};
-    query.text = 'SELECT * FROM "account" WHERE id = $1;';
+    query.text = 'SELECT "id", "name", "email", "access_level" FROM "account" WHERE id = $1;';
     query.values = [id];
     await conn.query('BEGIN');
     const result = await conn.query(query.text, query.values);
     await conn.query('COMMIT');
-    res.status(200).send(result.rows);
+    if (result.rows[0]) {
+      res.status(200).send(result.rows[0]);
+    } else {
+      res.sendStatus(400);
+    }
   } catch (error) {
     conn.query('ROLLBACK');
     console.log('Error POST /account', error);
     res.sendStatus(500);
   }
-  res.send(req.user);
 });
 
 // Handles POST request with new user data
@@ -46,6 +49,10 @@ router.post('/', async (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
   const houseId = req.body.household_id;
+  if (!name || !email || !houseId || !req.body.password) {
+    res.sendStatus(400);
+    return;
+  }
   const password = encryptLib.encryptPassword(req.body.password);
   const conn = await pool.connect();
   try {
@@ -118,7 +125,6 @@ router.delete('/:id', rejectUnauthenticated, async (req, res) => {
     console.log('Error DELETE /account', error);
     res.sendStatus(500);
   }
-  res.send(req.user);
 });
 
 // Handles login form authenticate/login POST

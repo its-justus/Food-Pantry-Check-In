@@ -69,10 +69,10 @@ describe('Test a newly added account', () => {
         })
         .expect(200);
       expect(res.body).toEqual({
-        id: expect.any(Number),
+        id: expect.any(Number)
       });
-      newUserId = res.body.id;
       done();
+      newUserId = res.body.id;
     });
   });
 
@@ -154,7 +154,7 @@ describe('Test an admin account', () => {
         .get(`/api/account/${newUserId}`)
         .expect(200);
       expect(res.body).toEqual({
-        id: expect.any(Number),
+        id: newUserId,
         name: newUserName,
         email: newUserEmail,
         access_level: 1
