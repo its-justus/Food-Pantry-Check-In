@@ -55,8 +55,6 @@ class LoginPage extends Component {
                   </div>
                   <div id="inputDiv">
                     <div>
-                      {/* <label htmlFor="email" className="label">
-                      Email: */}
                       <input
                         type="email"
                         name="email"
@@ -65,11 +63,8 @@ class LoginPage extends Component {
                         value={this.state.email}
                         onChange={this.handleInputChangeFor("email")}
                       />
-                      {/* </label> */}
                     </div>
                     <div>
-                      {/* <label htmlFor="password" className="label">
-                      Password: */}
                       <input
                         type="password"
                         name="password"
@@ -78,7 +73,6 @@ class LoginPage extends Component {
                         value={this.state.password}
                         onChange={this.handleInputChangeFor("password")}
                       />
-                      {/* </label> */}
                     </div>
                   </div>
                   <div>

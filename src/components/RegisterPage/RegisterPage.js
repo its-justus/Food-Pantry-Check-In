@@ -55,8 +55,6 @@ class RegisterPage extends Component {
                 </div>
                 <div id="registerDiv">
                   <div>
-                    {/* <label htmlFor="name" className="label">
-                      Name: */}
                     <input
                       type="text"
                       name="name"
@@ -65,11 +63,8 @@ class RegisterPage extends Component {
                       value={this.state.name}
                       onChange={this.handleInputChangeFor("name")}
                     />
-                    {/* </label> */}
                   </div>
                   <div>
-                    {/* <label htmlFor="username" className="label">
-                      Email: */}
                     <input
                       type="email"
                       name="email"
@@ -78,11 +73,8 @@ class RegisterPage extends Component {
                       value={this.state.email}
                       onChange={this.handleInputChangeFor("email")}
                     />
-                    {/* </label> */}
                   </div>
                   <div>
-                    {/* <label htmlFor="household_id" className="label">
-                      Household ID: */}
                     <input
                       type="text"
                       name="household_id"
@@ -91,11 +83,8 @@ class RegisterPage extends Component {
                       value={this.state.household_id}
                       onChange={this.handleInputChangeFor("household_id")}
                     />
-                    {/* </label> */}
                   </div>
                   <div>
-                    {/* <label htmlFor="password" className="label">
-                      Password: */}
                     <input
                       type="password"
                       name="password"
@@ -104,7 +93,6 @@ class RegisterPage extends Component {
                       value={this.state.password}
                       onChange={this.handleInputChangeFor("password")}
                     />
-                    {/* </label> */}
                   </div>
                 </div>
                 <div>
