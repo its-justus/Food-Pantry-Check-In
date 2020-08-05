@@ -7,15 +7,12 @@ describe("POST /api/location", () => {
     const res = await request
       .post("/api/location")
       .send({
-        id: 1,
-        description: "test location",
+        id: 1234567,
+        description: "test",
       })
       //.expect("Content-Type", /json/)
       .expect(201);
-    expect(res.body).toEqual({
-      id: 1,
-      description: "test location",
-    });
+			expect(res.body).toEqual(expect.objectContaining({id: 1234567}));
     done();
   });
 });
@@ -23,16 +20,16 @@ describe("POST /api/location", () => {
 describe("PUT /api/location/:id", () => {
   it("responds with json", async (done) => {
     const res = await request
-      .put("/api/location/1")
+      .put("/api/location/1234567")
       .send({
-        id: 1,
-        description: "test location edited",
+        id: 1234567,
+        description: "test edited",
       })
       //.expect("Content-Type", /json/)
       .expect(200);
     expect(res.body).toEqual({
-      id: 1,
-      description: "test location edited",
+      id: 1234567,
+      description: "test edited",
     });
     done();
   });
@@ -45,11 +42,14 @@ describe("GET /api/location/", () => {
       .set("Accept", "application/json")
       // .expect("Content-Type", /json/)
 			.expect(200);
-		expect(Array.isArray(res.body)).toBe(true);
-		expect(res.body[0]).toEqual({
-			id: 1,
-			description: "test location edited",
-		});
+
+		expect(res.body).toEqual(
+			expect.arrayContaining([expect.objectContaining({
+			id: 1234567,
+			description: "test edited",
+		})])
+		);
+		
 		done();
   });
 });
@@ -57,7 +57,7 @@ describe("GET /api/location/", () => {
 describe("DELETE /api/location/id", () => {
 	it("responds with status code 204 OK", async (done) => {
 		const res = await request
-		.delete("/api/location/1")
+		.delete("/api/location/1234567")
 		.expect(204);
 	done();
 	})
