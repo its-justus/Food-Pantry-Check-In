@@ -18,7 +18,6 @@ describe("POST to /api/order", () => {
 		const res = await request
 			.post("/api/order")
 			.send({
-				account_id: 1,
 				location_id: 1234567,
 				dietary_restrictions: "Dairy",
 				walking_home: false,

@@ -68,7 +68,7 @@ router.post("/", async (req, res) => {
 			VALUES ($1, $2, $3, $4, $5, $6)
 			RETURNING *;`;
 		query.values = [
-			req.body.account_id,
+			req.user.id,
 			req.body.location_id,
 			req.body.dietary_restrictions,
 			req.body.walking_home,
