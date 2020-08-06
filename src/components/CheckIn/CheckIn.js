@@ -30,13 +30,13 @@ class CheckIn extends React.Component {
                 value={this.state.parking}
                 id="parkingNumber"
                 onChange={event => this.setState({ parking: event.target.value })}
-              ></input>
+              />
               <input
                 type="submit"
                 name="submit"
                 value="Check-In"
                 id="checkInButton"
-              ></input>
+              />
             </label>
           </form>
         </div>
