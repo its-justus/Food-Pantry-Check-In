@@ -36,9 +36,9 @@ class Header extends React.Component {
                 <ListItem
                   button
                   onClick={() => {
-                    this.props.history.push('/home');
+                    this.props.history.push('/');
                   }}>
-                  <ListItemText primary={'home'} />
+                  <ListItemText primary={'Check In'} />
                 </ListItem>
                 <ListItem button onClick={() => this.props.history.push('/dashboard')}>
                   <ListItemText primary={'dashboard'} />
