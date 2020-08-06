@@ -20,38 +20,44 @@ class Dashboard extends Component {
             <form>
               <ul>
                 {this.props.activeOrders?.map((cur, i) => (
-									<li>
-										{cur.account_id}
-									</li>
-								))}
+                  <li>{cur.account_id}</li>
+                ))}
               </ul>
               <br />
               <button className="btn btn-large btn-primary" type="submit">
-                  Add Client
-                </button>
+                Add Client
+              </button>
             </form>
           </div>
           <div className="span6">
             <form>
               <header className="header">
-                <h3>Bob Smith</h3>
-                <h4>ID: ABCD1234</h4>
+                <h3>{this.props.activeOrders.name}</h3>
+                <h4>ID: {this.props.activeOrders.account_id}</h4>
               </header>
               <body id="dashBody">
                 <span>
                   <b>Food Restrictions</b>
                 </span>
                 <span>
-                  Bobby snobby eats everything. He's like a marauding Komodo
-                  dragon when it comes to food. Give him everything, he can
-                  handle it all.
+                  {this.props.activeOrders.name} snobby eats everything. He's
+                  like a marauding Komodo dragon when it comes to food. Give him
+                  everything, he can handle it all.
                 </span>
                 <br />
-                <span>Walking home: No</span>
+                <span>
+                  Walking home: {this.props.activeOrders.walking_home}
+                </span>
                 <br />
-                <span>Child Birthday coming up: No</span>
+                <span>
+                  Child Birthday coming up:
+                  {this.props.activeOrders.child_birthday}
+                </span>
                 <br />
-                <span>Someone at home is pregnant: Yes</span>
+                <span>
+                  Someone at home is pregnant:
+                  {this.props.activeOrders.pregnant}
+                </span>
                 <br />
                 <button className="btn btn-large btn-primary" type="submit">
                   Check in
@@ -65,11 +71,9 @@ class Dashboard extends Component {
           <div className="span6">
             <form>
               <ul>
-              {this.props.completeOrders?.map((complete, i) => (
-									<li>
-										{complete.account_id}
-									</li>
-							))}
+                {this.props.completeOrders?.map((complete, i) => (
+                  <li>{complete.account_id}</li>
+                ))}
               </ul>
             </form>
           </div>
