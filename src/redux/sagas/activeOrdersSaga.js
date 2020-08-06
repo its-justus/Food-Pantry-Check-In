@@ -18,15 +18,15 @@ function* fetchActiveOrders() {
     // now that the session has given us a user object
     // with an id and username set the client-side user object to let
     // the client-side code know the user is logged in
-    yield put({ type: 'SET_ORDER', payload: response.data });
-    console.log(response.data);
+    yield put({ type: 'SET_ACTIVE_ORDERS', payload: response.data });
+    console.log("these are active orders:", response.data);
   } catch (error) {
     console.log('Order get request failed', error);
   }
 }
 
-function* orderSaga() {
-  yield takeLatest('FETCH_ORDER', fetchActiveOrders);
+function* activeOrdersSaga() {
+  yield takeLatest('FETCH_ACTIVE_ORDERS', fetchActiveOrders);
 }
 
-export default orderSaga;
+export default activeOrdersSaga;

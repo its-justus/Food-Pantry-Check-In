@@ -1,8 +1,13 @@
 import React, { Component } from "react";
+import {connect} from "react-redux";
 
 //this component is for the dashboard view that is seen by the volunteers
 class Dashboard extends Component {
 
+	componentDidMount = () => {
+		this.props.dispatch({type: "FETCH_ACTIVE_ORDERS"});
+		setInterval(() => this.props.dispatch({type: "FETCH_ACTIVE_ORDERS"}), 10*1000);
+	}
   
 
   render() {
@@ -16,7 +21,7 @@ class Dashboard extends Component {
                 <li>Linda checked in 10 mins ago.</li>
               </ul>
               <br />
-              <button className="btn btn-large btn-primary" type="submit" onSubmit="">
+              <button className="btn btn-large btn-primary" type="submit">
                   Add Client
                 </button>
             </form>
@@ -67,4 +72,5 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+
+export default connect()(Dashboard);

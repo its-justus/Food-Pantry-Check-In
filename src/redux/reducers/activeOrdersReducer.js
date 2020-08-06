@@ -1,7 +1,7 @@
-const activeOrdersReducer = (state = {}, action) => {
+const activeOrdersReducer = (state = [], action) => {
   switch (action.type) {
     case "SET_ACTIVE_ORDERS":
-      return action.payload;
+      return [...action.payload];
     default:
       return state;
   }
