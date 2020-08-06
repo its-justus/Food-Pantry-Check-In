@@ -25,7 +25,6 @@ class App extends Component {
       <Router>
         <div>
           <Header />
-					<Dashboard />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from='/' to='/checkin' />
