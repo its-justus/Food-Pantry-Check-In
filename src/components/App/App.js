@@ -28,7 +28,7 @@ class App extends Component {
 					<Dashboard />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-            <Redirect exact from='/' to='/home' />
+            <Redirect exact from='/' to='/checkin' />
             <Route path='/login'>
               <LoginPage />
             </Route>
