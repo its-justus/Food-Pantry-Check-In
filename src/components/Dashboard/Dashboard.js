@@ -17,8 +17,11 @@ class Dashboard extends Component {
           <div className="span6">
             <form>
               <ul>
-                <li>Bob checked in 3 mins ago.</li>
-                <li>Linda checked in 10 mins ago.</li>
+                {this.props.activeOrders?.map((cur, i) => (
+									<li>
+										{cur.account_id}
+									</li>
+								))}
               </ul>
               <br />
               <button className="btn btn-large btn-primary" type="submit">
@@ -72,5 +75,8 @@ class Dashboard extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+	return {activeOrders: state.activeOrders}
+}
 
-export default connect()(Dashboard);
+export default connect(mapStateToProps)(Dashboard);
