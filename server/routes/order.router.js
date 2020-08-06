@@ -46,7 +46,7 @@ router.get("/complete/today", async (req, res) => {
 		const result = await conn.query(query.text, query.values);
 		res.status(200).send(result.rows);
 	} catch (error) {
-		console.log(`Error GET /api/order/active`, error);
+		console.log(`Error GET /api/order/complete/today`, error);
 		res.sendStatus(500);
 	}
 });
