@@ -7,6 +7,8 @@ class Dashboard extends Component {
 	componentDidMount = () => {
 		this.props.dispatch({type: "FETCH_ACTIVE_ORDERS"});
 		setInterval(() => this.props.dispatch({type: "FETCH_ACTIVE_ORDERS"}), 10*1000);
+		this.props.dispatch({type: "FETCH_COMPLETE_ORDERS"});
+		setInterval(() => this.props.dispatch({type: "FETCH_COMPLETE_ORDERS"}), 10*1000);
 	}
   
 
@@ -63,9 +65,11 @@ class Dashboard extends Component {
           <div className="span6">
             <form>
               <ul>
-                <li>Sarah received food today.</li>
-                <li>James received food today.</li>
-                <li>David received food today.</li>
+              {this.props.completeOrders?.map((complete, i) => (
+									<li>
+										{complete.account_id}
+									</li>
+							))}
               </ul>
             </form>
           </div>
@@ -75,8 +79,9 @@ class Dashboard extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-	return {activeOrders: state.activeOrders}
-}
+const mapStateToProps = (state) => ({
+  activeOrders: state.activeOrders,
+  completeOrders: state.completeOrders,
+});
 
 export default connect(mapStateToProps)(Dashboard);
