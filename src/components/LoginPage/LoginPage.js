@@ -43,7 +43,9 @@ class LoginPage extends Component {
   render() {
     return (
       <div id="loginBody">
-        <div></div>
+        <div id="logoDiv">
+          <img src="EFP_Logo_Color.png" id="efpLogo"/>
+        </div>
         <Container id="loginContainer">
           <Row id="loginRow">
             <Col>
