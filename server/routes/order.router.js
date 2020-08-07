@@ -1,11 +1,11 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 const {
-  rejectUnauthenticated,
-} = require("../modules/authentication-middleware");
-const pool = require("../modules/pool");
+  rejectUnauthenticated
+} = require('../modules/authentication-middleware');
+const pool = require('../modules/pool');
 
-router.get("/", rejectUnauthenticated, async (req, res) => {
+router.get('/', rejectUnauthenticated, async (req, res) => {
   const conn = await pool.connect();
   try {
     const query = {};
@@ -17,12 +17,12 @@ router.get("/", rejectUnauthenticated, async (req, res) => {
     const result = await conn.query(query.text, query.values);
     res.status(200).send(result.rows);
   } catch (error) {
-    console.log("Error GET /api/order", error);
+    console.log('Error GET /api/order', error);
     res.sendStatus(500);
   }
 });
 
-router.get("/active", rejectUnauthenticated, async (req, res) => {
+router.get('/active', rejectUnauthenticated, async (req, res) => {
   const conn = await pool.connect();
   try {
     const query = {};
@@ -35,12 +35,12 @@ router.get("/active", rejectUnauthenticated, async (req, res) => {
     const result = await conn.query(query.text, query.values);
     res.status(200).send(result.rows);
   } catch (error) {
-    console.log("Error GET /api/order/active", error);
+    console.log('Error GET /api/order/active', error);
     res.sendStatus(500);
   }
 });
 
-router.get("/complete/today", rejectUnauthenticated, async (req, res) => {
+router.get('/complete/today', rejectUnauthenticated, async (req, res) => {
   const conn = await pool.connect();
   try {
     const query = {};
@@ -55,12 +55,12 @@ router.get("/complete/today", rejectUnauthenticated, async (req, res) => {
     const result = await conn.query(query.text, query.values);
     res.status(200).send(result.rows);
   } catch (error) {
-    console.log("Error GET /api/order/active", error);
+    console.log('Error GET /api/order/active', error);
     res.sendStatus(500);
   }
 });
 
-router.post("/", rejectUnauthenticated, async (req, res) => {
+router.post('/', rejectUnauthenticated, async (req, res) => {
   const accountID = req.user.id;
 
   const locationID = req.body.location_id;
@@ -69,12 +69,11 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
   const pregnant = req.body.pregnant;
   const childBirthday = req.body.child_birthday;
 
-  if (
-    !locationID ||
+  if (!locationID ||
     !dietaryRestrictions ||
-    typeof walkingHome !== "boolean" ||
-    typeof pregnant !== "boolean" ||
-    typeof childBirthday !== "boolean"
+    typeof walkingHome !== 'boolean' ||
+    typeof pregnant !== 'boolean'  ||
+    typeof childBirthday !== 'boolean'
   ) {
     res.sendStatus(400);
     return;
@@ -99,20 +98,20 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
       dietaryRestrictions,
       walkingHome,
       pregnant,
-      childBirthday,
+      childBirthday
     ];
-    await conn.query("BEGIN");
+    await conn.query('BEGIN');
     const result = await conn.query(query.text, query.values);
-    await conn.query("COMMIT");
+    await conn.query('COMMIT');
     res.status(201).send(result.rows[0]);
   } catch (error) {
-    await conn.query("ROLLBACK");
-    console.log("Error POST /api/order", error);
+    await conn.query('ROLLBACK');
+    console.log('Error POST /api/order', error);
     res.sendStatus(500);
   }
 });
 
-router.put("/checkout/:id", async (req, res) => {
+router.put('/checkout/:id', async (req, res) => {
   const conn = await pool.connect();
   try {
     const query = {};
@@ -121,18 +120,18 @@ router.put("/checkout/:id", async (req, res) => {
       WHERE id = $1
       RETURNING *;`;
     query.values = [req.params.id];
-    await conn.query("BEGIN");
+    await conn.query('BEGIN');
     const result = await conn.query(query.text, query.values);
-    await conn.query("COMMIT");
+    await conn.query('COMMIT');
     res.status(200).send(result.rows);
   } catch (error) {
-    conn.query("ROLLBACK");
-    console.log("Error PUT /api/order/checkout/id", error);
+    conn.query('ROLLBACK');
+    console.log('Error PUT /api/order/checkout/id', error);
     res.sendStatus(500);
   }
 });
 
-router.delete("/:id", rejectUnauthenticated, async (req, res) => {
+router.delete('/:id', rejectUnauthenticated, async (req, res) => {
   const conn = await pool.connect();
   try {
     const query = {};
@@ -141,7 +140,7 @@ router.delete("/:id", rejectUnauthenticated, async (req, res) => {
     await conn.query(query.text, query.values);
     res.sendStatus(204);
   } catch (error) {
-    console.log("Error PUT /api/order/checkout/id", error);
+    console.log('Error PUT /api/order/checkout/id', error);
     res.sendStatus(500);
   }
 });

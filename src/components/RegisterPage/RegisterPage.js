@@ -44,7 +44,9 @@ class RegisterPage extends Component {
   render() {
     return (
       <div>
-        <div></div>
+        <div>
+          <img src="EFP_Logo_Color.png" alt="EFP Logo" id="efpLogo" />
+        </div>
         <Container id="registerContainer">
           <Row id="registerRow">
             <Card id="registerCard">
@@ -58,7 +60,7 @@ class RegisterPage extends Component {
                     <input
                       type="text"
                       name="name"
-                      placeholder="Name"
+                      placeholder="Full Name"
                       className="userRegisterInput"
                       value={this.state.name}
                       onChange={this.handleInputChangeFor("name")}
@@ -114,12 +116,12 @@ class RegisterPage extends Component {
                 <button className="changeButton">Login</button>
               </Link>
             </center>
-            </Row>
-            <Row>
-              <div id="errorDiv">
-                {this.props.errors.registrationMessage && (
-                  <Toast style={{ border: "1px solid #b13324" }}>
-                    {/* <Toast.Header>
+          </Row>
+          <Row>
+            <div id="errorDiv">
+              {this.props.errors.registrationMessage && (
+                <Toast style={{ border: "1px solid #b13324" }}>
+                  {/* <Toast.Header>
                     <img
                       src="holder.js/20x20?text=%20"
                       className="rounded mr-2"
@@ -130,11 +132,13 @@ class RegisterPage extends Component {
                       !
                     </strong>
                   </Toast.Header> */}
-                    <Toast.Body>{this.props.errors.registrationMessage}</Toast.Body>
-                  </Toast>
-                )}
-              </div>
-            </Row>
+                  <Toast.Body>
+                    {this.props.errors.registrationMessage}
+                  </Toast.Body>
+                </Toast>
+              )}
+            </div>
+          </Row>
         </Container>
       </div>
     );
