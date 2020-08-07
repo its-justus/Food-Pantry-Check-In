@@ -9,6 +9,9 @@ const newUserHouseholdID = '1';
 const newUserPassword = 'test';
 let newUserId = 0;
 
+// TODO delete the empty info that was added in the "profile" table
+// directly from the pool once the test finishes running.
+
 describe('Test a newly added account', () => {
   describe('GET /api/account', () => {
     it('Reject get info for current user while logged out', async (done) => {
