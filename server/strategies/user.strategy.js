@@ -17,12 +17,17 @@ passport.deserializeUser((id, done) => {
         // user found
         delete user.password; // remove password so it doesn't get sent
         // done takes an error (null in this case) and a user
-        pool.query('SELECT household_id FROM "profile" WHERE account_id = $1;', [user.id])
+        pool.query('SELECT household_id, dietary_restrictions, last_pickup FROM "profile" WHERE account_id = $1;', [user.id])
           .then(result => {
             // If the current user has a household_id in the "profile" table return the
             // household_id so it's stored in the passport user session.
             if (result.rows[0]) {
-              done(null, { ...user, household_id: result.rows[0].household_id });
+              done(null, {
+                ...user,
+                household_id: result.rows[0].household_id,
+                dietary_restrictions: result.rows[0].dietary_restrictions,
+                last_pickup: result.rows[0].last_pickup
+              });
             } else {
               done(null, user);
             }
