@@ -99,7 +99,9 @@ describe('Test a newly added account', () => {
         name: newUserName,
         email: newUserEmail,
         access_level: 1,
-        household_id: newUserHouseholdID
+        household_id: newUserHouseholdID,
+        last_pickup: null,
+        dietary_restrictions: null
       });
       done();
     });
