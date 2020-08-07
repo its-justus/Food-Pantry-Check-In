@@ -1,11 +1,11 @@
 import React from "react";
-import { connect } from "react-redux";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import './Header.css';
+import { connect } from "react-redux";
+import "./Header.css";
 
 const Header = (props) => (
   <AppBar position="static" id="navBar">
@@ -15,11 +15,15 @@ const Header = (props) => (
       </IconButton>
       <Typography id="navTitle">Emergency Food Pantry</Typography>
     </Toolbar>
+    <div id="navRight">
+      <button
+        id="logoutButton"
+        onClick={() => props.dispatch({ type: "LOGOUT" })}
+      >
+        Log Out
+      </button>
+    </div>
   </AppBar>
 );
 
-const mapStateToProps = (state) => ({
-  user: state.account
-});
-
-export default connect(mapStateToProps)(Header);
+export default connect()(Header);
