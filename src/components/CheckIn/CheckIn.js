@@ -169,9 +169,8 @@ class CheckIn extends React.Component {
           </Row>
           {this.state.showSuccess && (
             <div id="clientInput">
-              <form>
-                <label htmlFor="name">Success!</label>
-              </form>
+              <h3>Thank you, we have received your order!</h3>
+              <p>We will be with you in about 15 minutes.</p>
             </div>
           )}
         </Container>
