@@ -24,9 +24,11 @@ class CheckIn extends React.Component {
         <Container>
           <Row id="clientInfoRow">
             <div id="clientInfo">
-              <h1>{this.props.account.name}</h1>
-              <h3>This will be the household id</h3>
-              <h3>This will be the last check-in date</h3>
+              <h1>Hi, {this.props.account.name}</h1>
+              <h3>
+                Household ID: <strong>{this.props.account.household_id}</strong>
+              </h3>
+              <h3>Last pickup: {this.props.account.last_pickup}</h3>
             </div>
           </Row>
           <Row>
@@ -64,100 +66,107 @@ class CheckIn extends React.Component {
               </div>
             )}
           </Row>
-          {this.state.showQuestions && (
-            <>
-              <div id="clientQuestions">
-                <label htmlFor="foodRestrictions">
-                  Please list any food restrictions here:
+          <Row>
+            {this.state.showQuestions && (
+              <>
+                <div id="clientQuestions">
+                  <label htmlFor="foodRestrictions">
+                    Please list any food restrictions here:
+                    <br></br>
+                    <textarea
+                      rows="4"
+                      cols="30"
+                      name="foodRestrictions"
+                      value={this.state.dietaryRestrictions}
+                      onChange={(event) =>
+                        this.setState({
+                          dietaryRestrictions: event.target.value,
+                        })
+                      }
+                      placeholder="Example: Dairy, peanuts"
+                    ></textarea>
+                  </label>
                   <br></br>
-                  <textarea
-                    rows="4"
-                    cols="30"
-                    name="foodRestrictions"
-                    value={this.state.dietaryRestrictions}
-                    onChange={(event) =>
-                      this.setState({ dietaryRestrictions: event.target.value })
-                    }
-                    placeholder="Example: Dairy, peanuts"
-                  ></textarea>
-                </label>
-                <br></br>
-                <label htmlFor="walking">
-                  Are you walking home?
-                  <input
-                    type="checkbox"
-                    id="walkingHomeYes"
-                    name="walkingHome"
-                    checked={this.state.walkingHome}
-                    onChange={() =>
-                      this.setState({ walkingHome: !this.state.walkingHome })
-                    }
-                  />
-                </label>
-                <br></br>
-                <label htmlFor="birthday">
-                  Is there a child in the household with a birthday in the next
-                  2 months?
-                  <input
-                    type="checkbox"
-                    id="childBirthdayYes"
-                    name="birthday"
-                    checked={this.state.childBirthday}
-                    onChange={() =>
+                  <label htmlFor="walking">
+                    Are you walking home?
+                    <input
+                      type="checkbox"
+                      id="walkingHomeYes"
+                      name="walkingHome"
+                      checked={this.state.walkingHome}
+                      onChange={() =>
+                        this.setState({ walkingHome: !this.state.walkingHome })
+                      }
+                    />
+                  </label>
+                  <br></br>
+                  <label htmlFor="birthday">
+                    Is there a child in the household with a birthday in the
+                    next 2 months?
+                    <input
+                      type="checkbox"
+                      id="childBirthdayYes"
+                      name="birthday"
+                      checked={this.state.childBirthday}
+                      onChange={() =>
+                        this.setState({
+                          childBirthday: !this.state.childBirthday,
+                        })
+                      }
+                    />
+                  </label>
+                  <br></br>
+                  <label htmlFor="pregnant">
+                    Is there a woman in the household who is pregnant?
+                    <input
+                      type="checkbox"
+                      id="pregnant"
+                      name="pregnant"
+                      checked={this.state.pregnant}
+                      onChange={() =>
+                        this.setState({ pregnant: !this.state.pregnant })
+                      }
+                    />
+                  </label>
+                  <br></br>
+                  <label htmlFor="pregnant">
+                    Are you currently receiving SNAP?
+                    <input
+                      type="checkbox"
+                      id="snap"
+                      name="snap"
+                      checked={this.state.snap}
+                      onChange={() => this.setState({ snap: !this.state.snap })}
+                    />
+                  </label>
+                  <br></br>
+                  <button
+                    id="submitButton"
+                    onClick={() => {
+                      this.props.dispatch({
+                        type: "SUBMIT_ORDER",
+                        payload: {
+                          parking: "",
+                          location_id: this.state.locationID,
+                          dietary_restrictions: this.state.dietaryRestrictions,
+                          walking_home: this.state.walkingHome,
+                          pregnant: this.state.pregnant,
+                          child_birthday: this.state.childBirthday,
+                          snap: this.state.snap,
+                        },
+                      });
                       this.setState({
-                        childBirthday: !this.state.childBirthday,
-                      })
-                    }
-                  />
-                </label>
-                <br></br>
-                <label htmlFor="pregnant">
-                  Is there a woman in the household who is pregnant?
-                  <input
-                    type="checkbox"
-                    id="pregnant"
-                    name="pregnant"
-                    checked={this.state.pregnant}
-                    onChange={() =>
-                      this.setState({ pregnant: !this.state.pregnant })
-                    }
-                  />
-                </label>
-                <br></br>
-                <label htmlFor="pregnant">
-                  Are you currently receiving SNAP?
-                  <input
-                    type="checkbox"
-                    id="snap"
-                    name="snap"
-                    checked={this.state.snap}
-                    onChange={() =>
-                      this.setState({ snap: !this.state.snap })
-                    }
-                  />
-                </label>
-              </div>
-              <button
-                onClick={() => {
-                  this.props.dispatch({
-                    type: "SUBMIT_ORDER",
-                    payload: {
-                      parking: "",
-                      location_id: this.state.locationID,
-                      dietary_restrictions: this.state.dietaryRestrictions,
-                      walking_home: this.state.walkingHome,
-                      pregnant: this.state.pregnant,
-                      child_birthday: this.state.childBirthday,
-                      snap: this.state.snap,
-                    },
-                  });
-                  this.setState({ showSuccess: true, showQuestions: false });
-                }}
-              >
-                Submit
-              </button>
-            </>
-          )}
+                        showSuccess: true,
+                        showQuestions: false,
+                      });
+                    }}
+                  >
+                    Submit
+                  </button>
+                </div>
+              </>
+            )}
+          </Row>
           {this.state.showSuccess && (
             <div id="clientInput">
               <form>

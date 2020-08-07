@@ -14,15 +14,21 @@ const Header = (props) => (
         <MenuIcon style={{ fill: "#faaf46" }} />
       </IconButton>
       <Typography id="navTitle">Emergency Food Pantry</Typography>
-    </Toolbar>
-    <div id="navRight">
       <button
         id="logoutButton"
         onClick={() => props.dispatch({ type: "LOGOUT" })}
       >
         Log Out
       </button>
-    </div>
+    </Toolbar>
+    {/* <div id="navRight">
+      <button
+        id="logoutButton"
+        onClick={() => props.dispatch({ type: "LOGOUT" })}
+      >
+        Log Out
+      </button>
+    </div> */}
   </AppBar>
 );
 
