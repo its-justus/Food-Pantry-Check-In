@@ -1,56 +1,79 @@
 import React, { Component } from "react";
+import {connect} from "react-redux";
 
 //this component is for the dashboard view that is seen by the volunteers
 class Dashboard extends Component {
+
+	componentDidMount = () => {
+		this.props.dispatch({type: "FETCH_ACTIVE_ORDERS"});
+		setInterval(() => this.props.dispatch({type: "FETCH_ACTIVE_ORDERS"}), 10*1000);
+		this.props.dispatch({type: "FETCH_COMPLETE_ORDERS"});
+		setInterval(() => this.props.dispatch({type: "FETCH_COMPLETE_ORDERS"}), 10*1000);
+	}
+  
+
   render() {
     return (
       <>
-        <div class="dashBoard row">
-          <div class="span6">
+        <div className="dashBoard row">
+          <div className="span6">
             <form>
               <ul>
-                <li>Bob checked in 3 mins ago.</li>
-                <li>Linda checked in 10 mins ago.</li>
+                {this.props.activeOrders?.map((cur, i) => (
+                  <li>{cur.account_id}</li>
+                ))}
               </ul>
+              <br />
+              <button className="btn btn-large btn-primary" type="submit">
+                Add Client
+              </button>
             </form>
           </div>
-          <div class="span6">
+          <div className="span6">
             <form>
               <header className="header">
-                <h3>Bob Smith</h3>
-                <h4>ID: ABCD1234</h4>
+                <h3>{this.props.activeOrders.name}</h3>
+                <h4>ID: {this.props.activeOrders.account_id}</h4>
               </header>
               <body id="dashBody">
                 <span>
                   <b>Food Restrictions</b>
                 </span>
                 <span>
-                  Bobby snobby eats everything. He's like a marauding Komodo
-                  dragon when it comes to food. Give him everything, he can
-                  handle it all.
+                  {this.props.activeOrders.name} snobby eats everything. He's
+                  like a marauding Komodo dragon when it comes to food. Give him
+                  everything, he can handle it all.
                 </span>
                 <br />
-                <span>Walking home: No</span>
+                <span>
+                  Walking home: {this.props.activeOrders.walking_home}
+                </span>
                 <br />
-                <span>Child Birthday coming up: No</span>
+                <span>
+                  Child Birthday coming up:
+                  {this.props.activeOrders.child_birthday}
+                </span>
                 <br />
-                <span>Someone at home is pregnant: Yes</span>
+                <span>
+                  Someone at home is pregnant:
+                  {this.props.activeOrders.pregnant}
+                </span>
                 <br />
-                <button class="btn btn-large btn-primary" type="submit">
+                <button className="btn btn-large btn-primary" type="submit">
                   Check in
                 </button>
-                <button class="btn btn-large btn-primary" type="submit">
+                <button className="btn btn-large btn-primary" type="submit">
                   Eligible
                 </button>
               </body>
             </form>
           </div>
-          <div class="span6">
+          <div className="span6">
             <form>
               <ul>
-                <li>Sarah received food today.</li>
-                <li>James received food today.</li>
-                <li>David received food today.</li>
+                {this.props.completeOrders?.map((complete, i) => (
+                  <li>{complete.account_id}</li>
+                ))}
               </ul>
             </form>
           </div>
@@ -60,4 +83,9 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+const mapStateToProps = (state) => ({
+  activeOrders: state.activeOrders,
+  completeOrders: state.completeOrders,
+});
+
+export default connect(mapStateToProps)(Dashboard);
