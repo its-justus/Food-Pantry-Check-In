@@ -11,6 +11,7 @@ class CheckIn extends React.Component {
     walkingHome: false,
     pregnant: false,
     childBirthday: false,
+    snap: false,
     showCheckIn: true,
     showQuestions: false,
     showSuccess: false
@@ -122,6 +123,19 @@ class CheckIn extends React.Component {
                     }
                   />
                 </label>
+                <br></br>
+                <label htmlFor="pregnant">
+                  Are you currently receiving SNAP?
+                  <input
+                    type="checkbox"
+                    id="snap"
+                    name="snap"
+                    checked={this.state.snap}
+                    onChange={() =>
+                      this.setState({ snap: !this.state.snap })
+                    }
+                  />
+                </label>
               </div>
               <button
                 onClick={() => {
@@ -134,6 +148,7 @@ class CheckIn extends React.Component {
                       walking_home: this.state.walkingHome,
                       pregnant: this.state.pregnant,
                       child_birthday: this.state.childBirthday,
+                      snap: this.state.snap,
                     },
                   });
                   this.setState({ showSuccess: true, showQuestions: false });
