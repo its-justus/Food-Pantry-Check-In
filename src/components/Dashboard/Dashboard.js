@@ -1,22 +1,28 @@
 import React, { Component } from "react";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
 //this component is for the dashboard view that is seen by the volunteers
 class Dashboard extends Component {
   state = {
-    orderObj: {}
-  }
+    orderObj: {},
+  };
 
-	componentDidMount = () => {
-		this.props.dispatch({type: "FETCH_ACTIVE_ORDERS"});
-		setInterval(() => this.props.dispatch({type: "FETCH_ACTIVE_ORDERS"}), 10*1000);
-		this.props.dispatch({type: "FETCH_COMPLETE_ORDERS"});
-		setInterval(() => this.props.dispatch({type: "FETCH_COMPLETE_ORDERS"}), 10*1000);
-	}
-  
+  componentDidMount = () => {
+    this.props.dispatch({ type: "FETCH_ACTIVE_ORDERS" });
+    setInterval(
+      () => this.props.dispatch({ type: "FETCH_ACTIVE_ORDERS" }),
+      10 * 1000
+    );
+    this.props.dispatch({ type: "FETCH_COMPLETE_ORDERS" });
+    setInterval(
+      () => this.props.dispatch({ type: "FETCH_COMPLETE_ORDERS" }),
+      10 * 1000
+    );
+  };
+
   setLocalStateObj = (order) => {
-    this.setState({ orderObj: order })
-  }
+    this.setState({ orderObj: order });
+  };
 
   render() {
     return (
@@ -30,8 +36,8 @@ class Dashboard extends Component {
                     <button
                       onClick={() => this.setState({ orderID: cur.id })}
                       onClick={() => this.setLocalStateObj(cur)}
->>>>>>> c05288b5c90262e3d4a41cce739325c6c8d3904b
-                    >{cur.name}
+                    >
+                      {cur.name}
                     </button>
                   </li>
                 ))}
@@ -52,13 +58,9 @@ class Dashboard extends Component {
                 <span>
                   <b>Food Restrictions</b>
                 </span>
-                <span>
-                  {this.state.orderObj.name}
-                </span>
+                <span>{this.state.orderObj.name}</span>
                 <br />
-                <span>
-                  Walking home: {this.state.orderObj.walking_home}
-                </span>
+                <span>Walking home: {this.state.orderObj.walking_home}</span>
                 <br />
                 <span>
                   Child Birthday coming up:
@@ -78,7 +80,12 @@ class Dashboard extends Component {
                 <button
                   disabled={this.state.orderObj.checkout_at}
                   className="btn btn-large btn-primary"
-                  onClick={() => this.props.dispatch({ type: 'ORDER_CHECKOUT', payload: this.state.orderObj.id })}
+                  onClick={() =>
+                    this.props.dispatch({
+                      type: "ORDER_CHECKOUT",
+                      payload: this.state.orderObj.id,
+                    })
+                  }
                 >
                   Check In
                 </button>
@@ -91,9 +98,9 @@ class Dashboard extends Component {
               <ul>
                 {this.props.completeOrders?.map((complete) => (
                   <li>
-                    <button
-                      onClick={() => this.setLocalStateObj(complete)}
-                      >{complete.name}</button>
+                    <button onClick={() => this.setLocalStateObj(complete)}>
+                      {complete.name}
+                    </button>
                   </li>
                 ))}
               </ul>
