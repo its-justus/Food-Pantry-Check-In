@@ -34,7 +34,6 @@ class Dashboard extends Component {
                 {this.props.activeOrders?.map((cur, i) => (
                   <li>
                     <button
-                      onClick={() => this.setState({ orderID: cur.id })}
                       onClick={() => this.setLocalStateObj(cur)}
                     >
                       {cur.name}
