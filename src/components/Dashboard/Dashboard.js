@@ -3,6 +3,9 @@ import {connect} from "react-redux";
 
 //this component is for the dashboard view that is seen by the volunteers
 class Dashboard extends Component {
+  state = {
+    orderID: ''
+  }
 
 	componentDidMount = () => {
 		this.props.dispatch({type: "FETCH_ACTIVE_ORDERS"});
@@ -20,7 +23,12 @@ class Dashboard extends Component {
             <form>
               <ul>
                 {this.props.activeOrders?.map((cur, i) => (
-                  <li>{cur.name}</li>
+                  <li>
+                    <button
+                      onClick={this.setState({ orderID: cur.id })}
+                    >{cur.name}
+                    </button>
+                  </li>
                 ))}
               </ul>
               <br />
@@ -43,6 +51,7 @@ class Dashboard extends Component {
                   {this.props.activeOrders.name} snobby eats everything. He's
                   like a marauding Komodo dragon when it comes to food. Give him
                   everything, he can handle it all.
+                  {/* {this.props.activeOrders.filter(order => order.id = this.state.orderID)} */}
                 </span>
                 <br />
                 <span>
@@ -72,7 +81,9 @@ class Dashboard extends Component {
             <form>
               <ul>
                 {this.props.completeOrders?.map((complete, i) => (
-                  <li>{complete.name}</li>
+                  <li>
+                    <button>{complete.name}</button>
+                  </li>
                 ))}
               </ul>
             </form>
