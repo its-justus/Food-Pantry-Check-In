@@ -20,7 +20,7 @@ class Dashboard extends Component {
             <form>
               <ul>
                 {this.props.activeOrders?.map((cur, i) => (
-                  <li>{cur.account_id}</li>
+                  <li>{cur.name}</li>
                 ))}
               </ul>
               <br />
@@ -72,7 +72,7 @@ class Dashboard extends Component {
             <form>
               <ul>
                 {this.props.completeOrders?.map((complete, i) => (
-                  <li>{complete.account_id}</li>
+                  <li>{complete.name}</li>
                 ))}
               </ul>
             </form>
