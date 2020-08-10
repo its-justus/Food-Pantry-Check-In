@@ -1,0 +1,97 @@
+#registerCard {
+  width: 350px;
+  height: 360px;
+  margin: 30px auto;
+  border-radius: 15px;
+  border-bottom: 1px solid lightgray;
+}
+
+#welcomeDiv {
+  background-color: #faaf46;
+  border-radius: 15px 15px 0px 0px;
+  color: white;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#registerDiv {
+  margin-top: 8px;
+}
+
+#register {
+  font-size: 25px;
+  font-family: 'Signika', sans-serif;
+}
+
+#registerRow {
+  text-align: center;
+}
+
+#loginButton {
+  color: white;
+  font-size: 15px;
+  background-color: #b13324;
+  border: 1px solid #b13324;
+  border-radius: 2px;
+  transition: 200ms;
+  font-family: 'Signika', sans-serif;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#loginButton:hover {
+  border: 1px solid white;
+  transition: 200ms;
+}
+
+.changeButton {
+  font-size: 15px;
+  color: white;
+  background-color: #faaf46;
+  border: 1px solid #faaf46;
+  border-radius: 50px;
+  transition: 200ms; 
+  font-family: 'Signika', sans-serif;
+}
+
+.changeButton:hover {
+  border: 1px solid white;
+  transition: 200ms; 
+}
+
+.label {
+  display: inline-block;
+  clear: left;
+  width: 250px;
+  text-align: right;
+  font-family: 'Signika', sans-serif; 
+  font-size: 16px;
+}
+
+.userRegisterInput {
+  display: inline-block;
+  margin: 10px;
+  font-size: 16px;
+  border:1px solid lightgray;
+  border-radius: 50px;
+  width: 65%;
+  padding-left: 10px;
+  background-color: #f5f5f5;
+  transition: 200ms;
+}
+
+.userRegisterInput:hover {
+  background-color: white;
+  border: 1px solid #b13324;
+  transition: 200ms;
+}
+
+#center {
+  margin-top: 50px;
+  font-family: 'Signika', sans-serif;
+  font-size: 16px;
+}
+
+#errorDiv {
+  margin: 40px auto;
+}
