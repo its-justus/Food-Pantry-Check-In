@@ -21,6 +21,14 @@ const Header = (props) => (
         Log Out
       </button>
     </Toolbar>
+    <div id="navRight">
+      <button
+        id="logoutButton"
+        onClick={() => props.dispatch({ type: "LOGOUT" })}
+      >
+        Log Out
+      </button>
+    </div>
   </AppBar>
 );
 
