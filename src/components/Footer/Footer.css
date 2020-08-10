@@ -10,4 +10,5 @@ footer {
     text-align: center;
     font-family: 'Signika', sans-serif;
     margin-top: 100px;
+    position: fixed;
 }

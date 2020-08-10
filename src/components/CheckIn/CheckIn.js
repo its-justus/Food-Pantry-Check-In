@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import Form from "react-bootstrap/Form";
+
 import "./CheckIn.css";
 
 class CheckIn extends React.Component {
@@ -21,16 +23,17 @@ class CheckIn extends React.Component {
     console.log(this.state);
     return (
       <>
-        <Container>
+        <Container id="checkInContainer">
           <Row id="clientInfoRow">
             <div id="clientInfo">
-              <h1>Hi, {this.props.account.name}</h1>
-              <h3>
+              <h1 id="accountName">Hi, {this.props.account.name}</h1>
+              <h3 id="houseId">
                 Household ID: <strong>{this.props.account.household_id}</strong>
               </h3>
-              <h3>Last pickup: {this.props.account.last_pickup}</h3>
+              <h3 id="lastPickup">Last pickup: {this.props.account.last_pickup}</h3>
             </div>
           </Row>
+          <div id="orangeBox"></div>
           <Row>
             {this.state.showCheckIn && (
               <div id="clientInput">
@@ -66,16 +69,16 @@ class CheckIn extends React.Component {
               </div>
             )}
           </Row>
-          <Row>
+          <Form.Row xs={12}>
             {this.state.showQuestions && (
               <>
                 <div id="clientQuestions">
-                  <label htmlFor="foodRestrictions">
+                  <label htmlFor="foodRestrictions" id="foodRestrictionsLabel">
                     Please list any food restrictions here:
                     <br></br>
                     <textarea
-                      rows="4"
-                      cols="30"
+                      rows="2"
+                      cols="40"
                       name="foodRestrictions"
                       value={this.state.dietaryRestrictions}
                       onChange={(event) =>
@@ -87,11 +90,12 @@ class CheckIn extends React.Component {
                     ></textarea>
                   </label>
                   <br></br>
-                  <label htmlFor="walking">
+                  <label htmlFor="walking" className="checkboxLabel">
                     Are you walking home?
                     <input
                       type="checkbox"
-                      id="walkingHomeYes"
+                      id="walkingHome"
+                      className="check"
                       name="walkingHome"
                       checked={this.state.walkingHome}
                       onChange={() =>
@@ -100,12 +104,13 @@ class CheckIn extends React.Component {
                     />
                   </label>
                   <br></br>
-                  <label htmlFor="birthday">
+                  <label htmlFor="birthday" className="checkboxLabel">
                     Is there a child in the household with a birthday in the
                     next 2 months?
                     <input
                       type="checkbox"
-                      id="childBirthdayYes"
+                      id="childBirthday"
+                      className="check"
                       name="birthday"
                       checked={this.state.childBirthday}
                       onChange={() =>
@@ -116,11 +121,12 @@ class CheckIn extends React.Component {
                     />
                   </label>
                   <br></br>
-                  <label htmlFor="pregnant">
+                  <label htmlFor="pregnant" className="checkboxLabel">
                     Is there a woman in the household who is pregnant?
                     <input
                       type="checkbox"
                       id="pregnant"
+                      className="check"
                       name="pregnant"
                       checked={this.state.pregnant}
                       onChange={() =>
@@ -129,11 +135,12 @@ class CheckIn extends React.Component {
                     />
                   </label>
                   <br></br>
-                  <label htmlFor="pregnant">
+                  <label htmlFor="snap" className="checkboxLabel">
                     Are you currently receiving SNAP?
                     <input
                       type="checkbox"
                       id="snap"
+                      className="check"
                       name="snap"
                       checked={this.state.snap}
                       onChange={() => this.setState({ snap: !this.state.snap })}
@@ -166,11 +173,12 @@ class CheckIn extends React.Component {
                 </div>
               </>
             )}
-          </Row>
+          </Form.Row>
           {this.state.showSuccess && (
             <div id="clientInput">
               <h3>Thank you, we have received your order!</h3>
               <p>We will be with you in about 15 minutes.</p>
+              <p>You may now log out.</p>
             </div>
           )}
         </Container>

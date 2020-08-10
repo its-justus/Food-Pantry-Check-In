@@ -53,6 +53,7 @@ header {
   position: absolute;
   top: auto;
   right: 0;
+  margin-right: 15px;
 }
 
 #logoutButton:hover {

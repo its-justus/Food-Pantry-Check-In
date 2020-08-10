@@ -6,6 +6,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import Toast from "react-bootstrap/Toast";
+import Footer from "../Footer/Footer";
 import "./RegisterPage.css";
 
 

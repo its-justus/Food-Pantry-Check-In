@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Toast from "react-bootstrap/Toast";
+import Footer from "../Footer/Footer";
 import "./LoginPage.css";
 
 class LoginPage extends Component {
@@ -44,11 +45,11 @@ class LoginPage extends Component {
     return (
       <div id="loginBody">
         <div id="logoDiv">
-          <img src="EFP_Logo_Color.png" alt="EFP Logo" id="efpLogo"/>
+          <img src="EFP_Logo_Color.png" alt="EFP Logo" id="efpLogo" />
         </div>
         <Container id="loginContainer">
           <Row id="loginRow">
-            <Col>
+            <Col lg={true}>
               <Card id="loginCard">
                 <form onSubmit={this.login}>
                   <div id="welcomeDiv">
@@ -87,6 +88,7 @@ class LoginPage extends Component {
                     />
                   </div>
                 </form>
+                {this.props.errors.loginMessage && (<p id="errorP">{this.props.errors.loginMessage}</p>)}
               </Card>
             </Col>
           </Row>
@@ -100,8 +102,8 @@ class LoginPage extends Component {
           </Row>
           <Row>
             <div id="errorDiv">
-              {this.props.errors.loginMessage && (
-                <Toast style={{ border: "1px solid #b13324" }}>
+              {/* {this.props.errors.loginMessage && (
+                <Toast style={{ border: "1px solid #b13324" }}> */}
                   {/* <Toast.Header>
                     <img
                       src="holder.js/20x20?text=%20"
@@ -113,9 +115,9 @@ class LoginPage extends Component {
                       !
                     </strong>
                   </Toast.Header> */}
-                  <Toast.Body>{this.props.errors.loginMessage}</Toast.Body>
+                  {/* <Toast.Body>{this.props.errors.loginMessage}</Toast.Body>
                 </Toast>
-              )}
+              )} */}
             </div>
           </Row>
         </Container>

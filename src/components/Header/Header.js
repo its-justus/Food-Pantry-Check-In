@@ -8,11 +8,11 @@ import { connect } from "react-redux";
 import "./Header.css";
 
 const Header = (props) => (
-  <AppBar position="static" id="navBar">
+  <AppBar position="static" id="navBar" xs={12}>
     <Toolbar>
-      <IconButton edge="start" aria-label="menu">
+      {/* <IconButton edge="start" aria-label="menu">
         <MenuIcon style={{ fill: "#faaf46" }} />
-      </IconButton>
+      </IconButton> */}
       <Typography id="navTitle">Emergency Food Pantry</Typography>
       <button
         id="logoutButton"
@@ -21,14 +21,6 @@ const Header = (props) => (
         Log Out
       </button>
     </Toolbar>
-    {/* <div id="navRight">
-      <button
-        id="logoutButton"
-        onClick={() => props.dispatch({ type: "LOGOUT" })}
-      >
-        Log Out
-      </button>
-    </div> */}
   </AppBar>
 );
 
