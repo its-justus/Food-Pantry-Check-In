@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 //this component is for the dashboard view that is seen by the volunteers
 class Dashboard extends Component {
   state = {
-    orderID: ''
+    orderObj: {}
   }
 
 	componentDidMount = () => {
@@ -14,6 +14,9 @@ class Dashboard extends Component {
 		setInterval(() => this.props.dispatch({type: "FETCH_COMPLETE_ORDERS"}), 10*1000);
 	}
   
+  setLocalStateObj = (order) => {
+    this.setState({ orderObj: order })
+  }
 
   render() {
     return (
@@ -25,7 +28,11 @@ class Dashboard extends Component {
                 {this.props.activeOrders?.map((cur, i) => (
                   <li>
                     <button
+<<<<<<< HEAD
                       onClick={() => this.setState({ orderID: cur.id })}
+=======
+                      onClick={() => this.setLocalStateObj(cur)}
+>>>>>>> c05288b5c90262e3d4a41cce739325c6c8d3904b
                     >{cur.name}
                     </button>
                   </li>
@@ -48,41 +55,47 @@ class Dashboard extends Component {
                   <b>Food Restrictions</b>
                 </span>
                 <span>
-                  {this.props.activeOrders.name} snobby eats everything. He's
-                  like a marauding Komodo dragon when it comes to food. Give him
-                  everything, he can handle it all.
-                  {/* {this.props.activeOrders.filter(order => order.id = this.state.orderID)} */}
+                  {this.state.orderObj.name}
                 </span>
                 <br />
                 <span>
-                  Walking home: {this.props.activeOrders.walking_home}
+                  Walking home: {this.state.orderObj.walking_home}
                 </span>
                 <br />
                 <span>
                   Child Birthday coming up:
-                  {this.props.activeOrders.child_birthday}
+                  {this.state.orderObj.child_birthday}
                 </span>
                 <br />
                 <span>
                   Someone at home is pregnant:
-                  {this.props.activeOrders.pregnant}
+                  {this.state.orderObj.pregnant}
                 </span>
                 <br />
-                <button className="btn btn-large btn-primary" type="submit">
-                  Check in
+                <span>
+                  Dietary restrictions:
+                  {this.state.orderObj.dietary_restrictions}
+                </span>
+                <br />
+                <button
+                  disabled={this.state.orderObj.checkout_at}
+                  className="btn btn-large btn-primary"
+                  onClick={() => this.props.dispatch({ type: 'ORDER_CHECKOUT', payload: this.state.orderObj.id })}
+                >
+                  Check In
                 </button>
-                <button className="btn btn-large btn-primary" type="submit">
-                  Eligible
-                </button>
+                <div>Eligible</div>
               </body>
             </form>
           </div>
           <div className="span6">
             <form>
               <ul>
-                {this.props.completeOrders?.map((complete, i) => (
+                {this.props.completeOrders?.map((complete) => (
                   <li>
-                    <button>{complete.name}</button>
+                    <button
+                      onClick={() => this.setLocalStateObj(complete)}
+                      >{complete.name}</button>
                   </li>
                 ))}
               </ul>
