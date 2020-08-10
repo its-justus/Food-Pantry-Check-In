@@ -9,9 +9,9 @@ class Dashboard extends Component {
 
 	componentDidMount = () => {
 		this.props.dispatch({type: "FETCH_ACTIVE_ORDERS"});
-		setInterval(() => this.props.dispatch({type: "FETCH_ACTIVE_ORDERS"}), 10*1000);
+		setInterval(() => this.props.dispatch({type: "FETCH_ACTIVE_ORDERS"}), 20*1000);
 		this.props.dispatch({type: "FETCH_COMPLETE_ORDERS"});
-		setInterval(() => this.props.dispatch({type: "FETCH_COMPLETE_ORDERS"}), 10*1000);
+		setInterval(() => this.props.dispatch({type: "FETCH_COMPLETE_ORDERS"}), 20*1000);
 	}
   
   setLocalStateObj = (order) => {
@@ -43,17 +43,10 @@ class Dashboard extends Component {
           <div className="span6">
             <form>
               <header className="header">
-                <h3>{this.props.activeOrders.name}</h3>
-                <h4>ID: {this.props.activeOrders.account_id}</h4>
+                <h3>{this.state.orderObj.name}</h3>
+                <h4>ID: {this.state.orderObj.account_id}</h4>
               </header>
               <body id="dashBody">
-                <span>
-                  <b>Food Restrictions</b>
-                </span>
-                <span>
-                  {this.state.orderObj.name}
-                </span>
-                <br />
                 <span>
                   Walking home: {this.state.orderObj.walking_home}
                 </span>
