@@ -9,9 +9,9 @@ class Dashboard extends Component {
 
 	componentDidMount = () => {
 		this.props.dispatch({type: "FETCH_ACTIVE_ORDERS"});
-		// setInterval(() => this.props.dispatch({type: "FETCH_ACTIVE_ORDERS"}), 10*1000);
+		setInterval(() => this.props.dispatch({type: "FETCH_ACTIVE_ORDERS"}), 10*1000);
 		this.props.dispatch({type: "FETCH_COMPLETE_ORDERS"});
-		// setInterval(() => this.props.dispatch({type: "FETCH_COMPLETE_ORDERS"}), 10*1000);
+		setInterval(() => this.props.dispatch({type: "FETCH_COMPLETE_ORDERS"}), 10*1000);
 	}
   
   setLocalStateObj = (order) => {
@@ -51,9 +51,7 @@ class Dashboard extends Component {
                   <b>Food Restrictions</b>
                 </span>
                 <span>
-                  {this.state.orderObj.name} snobby eats everything. He's
-                  like a marauding Komodo dragon when it comes to food. Give him
-                  everything, he can handle it all.
+                  {this.state.orderObj.name}
                 </span>
                 <br />
                 <span>
@@ -76,10 +74,11 @@ class Dashboard extends Component {
                 </span>
                 <br />
                 <button
+                  disabled={this.state.orderObj.checkout_at}
                   className="btn btn-large btn-primary"
                   onClick={() => this.props.dispatch({ type: 'ORDER_CHECKOUT', payload: this.state.orderObj.id })}
                 >
-                  Check in
+                  Check In
                 </button>
                 <div>Eligible</div>
               </body>
