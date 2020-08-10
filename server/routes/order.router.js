@@ -15,6 +15,7 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
       LEFT JOIN profile ON account.id = profile.account_id;`;
     query.values = [];
     const result = await conn.query(query.text, query.values);
+    conn.release();
     res.status(200).send(result.rows);
   } catch (error) {
     console.log('Error GET /api/order', error);
@@ -33,6 +34,7 @@ router.get('/active', rejectUnauthenticated, async (req, res) => {
       ORDER BY checkin_at DESC;`;
     query.values = [];
     const result = await conn.query(query.text, query.values);
+    conn.release();
     res.status(200).send(result.rows);
   } catch (error) {
     console.log('Error GET /api/order/active', error);
@@ -53,6 +55,7 @@ router.get('/complete/today', rejectUnauthenticated, async (req, res) => {
         ORDER BY checkout_at DESC;`;
     query.values = [];
     const result = await conn.query(query.text, query.values);
+    conn.release();
     res.status(200).send(result.rows);
   } catch (error) {
     console.log('Error GET /api/order/active', error);
@@ -72,7 +75,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
   if (!locationID ||
     !dietaryRestrictions ||
     typeof walkingHome !== 'boolean' ||
-    typeof pregnant !== 'boolean'  ||
+    typeof pregnant !== 'boolean' ||
     typeof childBirthday !== 'boolean'
   ) {
     res.sendStatus(400);
@@ -103,6 +106,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     await conn.query('BEGIN');
     const result = await conn.query(query.text, query.values);
     await conn.query('COMMIT');
+    conn.release();
     res.status(201).send(result.rows[0]);
   } catch (error) {
     await conn.query('ROLLBACK');
@@ -123,6 +127,7 @@ router.put('/checkout/:id', async (req, res) => {
     await conn.query('BEGIN');
     const result = await conn.query(query.text, query.values);
     await conn.query('COMMIT');
+    conn.release();
     res.status(200).send(result.rows);
   } catch (error) {
     conn.query('ROLLBACK');
@@ -138,6 +143,7 @@ router.delete('/:id', rejectUnauthenticated, async (req, res) => {
     query.text = 'DELETE FROM "order" WHERE id = $1;';
     query.values = [req.params.id];
     await conn.query(query.text, query.values);
+    conn.release();
     res.sendStatus(204);
   } catch (error) {
     console.log('Error PUT /api/order/checkout/id', error);

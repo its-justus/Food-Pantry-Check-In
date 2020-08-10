@@ -30,6 +30,7 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
     await conn.query('BEGIN');
     const result = await conn.query(query.text, query.values);
     await conn.query('COMMIT');
+    conn.release();
     if (result.rows[0]) {
       res.status(200).send(result.rows[0]);
     } else {
@@ -69,6 +70,7 @@ router.post('/', async (req, res) => {
     accountQuery.values = [result.rows[0].id, houseId];
     await conn.query(accountQuery.text, accountQuery.values);
     await conn.query('COMMIT');
+    conn.release();
     res.status(200).send(result.rows[0]);
   } catch (error) {
     conn.query('ROLLBACK');
@@ -94,6 +96,7 @@ router.put('/:id', rejectUnauthenticated, async (req, res) => {
     await conn.query('BEGIN');
     const result = await conn.query(query.text, query.values);
     await conn.query('COMMIT');
+    conn.release();
     res.status(200).send(result.rows);
   } catch (error) {
     conn.query('ROLLBACK');
@@ -119,6 +122,7 @@ router.delete('/:id', rejectUnauthenticated, async (req, res) => {
     await conn.query('BEGIN');
     await conn.query(query.text, query.values);
     await conn.query('COMMIT');
+    conn.release();
     res.sendStatus(204);
   } catch (error) {
     conn.query('ROLLBACK');
