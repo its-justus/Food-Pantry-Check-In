@@ -1,7 +1,7 @@
 .dashBoard {
   text-align: center;
   display: flex;
-  flex-wrap: nowrap;
+  flex-flow: row wrap;
   align-items: center;
   justify-content: center;
   padding: inherit;

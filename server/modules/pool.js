@@ -17,7 +17,7 @@ if (process.env.DATABASE_URL) {
     database: params.pathname.split('/')[1],
     ssl: { rejectUnauthorized: false },
     // Max number of clients in the pool
-    max: 10,
+    max: 20,
     // How long a client is allowed to remain idle before being closed.
     idleTimeoutMillis: 30000
   };

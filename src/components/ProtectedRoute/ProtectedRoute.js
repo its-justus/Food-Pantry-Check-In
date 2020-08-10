@@ -1,18 +1,13 @@
-import React from "react";
-import { Route } from "react-router-dom";
-import { connect } from "react-redux";
-import LoginPage from "../LoginPage/LoginPage";
-import RegisterPage from "../RegisterPage/RegisterPage";
+import React from 'react';
+import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import UnauthorizedPage from '../UnauthorizedPage/UnauthorizedPage';
+import LoginPage from '../LoginPage/LoginPage';
+import RegisterPage from '../RegisterPage/RegisterPage';
 
 // A Custom Wrapper Component -- This will keep our code DRY.
 // Responsible for watching redux state, and returning an appropriate component
 // API for this component is the same as a regular route
-
-// THIS IS NOT SECURITY! That must be done on the server
-// A malicious user could change the code and see any view
-// so your server-side route must implement real security
-// by checking req.isAuthenticated for authentication
-// and by checking req.user for authorization
 
 const ProtectedRoute = (props) => {
   // Using destructuring, this takes ComponentToProtect from component
@@ -22,16 +17,20 @@ const ProtectedRoute = (props) => {
     component: ComponentToProtect,
     account,
     login,
+    minimumAccessLevel,
     ...otherProps
   } = props;
 
   let ComponentToShow;
-
-  if (account.id) {
+  if (account.access_level < minimumAccessLevel) {
+    // If a minimumAccessLevel has been specified then confirm the user who's currently
+    // logged in has a sufficient access level and if not show them the unauthorized page.
+    ComponentToShow = UnauthorizedPage;
+  } else if (account.id) {
     // if the user is logged in (only logged in users have ids)
     // show the component that is protected
     ComponentToShow = ComponentToProtect;
-  } else if (login === "login") {
+  } else if (login === 'login') {
     // if they are not logged in, check the loginMode on Redux State
     // if the mode is 'login', show the LoginPage
     ComponentToShow = LoginPage;
@@ -55,7 +54,7 @@ const ProtectedRoute = (props) => {
 const mapStateToProps = (state) => {
   return {
     account: state.account,
-    login: state.login,
+    login: state.login
   };
 };
 
