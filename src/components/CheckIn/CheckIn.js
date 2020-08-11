@@ -14,6 +14,7 @@ class CheckIn extends React.Component {
     pregnant: false,
     childBirthday: false,
     snap: false,
+    other: "",
     showCheckIn: true,
     showQuestions: false,
     showSuccess: false,
@@ -147,6 +148,22 @@ class CheckIn extends React.Component {
                       name="snap"
                       checked={this.state.snap}
                       onChange={() => this.setState({ snap: !this.state.snap })}
+                    />
+                  </label>
+                  <br></br>
+                  <label htmlFor="other" className="checkboxLabel">
+                    Please list any other needs:
+                    <br></br>
+                    <textarea
+                      rows="2"
+                      cols="40"
+                      id="other"
+                      name="other"
+                      placeholder="Example: Baby supplies, hygiene, pet needs"
+                      checked={this.state.other}
+                      onChange={() =>
+                        this.setState({ snap: !this.state.other })
+                      }
                     />
                   </label>
                   <br></br>
