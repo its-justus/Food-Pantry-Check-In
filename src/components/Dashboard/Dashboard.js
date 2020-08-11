@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import ManualOrder from "./ManualOrder";
 
 //this component is for the dashboard view that is seen by the volunteers
 class Dashboard extends Component {
@@ -105,6 +106,7 @@ class Dashboard extends Component {
               </ul>
             </form>
           </div>
+          <ManualOrder />
         </div>
       </>
     );
