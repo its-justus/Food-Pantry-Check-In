@@ -14,6 +14,7 @@ class ManualOrder extends Component {
     childBirthday: false,
     snap: false,
     waitTime: '',
+    houseHoldId: '',
   };
 
   render() {
@@ -25,7 +26,18 @@ class ManualOrder extends Component {
             <div id="clientInfo">
               <h1 id="accountName">Hi, </h1>
               <h3 id="houseId">
-                Household ID:
+                <label htmlFor="houseHoldId" >
+                  Enter Household ID:
+                    <br></br>
+                  <input
+                    type="number"
+                    name="houseHoldId"
+                    value={this.state.houseHoldId}
+                    onChange={(event) =>
+                      this.setState({ houseHoldId: event.target.value })
+                    }
+                  />
+                   </label>
               </h3>
               <h3 id="lastPickup">
                 Last pickup:
