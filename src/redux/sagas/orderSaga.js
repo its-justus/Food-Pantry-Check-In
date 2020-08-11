@@ -1,11 +1,12 @@
 import axios from 'axios';
-import { takeLatest } from 'redux-saga/effects';
+import { takeLatest, put } from 'redux-saga/effects';
 
 function* submitCheckIn(action) {
   console.log('action.payload', action.payload);
   try {
     yield axios.post('/api/order', action.payload);
   } catch (error) {
+    yield put({ type: 'SET_ORDER_PLACEMENT_ERROR' });
     console.log('User get request failed', error);
   }
 }

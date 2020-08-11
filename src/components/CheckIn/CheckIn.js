@@ -171,6 +171,7 @@ class CheckIn extends React.Component {
                   <button
                     id="submitButton"
                     onClick={() => {
+                      this.props.dispatch({ type: 'CLEAR_ORDER_PLACEMENT_ERROR' });
                       this.props.dispatch({
                         type: "SUBMIT_ORDER",
                         payload: {
