@@ -35,6 +35,8 @@ CREATE TABLE "order" (
 	"walking_home" BOOLEAN NOT NULL DEFAULT 'false',
 	"pregnant" BOOLEAN NOT NULL DEFAULT 'false',
 	"child_birthday" BOOLEAN NOT NULL DEFAULT 'false',
+	"snap" BOOLEAN NOT NULL DEFAULT 'false',
+	"other" TEXT,
 	CONSTRAINT "order_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
