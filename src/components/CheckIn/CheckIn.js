@@ -167,24 +167,6 @@ class CheckIn extends React.Component {
                     />
                   </label>
                   <br></br>
-                  <label htmlFor="waitTime">
-                    Estimated Wait Time:
-                    <br></br>
-                    <textarea
-                      type="number"
-                      name="waitTime"
-                      min="5"
-                      max="45"
-                      value={this.state.waitTime}
-                      onChange={(event) =>
-                        this.setState({
-                          waitTime: event.target.value,
-                        })
-                      }
-                      placeholder="Wait time:"
-                    ></textarea>
-                  </label>
-                  <br></br>
                   <button
                     id="submitButton"
                     onClick={() => {
@@ -216,7 +198,7 @@ class CheckIn extends React.Component {
           {this.state.showSuccess && (
             <div id="clientInput">
               <h3>Thank you, we have received your order!</h3>
-              <p>We will be with you in about {this.state.waitTime} minutes.</p>
+              <p>We will be with you in about {this.props.waitTime}.</p>
               <p>You may now log out.</p>
             </div>
           )}
@@ -228,6 +210,7 @@ class CheckIn extends React.Component {
 
 const mapStateToProps = (state) => ({
   account: state.account,
+  waitTime: state.waitTime,
 });
 
 export default connect(mapStateToProps)(CheckIn);

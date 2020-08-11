@@ -11,8 +11,13 @@ function* submitCheckIn(action) {
   }
 }
 
+function* setWaitTime(action) {
+    yield put({ type: "SET_WAIT_TIME", payload: action.payload });
+}
+
 function* accountSaga() {
   yield takeLatest('SUBMIT_ORDER', submitCheckIn);
+  yield takeLatest('WAIT_TIME', setWaitTime)
 }
 
 export default accountSaga;
