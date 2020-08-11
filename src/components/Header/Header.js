@@ -2,18 +2,24 @@ import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
+// import IconButton from "@material-ui/core/IconButton";
+// import MenuIcon from "@material-ui/icons/Menu";
 import { connect } from "react-redux";
 import "./Header.css";
 
 const Header = (props) => (
-  <AppBar position="static" id="navBar">
+  <AppBar position="static" id="navBar" xs={12}>
     <Toolbar>
-      <IconButton edge="start" aria-label="menu">
+      {/* <IconButton edge="start" aria-label="menu">
         <MenuIcon style={{ fill: "#faaf46" }} />
-      </IconButton>
+      </IconButton> */}
       <Typography id="navTitle">Emergency Food Pantry</Typography>
+      <button
+        id="logoutButton"
+        onClick={() => props.dispatch({ type: "LOGOUT" })}
+      >
+        Log Out
+      </button>
     </Toolbar>
     <div id="navRight">
       <button
