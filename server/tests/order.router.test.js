@@ -25,6 +25,7 @@ const dietaryRestrictions = 'Dairy';
 const walkingHome = false;
 const pregnant = false;
 const childBirthday = true;
+const snap = true;
 
 describe('Normal client with access level 1 for /api/order', () => {
   describe('POST to login /api/account/login', () => {
@@ -64,7 +65,8 @@ describe('Normal client with access level 1 for /api/order', () => {
           dietary_restrictions: dietaryRestrictions,
           walking_home: walkingHome,
           pregnant: pregnant,
-          child_birthday: childBirthday
+          child_birthday: childBirthday,
+          snap: snap
         })
         .expect(201);
       expect(res.body).toEqual({
@@ -76,7 +78,8 @@ describe('Normal client with access level 1 for /api/order', () => {
         dietary_restrictions: dietaryRestrictions,
         walking_home: walkingHome,
         pregnant: pregnant,
-        child_birthday: childBirthday
+        child_birthday: childBirthday,
+        snap: snap
       });
       done();
     });

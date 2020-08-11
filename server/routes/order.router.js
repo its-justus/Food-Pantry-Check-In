@@ -71,12 +71,14 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
   const walkingHome = req.body.walking_home;
   const pregnant = req.body.pregnant;
   const childBirthday = req.body.child_birthday;
+  const snap = req.body.snap;
 
   if (!locationID ||
-    !dietaryRestrictions ||
+    typeof dietaryRestrictions !== 'string' ||
     typeof walkingHome !== 'boolean' ||
     typeof pregnant !== 'boolean' ||
-    typeof childBirthday !== 'boolean'
+    typeof childBirthday !== 'boolean' ||
+    typeof snap !== 'boolean'
   ) {
     res.sendStatus(400);
     return;
