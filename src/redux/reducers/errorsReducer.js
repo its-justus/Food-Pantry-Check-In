@@ -32,10 +32,22 @@ const registrationMessage = (state = "", action) => {
   }
 };
 
+const orderMessage = (state = "", action) => {
+  switch (action.type) {
+    case "SET_ORDER_PLACEMENT_ERROR":
+      return 'Error placing order, please try again.';
+    case "CLEAR_ORDER_PLACEMENT_ERROR":
+      return '';
+    default:
+      return state;
+  }
+};
+
 // make one object that has keys loginMessage, registrationMessage
 // these will be on the redux state at:
 // state.errors.loginMessage and state.errors.registrationMessage
 export default combineReducers({
   loginMessage,
   registrationMessage,
+  orderMessage,
 });
