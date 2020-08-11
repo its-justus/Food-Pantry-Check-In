@@ -175,7 +175,6 @@ class CheckIn extends React.Component {
                       this.props.dispatch({
                         type: "SUBMIT_ORDER",
                         payload: {
-                          parking: "",
                           location_id: this.state.locationID,
                           dietary_restrictions: this.state.dietaryRestrictions,
                           walking_home: this.state.walkingHome,

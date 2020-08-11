@@ -71,12 +71,16 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
   const walkingHome = req.body.walking_home;
   const pregnant = req.body.pregnant;
   const childBirthday = req.body.child_birthday;
+  const snap = req.body.snap;
+  const other = req.body.other;
 
   if (!locationID ||
-    !dietaryRestrictions ||
+    typeof dietaryRestrictions !== 'string' ||
     typeof walkingHome !== 'boolean' ||
     typeof pregnant !== 'boolean' ||
-    typeof childBirthday !== 'boolean'
+    typeof childBirthday !== 'boolean' ||
+    typeof snap !== 'boolean' ||
+    typeof other !== 'string'
   ) {
     res.sendStatus(400);
     return;
@@ -91,9 +95,11 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
       dietary_restrictions,
       walking_home,
       pregnant,
-      child_birthday
+      child_birthday,
+      snap,
+      other
       )
-      VALUES ($1, $2, $3, $4, $5, $6)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
       RETURNING *;`;
     query.values = [
       accountID,
@@ -101,7 +107,9 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
       dietaryRestrictions,
       walkingHome,
       pregnant,
-      childBirthday
+      childBirthday,
+      snap,
+      other
     ];
     await conn.query('BEGIN');
     const result = await conn.query(query.text, query.values);
