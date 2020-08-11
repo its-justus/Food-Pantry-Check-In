@@ -26,6 +26,7 @@ const walkingHome = false;
 const pregnant = false;
 const childBirthday = true;
 const snap = true;
+const other = 'Love and attention';
 
 describe('Normal client with access level 1 for /api/order', () => {
   describe('POST to login /api/account/login', () => {
@@ -66,7 +67,8 @@ describe('Normal client with access level 1 for /api/order', () => {
           walking_home: walkingHome,
           pregnant: pregnant,
           child_birthday: childBirthday,
-          snap: snap
+          snap: snap,
+          other: other
         })
         .expect(201);
       expect(res.body).toEqual({
@@ -79,7 +81,8 @@ describe('Normal client with access level 1 for /api/order', () => {
         walking_home: walkingHome,
         pregnant: pregnant,
         child_birthday: childBirthday,
-        snap: snap
+        snap: snap,
+        other: other
       });
       done();
     });
