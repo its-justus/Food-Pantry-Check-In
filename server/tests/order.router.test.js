@@ -1,18 +1,22 @@
 const app = require('../server');
 const request = require('supertest');
-// const pool = require('../modules/pool');
+const pool = require('../modules/pool');
 
-// beforeAll(async (done) => {
-//   await pool.query(
-//     "INSERT INTO location (id, description) VALUES (1234567, 'order test location');"
-//   );
-//   done();
-// });
+const locationID = 1234567;
+const locationDescription = 'order test location';
 
-// afterAll(async (done) => {
-//   await pool.query("DELETE FROM location WHERE id = 1234567;");
-//   done();
-// });
+beforeAll(async (done) => {
+  await pool.query(
+    `INSERT INTO location (id, description) VALUES (${locationID}, ${locationDescription});`
+  );
+  done();
+});
+
+afterAll(async (done) => {
+  await pool.query(`DELETE FROM order WHERE location_id = ${locationID};`);
+  await pool.query(`DELETE FROM location WHERE location_id = ${locationID};`);
+  done();
+});
 
 const testUser = request.agent(app);
 const testUserID = 2;
@@ -20,7 +24,6 @@ const testUserName = 'test_order';
 const testUserEmail = 'test_order@email.com';
 const testUserPassword = 'test_order_password';
 
-const locationID = 1234567;
 const dietaryRestrictions = 'Dairy';
 const walkingHome = false;
 const pregnant = false;
