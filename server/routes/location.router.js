@@ -28,6 +28,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     await conn.query('BEGIN');
     const locationInsertResults = await conn.query(query.text, query.values);
     await conn.query('COMMIT');
+    conn.release();
     res.status(200).send(locationInsertResults.rows[0]);
   } catch (error) {
     await conn.query('ROLLBACK');
@@ -59,6 +60,7 @@ router.put('/:id', rejectUnauthenticated, async (req, res) => {
     await conn.query('BEGIN');
     const result = await conn.query(query.text, query.values);
     await conn.query('COMMIT');
+    conn.release();
     res.status(200).send(result.rows[0]);
   } catch (error) {
     conn.query('ROLLBACK');
@@ -75,6 +77,7 @@ router.get('/', async (req, res) => {
     await conn.query('BEGIN');
     const result = await conn.query(query.text);
     await conn.query('COMMIT');
+    conn.release();
     res.status(200).send(result.rows);
   } catch (error) {
     conn.query('ROLLBACK');
@@ -100,6 +103,7 @@ router.delete('/:id', rejectUnauthenticated, async (req, res) => {
     await conn.query('BEGIN');
     await conn.query(query.text);
     await conn.query('COMMIT');
+    conn.release();
     res.sentStatus(204);
   } catch (error) {
     conn.query('ROLLBACK');
