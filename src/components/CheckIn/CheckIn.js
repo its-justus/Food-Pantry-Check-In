@@ -16,7 +16,8 @@ class CheckIn extends React.Component {
     snap: false,
     showCheckIn: true,
     showQuestions: false,
-    showSuccess: false
+    showSuccess: false,
+    waitTime: '',
   };
 
   render() {
@@ -30,7 +31,9 @@ class CheckIn extends React.Component {
               <h3 id="houseId">
                 Household ID: <strong>{this.props.account.household_id}</strong>
               </h3>
-              <h3 id="lastPickup">Last pickup: {this.props.account.last_pickup}</h3>
+              <h3 id="lastPickup">
+                Last pickup: {this.props.account.last_pickup}
+              </h3>
             </div>
           </Row>
           <div id="orangeBox"></div>
@@ -147,6 +150,24 @@ class CheckIn extends React.Component {
                     />
                   </label>
                   <br></br>
+                  <label htmlFor="waitTime">
+                    Estimated Wait Time:
+                    <br></br>
+                    <textarea
+                      type="number"
+                      name="waitTime"
+                      min="5"
+                      max="45"
+                      value={this.state.waitTime}
+                      onChange={(event) =>
+                        this.setState({
+                          waitTime: event.target.value,
+                        })
+                      }
+                      placeholder="Wait time:"
+                    ></textarea>
+                  </label>
+                  <br></br>
                   <button
                     id="submitButton"
                     onClick={() => {
@@ -177,7 +198,7 @@ class CheckIn extends React.Component {
           {this.state.showSuccess && (
             <div id="clientInput">
               <h3>Thank you, we have received your order!</h3>
-              <p>We will be with you in about 15 minutes.</p>
+              <p>We will be with you in about {this.state.waitTime} minutes.</p>
               <p>You may now log out.</p>
             </div>
           )}
