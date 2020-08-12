@@ -13,7 +13,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
-// Handles Ajax request for user information if user is authenticated
 router.get('/:id', rejectUnauthenticated, async (req, res) => {
   const accessLevel = req.user.access_level;
   // If the current user doesn't have a high enough access level return unauthorized.
@@ -25,7 +24,10 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
   const conn = await pool.connect();
   try {
     const query = {};
-    query.text = 'SELECT "id", "name", "email", "access_level" FROM "account" WHERE id = $1;';
+    query.text = `SELECT "order".*, account."name", account.email,
+      profile.household_id, profile.last_pickup FROM "order"
+      LEFT JOIN account ON "order".account_id = account.id
+      LEFT JOIN profile ON account.id = profile.account_id;`;
     query.values = [id];
     await conn.query('BEGIN');
     const result = await conn.query(query.text, query.values);
@@ -38,26 +40,7 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
     }
   } catch (error) {
     conn.query('ROLLBACK');
-    console.log('Error POST /account', error);
-    res.sendStatus(500);
-  }
-});
-
-router.get('/:id', rejectUnauthenticated, async (req, res) => {
-  const id = req.params.id;
-  const conn = await pool.connect();
-  try {
-    const query = {};
-    query.text = `SELECT "order".*, account."name", account.email,
-      profile.household_id, profile.last_pickup FROM "order"
-      LEFT JOIN account ON "order".account_id = account.id
-      LEFT JOIN profile ON account.id = profile.account_id;`;
-    query.values = [];
-    const result = await conn.query(query.text, query.values);
-    conn.release();
-    res.status(200).send(result.rows);
-  } catch (error) {
-    console.log(`Error GET /api/order${id}`, error);
+    console.log(`Error GET /api/account/${id}`, error);
     res.sendStatus(500);
   }
 });
