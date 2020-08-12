@@ -1,5 +1,24 @@
-button {
+#efpLogoDash {
+  height: 105px;
+  width: 120px;
+  display: inline-block;
+}
+
+#dashRow {
+  margin-top: 20px;
+}
+
+#clientNameButton {
+  border-radius: 50px;
+  font-size: 20px;
+}
+
+#clientNameButton:hover {
   background-color: white;
+}
+
+button {
+  background-color: transparent;
   border: none;
   color: black;
 }
@@ -8,10 +27,33 @@ thead {
   font-size: 25px;
 }
 
+.dashForm {
+  margin-top: 20px;
+}
+
 #addClient {
   position: absolute;
-  margin-top: 20px;
   margin-bottom: 20px;
+  margin-left: 20px;
+  bottom: 0;
+  left: 0;
+}
+
+#checkInClient {
+  position: absolute;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  bottom: 0;
+  right: 0;
+  background-color: #3ca342;
+  border: 1px solid #3ca342;
+  transition: 200ms;
+}
+
+#checkInClient:hover {
+  background-color: #328a36;
+  border: 1px solid #328a36;
+  transition: 200ms;
 }
 
 .checkboxLabel {
@@ -19,11 +61,67 @@ thead {
   font-size: 18px;
 }
 
-#firstCol {
-  border-right: 1px solid lightgray;
-  height: 100%;
+#firstColTitle {
+  color: white;
+  background-color: #faaf46;
+  padding: 10px;
+  font-size: 30px;
+  margin: 0px;
+  margin-top: -20px;
+}
+
+#secondColTitle {
+  color: white;
+  background-color: #99e0f7;
+  padding: 10px;
+  font-size: 30px;
+  margin: 0px;
+  margin-top: -20px;
+}
+
+#firstCard, #secondCard, #thirdCard {
+  height: 675px;
+  overflow: scroll;
+}
+
+#dashBody {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 75px;
 }
 
 #thirdCol {
-  border-left: 1px solid lightgray;
+  /* border-left: 1px solid lightgray; */
+  height: 675px;
+  overflow: scroll;
+}
+
+#thirdColTitle {
+  color: white;
+  background-color: #99d498;
+  padding: 10px;
+  font-size: 30px;
+  margin: 0px;
+  margin-top: -20px;
+}
+
+#checkedInItem{
+  border-bottom: 1px solid #99d498;
+  font-size: 20px;
+}
+
+#orangeDiv {
+  width: 100%;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+#dashboardTitle {
+  display: inline-block;
+  font-family: 'Signika', sans-serif;
+  font-weight: bolder;
+}
+
+.clientInformation {
+  font-size: 20px;
 }
