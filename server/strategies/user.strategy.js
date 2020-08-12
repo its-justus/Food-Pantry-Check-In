@@ -8,7 +8,13 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  pool.query('SELECT * FROM "account" WHERE id = $1', [id])
+  pool.query(`SELECT row_to_json("order".*) AS latest_order, account."name", account.email,
+              account.access_level, profile.household_id FROM "order"
+              LEFT JOIN account ON "order".account_id = account.id
+              LEFT JOIN profile ON "order".account_id = profile.account_id
+              WHERE account.id = $1
+              ORDER BY "order".checkout_at DESC
+              LIMIT 1;`, [id])
     .then((result) => {
       // Handle Errors
       const user = result && result.rows && result.rows[0];
@@ -17,21 +23,7 @@ passport.deserializeUser((id, done) => {
         // user found
         delete user.password; // remove password so it doesn't get sent
         // done takes an error (null in this case) and a user
-        pool.query('SELECT household_id, dietary_restrictions, last_pickup FROM "profile" WHERE account_id = $1;', [user.id])
-          .then(result => {
-            // If the current user has a household_id in the "profile" table return the
-            // household_id so it's stored in the passport user session.
-            if (result.rows[0]) {
-              done(null, {
-                ...user,
-                household_id: result.rows[0].household_id,
-                dietary_restrictions: result.rows[0].dietary_restrictions,
-                last_pickup: result.rows[0].last_pickup
-              });
-            } else {
-              done(null, user);
-            }
-          });
+        done(null, user);
       } else {
         // user not found
         // done takes an error (null in this case) and a user (also null in this case)
