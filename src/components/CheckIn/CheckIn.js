@@ -179,7 +179,8 @@ class CheckIn extends React.Component {
                           walking_home: this.state.walkingHome,
                           pregnant: this.state.pregnant,
                           child_birthday: this.state.childBirthday,
-                          snap: this.state.snap,
+													snap: this.state.snap,
+													other: this.state.other,
                         },
                       });
                       this.setState({
