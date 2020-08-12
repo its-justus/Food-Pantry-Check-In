@@ -147,7 +147,9 @@ describe('Test an admin account', () => {
         id: 1,
         name: expect.any(String),
         email: adminEmail,
-        access_level: 100
+        access_level: 100,
+        household_id: null,
+        latest_order: null
       });
       done();
     });
@@ -162,7 +164,9 @@ describe('Test an admin account', () => {
         id: newUserId,
         name: newUserName,
         email: newUserEmail,
-        access_level: 1
+        access_level: 1,
+        household_id: newUserHouseholdID,
+        latest_order: null
       });
       done();
     });

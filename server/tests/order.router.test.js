@@ -54,7 +54,9 @@ describe('Normal client with access level 1 for /api/order', () => {
         id: testUserID,
         name: testUserName,
         email: testUserEmail,
-        access_level: 1
+        access_level: 1,
+        household_id: 2,
+        latest_order: expect.any(Number)
       });
       done();
     });
