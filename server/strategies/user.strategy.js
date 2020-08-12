@@ -8,7 +8,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  pool.query(`SELECT row_to_json("order".*) AS latest_order, account."name", account.email,
+  pool.query(`SELECT row_to_json("order".*) AS latest_order, account."id", account."name", account.email,
               account.access_level, profile.household_id FROM "order"
               LEFT JOIN account ON "order".account_id = account.id
               LEFT JOIN profile ON "order".account_id = profile.account_id

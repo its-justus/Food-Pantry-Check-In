@@ -24,7 +24,7 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
   const conn = await pool.connect();
   try {
     const query = {};
-    query.text = `SELECT row_to_json("order".*) AS latest_order, account."name", account.email,
+    query.text = `SELECT row_to_json("order".*) AS latest_order, account."id", account."name", account.email,
                   account.access_level, profile.household_id FROM "order"
                   LEFT JOIN account ON "order".account_id = account.id
                   LEFT JOIN profile ON "order".account_id = profile.account_id
