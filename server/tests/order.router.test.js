@@ -3,20 +3,6 @@ const request = require('supertest');
 const pool = require('../modules/pool');
 
 const locationID = 1234567;
-const locationDescription = 'order test location';
-
-beforeAll(async (done) => {
-  await pool.query(
-    `INSERT INTO location (id, description) VALUES (${locationID}, ${locationDescription});`
-  );
-  done();
-});
-
-afterAll(async (done) => {
-  await pool.query(`DELETE FROM order WHERE location_id = ${locationID};`);
-  await pool.query(`DELETE FROM location WHERE location_id = ${locationID};`);
-  done();
-});
 
 const testUser = request.agent(app);
 const testUserID = 2;
@@ -30,6 +16,14 @@ const pregnant = false;
 const childBirthday = true;
 const snap = true;
 const other = 'Love and attention';
+
+afterAll(async (done) => {
+  // Normally we don''t delete orders so set the test account's most recent order to null
+  // since that's a foreign key so we can delete the order that was just added.
+  await pool.query(`UPDATE profile SET latest_order = null WHERE account_id = ${testUserID};`);
+  await pool.query(`DELETE FROM "order" WHERE account_id = ${testUserID};`);
+  done();
+});
 
 describe('Normal client with access level 1 for /api/order', () => {
   describe('POST to login /api/account/login', () => {
@@ -55,8 +49,8 @@ describe('Normal client with access level 1 for /api/order', () => {
         name: testUserName,
         email: testUserEmail,
         access_level: 1,
-        household_id: 2,
-        latest_order: expect.any(Number)
+        household_id: '2',
+        latest_order: null
       });
       done();
     });
