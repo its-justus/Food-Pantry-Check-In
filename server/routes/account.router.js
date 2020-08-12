@@ -43,6 +43,43 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
   }
 });
 
+router.get('/:id', rejectUnauthenticated, async (req, res) => {
+  const id = req.params.id;
+  const conn = await pool.connect();
+  try {
+    const query = {};
+    query.text = `SELECT "order".*, account."name", account.email,
+      profile.household_id, profile.last_pickup FROM "order"
+      LEFT JOIN account ON "order".account_id = account.id
+      LEFT JOIN profile ON account.id = profile.account_id;`;
+    query.values = [];
+    const result = await conn.query(query.text, query.values);
+    conn.release();
+    res.status(200).send(result.rows);
+  } catch (error) {
+    console.log(`Error GET /api/order${id}`, error);
+    res.sendStatus(500);
+  }
+});
+
+// // Return an array with the ids of all members from the input household id.
+// router.get('/household-members/:id', rejectUnauthenticated, async (req, res) => {
+//   const householdID = req.params.id;
+//   const conn = await pool.connect();
+//   try {
+//     const query = {};
+//     query.text = `SELECT account."name", account.email FROM profile JOIN account
+//       ON "profile".account_id = account.id WHERE household_id = $1;`;
+//     query.values = [householdID];
+//     const result = await conn.query(query.text, query.values);
+//     conn.release();
+//     res.status(200).send(result.rows);
+//   } catch (error) {
+//     console.log(`Error GET /api/order/household-id/${householdID}`, error);
+//     res.sendStatus(500);
+//   }
+// });
+
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
