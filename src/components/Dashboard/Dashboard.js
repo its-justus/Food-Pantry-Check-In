@@ -38,8 +38,7 @@ class Dashboard extends Component {
         <Container fluid id="dashContainer">
           <Row>
             <div id="orangeDiv">
-              <img id="efpLogoDash" src="EFP_Logo_Color.png" />
-              {/* <h1 id="dashboardTitle">Volunteer Dashboard</h1> */}
+              <img id="efpLogoDash" src="EFP_Logo_Color.png" alt="EFP Logo"/>
             </div>
           </Row>
           <Row id="dashRow">
