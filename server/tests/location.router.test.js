@@ -5,6 +5,22 @@ const adminUser = request.agent(app);
 const adminEmail = process.env.ADMIN_EMAIL;
 const adminPassword = process.env.ADMIN_PASSWORD;
 
+const locationID = 1234567;
+const locationDescription = 'order test location';
+
+// beforeAll(async (done) => {
+//   await pool.query(
+//     `INSERT INTO location (id, description) VALUES (${locationID}, ${locationDescription});`
+//   );
+//   done();
+// });
+
+// afterAll(async (done) => {
+//   await pool.query(`DELETE FROM order WHERE location_id = ${locationID};`);
+//   await pool.query(`DELETE FROM location WHERE location_id = ${locationID};`);
+//   done();
+// });
+
 let newSpotID = 0;
 
 test('app exists', () => {
