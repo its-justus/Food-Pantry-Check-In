@@ -2,7 +2,6 @@ import axios from 'axios';
 import { takeLatest, put } from 'redux-saga/effects';
 
 function* submitCheckIn(action) {
-  console.log('action.payload', action.payload);
   try {
     yield axios.post('/api/order', action.payload);
   } catch (error) {

@@ -13,7 +13,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
-// Handles Ajax request for user information if user is authenticated
 router.get('/:id', rejectUnauthenticated, async (req, res) => {
   const accessLevel = req.user.access_level;
   // If the current user doesn't have a high enough access level return unauthorized.
@@ -25,7 +24,10 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
   const conn = await pool.connect();
   try {
     const query = {};
-    query.text = 'SELECT "id", "name", "email", "access_level" FROM "account" WHERE id = $1;';
+		query.text = `SELECT account.id, account."name", account.email, account.access_level, profile.*
+			FROM account
+			LEFT JOIN profile ON account.id = profile.account_id
+			WHERE account.id = $1;`;
     query.values = [id];
     await conn.query('BEGIN');
     const result = await conn.query(query.text, query.values);
@@ -38,10 +40,28 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
     }
   } catch (error) {
     conn.query('ROLLBACK');
-    console.log('Error POST /account', error);
+    console.log(`Error GET /api/account/${id}`, error);
     res.sendStatus(500);
   }
 });
+
+// // Return an array with the ids of all members from the input household id.
+// router.get('/household-members/:id', rejectUnauthenticated, async (req, res) => {
+//   const householdID = req.params.id;
+//   const conn = await pool.connect();
+//   try {
+//     const query = {};
+//     query.text = `SELECT account."name", account.email FROM profile JOIN account
+//       ON "profile".account_id = account.id WHERE household_id = $1;`;
+//     query.values = [householdID];
+//     const result = await conn.query(query.text, query.values);
+//     conn.release();
+//     res.status(200).send(result.rows);
+//   } catch (error) {
+//     console.log(`Error GET /api/order/household-id/${householdID}`, error);
+//     res.sendStatus(500);
+//   }
+// });
 
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
