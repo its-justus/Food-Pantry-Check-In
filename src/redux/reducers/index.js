@@ -4,6 +4,7 @@ import errors from "./errorsReducer";
 import account from "./accountReducer";
 import activeOrders from "./activeOrdersReducer";
 import completeOrders from "./completeOrdersReducer";
+import waitTime from "./waitTimeReducer";
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   account,
   activeOrders,
   completeOrders,
+  waitTime,
 });
 
 export default rootReducer;

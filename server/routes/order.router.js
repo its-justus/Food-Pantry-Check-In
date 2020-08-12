@@ -8,13 +8,10 @@ const pool = require('../modules/pool');
 router.get('/', rejectUnauthenticated, async (req, res) => {
   const conn = await pool.connect();
   try {
-    const query = {};
-    query.text = `SELECT "order".*, account."name", account.email,
+    const result = await conn.query(`SELECT "order".*, account."name", account.email,
       profile.household_id, profile.last_pickup FROM "order"
       LEFT JOIN account ON "order".account_id = account.id
-      LEFT JOIN profile ON account.id = profile.account_id;`;
-    query.values = [];
-    const result = await conn.query(query.text, query.values);
+      LEFT JOIN profile ON account.id = profile.account_id;`);
     conn.release();
     res.status(200).send(result.rows);
   } catch (error) {
