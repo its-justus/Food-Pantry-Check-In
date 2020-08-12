@@ -28,10 +28,12 @@ class App extends Component {
           <div>{this.props.errors.orderMessage}</div>
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-            {this.props.account.access_level === 1} ? (
-            <Redirect exact from="/" to="/checkin" /> ) :
-            {this.props.account.access_level >= 10}
-            <Redirect exact from="/" to="/dashboard" />
+            {this.props.account.access_level === 1
+              ? (<Redirect exact from="/login" to="/checkin" />)
+              :
+              this.props.account.access_level >= 10 ? (<Redirect exact from="/login" to="/dashboard" />)
+              : (<Redirect exact from="/" to="/login" />)
+            }
             <Route path="/login">
               <LoginPage />
             </Route>

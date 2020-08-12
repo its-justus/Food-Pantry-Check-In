@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 // import MenuIcon from "@material-ui/icons/Menu";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import "./Header.css";
 
 const Header = (props) => (
@@ -15,16 +16,17 @@ const Header = (props) => (
         <MenuIcon style={{ fill: "#faaf46" }} />
       </IconButton> */}
       <Typography id="navTitle">Emergency Food Pantry</Typography>
-      <Link to='/login'>
         <button
           id="logoutButton"
-          onClick={() => props.dispatch({ type: "LOGOUT" })}
+          onClick={() => {
+            props.dispatch({ type: "LOGOUT" },
+            props.history.push('/login')
+          )}}
         >
           Log Out
         </button>
-      </Link>
     </Toolbar>
   </AppBar>
 );
 
-export default connect()(Header);
+export default (withRouter(connect()(Header)));
