@@ -24,10 +24,10 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
   const conn = await pool.connect();
   try {
     const query = {};
-		query.text = `SELECT account.id, account."name", account.email, account.access_level, profile.*
-			FROM account
-			LEFT JOIN profile ON account.id = profile.account_id
-			WHERE account.id = $1;`;
+    query.text = `SELECT account.id, account."name", account.email, account.access_level,
+                  profile.household_id, profile.latest_order FROM account
+                  LEFT JOIN profile ON account.id = profile.account_id
+                  WHERE account.id = $1;`;
     query.values = [id];
     await conn.query('BEGIN');
     const result = await conn.query(query.text, query.values);
