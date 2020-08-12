@@ -14,6 +14,7 @@ class CheckIn extends React.Component {
     pregnant: false,
     childBirthday: false,
     snap: false,
+    other: "",
     showCheckIn: true,
     showQuestions: false,
     showSuccess: false,
@@ -150,22 +151,20 @@ class CheckIn extends React.Component {
                     />
                   </label>
                   <br></br>
-                  <label htmlFor="waitTime">
-                    Estimated Wait Time:
+                  <label htmlFor="other" className="checkboxLabel">
+                    Please list any other needs:
                     <br></br>
                     <textarea
-                      type="number"
-                      name="waitTime"
-                      min="5"
-                      max="45"
-                      value={this.state.waitTime}
-                      onChange={(event) =>
-                        this.setState({
-                          waitTime: event.target.value,
-                        })
+                      rows="2"
+                      cols="40"
+                      id="other"
+                      name="other"
+                      placeholder="Example: Baby supplies, hygiene, pet needs"
+                      checked={this.state.other}
+                      onChange={() =>
+                        this.setState({ snap: !this.state.other })
                       }
-                      placeholder="Wait time:"
-                    ></textarea>
+                    />
                   </label>
                   <br></br>
                   <button
@@ -198,7 +197,7 @@ class CheckIn extends React.Component {
           {this.state.showSuccess && (
             <div id="clientInput">
               <h3>Thank you, we have received your order!</h3>
-              <p>We will be with you in about {this.state.waitTime} minutes.</p>
+              <p>We will be with you in about {this.props.waitTime}.</p>
               <p>You may now log out.</p>
             </div>
           )}
@@ -210,6 +209,7 @@ class CheckIn extends React.Component {
 
 const mapStateToProps = (state) => ({
   account: state.account,
+  waitTime: state.waitTime,
 });
 
 export default connect(mapStateToProps)(CheckIn);

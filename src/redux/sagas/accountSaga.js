@@ -24,8 +24,21 @@ function* fetchUser() {
   }
 }
 
+// function* getHouseholdMembers(action) {
+//   try {
+//     const householdMembers = yield axios.get(`/api/account/household-members/${action.payload}`);
+//     console.log('response', householdMembers);
+//     if (householdMembers.data[0]) {
+
+//     }
+//   } catch (error) {
+//     console.log(`GET members for household with id ${action.payload} failed`, error);
+//   }
+// }
+
 function* accountSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
+  // yield takeLatest('GET_HOUSEHOLD_MEMBERS', getHouseholdMembers);
 }
 
 export default accountSaga;

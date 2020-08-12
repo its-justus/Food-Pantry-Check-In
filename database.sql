@@ -15,9 +15,8 @@ CREATE TABLE "account" (
 
 CREATE TABLE "profile" (
 	"account_id" serial NOT NULL,
-	"dietary_restrictions" TEXT,
-	"last_pickup" TIMESTAMP,
 	"household_id" varchar(12) NOT NULL,
+	"latest_order" integer,
 	CONSTRAINT "profile_pk" PRIMARY KEY ("account_id")
 ) WITH (
   OIDS=FALSE
@@ -35,6 +34,8 @@ CREATE TABLE "order" (
 	"walking_home" BOOLEAN NOT NULL DEFAULT 'false',
 	"pregnant" BOOLEAN NOT NULL DEFAULT 'false',
 	"child_birthday" BOOLEAN NOT NULL DEFAULT 'false',
+	"snap" BOOLEAN NOT NULL DEFAULT 'false',
+	"other" TEXT,
 	CONSTRAINT "order_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -55,6 +56,7 @@ CREATE TABLE "location" (
 
 ALTER TABLE "order" ADD CONSTRAINT "order_is_linked_to_account" FOREIGN KEY ("account_id") REFERENCES "account"("id");
 ALTER TABLE "order" ADD CONSTRAINT "order_is_linked_to_location" FOREIGN KEY ("location_id") REFERENCES "location"("id");
+ALTER TABLE "profile" ADD CONSTRAINT "account_is_linked_to_most_recent_order" FOREIGN KEY ("latest_order") REFERENCES "order"("id");
 
 -- insert a test account and location used for testing 
 -- TODO Remove from production build

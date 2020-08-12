@@ -1,16 +1,29 @@
-.dashBoard {
-  text-align: center;
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: center;
-  padding: inherit;
-  padding-bottom: 2em;
-  opacity: 95%;
+button {
+  background-color: white;
+  border: none;
+  color: black;
 }
 
-button {
-    padding-top: 2em;
-    padding-left: 1em;
-    padding-right: 1em;
+thead {
+  font-size: 25px;
+}
+
+#addClient {
+  position: absolute;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.checkboxLabel {
+  font-family: sans-serif;
+  font-size: 18px;
+}
+
+#firstCol {
+  border-right: 1px solid lightgray;
+  height: 100%;
+}
+
+#thirdCol {
+  border-left: 1px solid lightgray;
 }
