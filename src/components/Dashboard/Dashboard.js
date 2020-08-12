@@ -4,6 +4,8 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import Card from "react-bootstrap/Card";
 import "./Dashboard.css";
 
 //this component is for the dashboard view that is seen by the volunteers
@@ -33,19 +35,23 @@ class Dashboard extends Component {
   render() {
     return (
       <>
-        <Container fluid>
+        <Container fluid id="dashContainer">
           <Row>
-            <Col id="firstCol">
-              <div className="span6">
-                <form>
+            <div id="orangeDiv">
+              <img id="efpLogoDash" src="EFP_Logo_Color.png" />
+              {/* <h1 id="dashboardTitle">Volunteer Dashboard</h1> */}
+            </div>
+          </Row>
+          <Row id="dashRow">
+            <Col id="firstCol" xs={12} sm={12} lg={4} xl={4}>
+              <Card id="firstCard">
+                <form className="dashForm">
+                  <h1 id="firstColTitle">Client Que</h1>
                   <Table responsive hover>
-                    <thead>
-                      <tr>Client Que</tr>
-                    </thead>
                     <tbody>
                       {this.props.activeOrders?.map((cur, i) => (
                         <tr>
-                          <td id="activeListItem">
+                          <td id="queItem">
                             <button
                               id="clientNameButton"
                               onClick={() => this.setLocalStateObj(cur)}
@@ -56,89 +62,91 @@ class Dashboard extends Component {
                         </tr>
                       ))}
                     </tbody>
-                    <br />
-                    <button
-                      id="addClient"
-                      className="btn btn-large btn-primary"
-                      type="submit"
-                    >
-                      Add Client
-                    </button>
                   </Table>
                 </form>
-              </div>
+              </Card>
             </Col>
-            <Col id="secondCol">
-              <div className="span6">
-                <form>
+            <Col id="secondCol" xs={12} sm={12} lg={4} xl={4}>
+              <Card id="secondCard">
+                <form className="dashForm">
                   <div className="header">
-                    <h3>{this.state.orderObj.name}</h3>
-                    <h4>ID: {this.state.orderObj.account_id}</h4>
+                    <h1 id="secondColTitle">Client Information</h1>
                   </div>
                   <body id="dashBody">
-                    <span>
-                      <b>Food Restrictions</b>
-                    </span>
-                    <span>{this.state.orderObj.name}</span>
+                    <h3>Name: {this.state.orderObj.name}</h3>
+                    <h4>Household ID: {this.state.orderObj.account_id}</h4>
                     <br />
-                    <span>
-                      Walking home: {this.state.orderObj.walking_home}
-                    </span>
-                    <br />
-                    <span>
-                      Child Birthday coming up:
-                      {this.state.orderObj.child_birthday}
-                    </span>
-                    <br />
-                    <span>
-                      Someone at home is pregnant:
-                      {this.state.orderObj.pregnant}
-                    </span>
-                    <br />
-                    <span>
-                      Dietary restrictions:
-                      {this.state.orderObj.dietary_restrictions}
-                    </span>
-                    <br />
-                    <button
-                      disabled={this.state.orderObj.checkout_at}
-                      className="btn btn-large btn-primary"
-                      onClick={() =>
-                        this.props.dispatch({
-                          type: "ORDER_CHECKOUT",
-                          payload: this.state.orderObj.id,
-                        })
-                      }
-                    >
-                      Check In
-                    </button>
+                    <p className="clientInformation">
+                      Walking home: <b>{this.state.orderObj.walking_home}</b>
+                    </p>
+                    <p className="clientInformation">
+                      Child Birthday coming up:{" "}
+                      <b>{this.state.orderObj.child_birthday}</b>
+                    </p>
+                    <p className="clientInformation">
+                      Someone at home is pregnant:{" "}
+                      <b>{this.state.orderObj.pregnant}</b>
+                    </p>
+                    <p className="clientInformation">
+                      Dietary restrictions:{" "}
+                      <b>{this.state.orderObj.dietary_restrictions}</b>
+                    </p>
+                    <p className="clientInformation">
+                      SNAP: <b>{this.state.orderObj.snap}</b>
+                    </p>
+                    <p className="clientInformation">
+                      Other needs: <b>{this.state.orderObj.other}</b>
+                    </p>
                   </body>
+                  <button
+                    disabled={this.state.orderObj.checkout_at}
+                    id="checkInClient"
+                    className="btn btn-large btn-primary"
+                    onClick={() =>
+                      this.props.dispatch({
+                        type: "ORDER_CHECKOUT",
+                        payload: this.state.orderObj.id,
+                      })
+                    }
+                  >
+                    Check In
+                  </button>
+                  {/* </body> */}
+                  <button
+                    id="addClient"
+                    className="btn btn-large btn-primary"
+                    type="submit"
+                  >
+                    Add Client
+                  </button>
                 </form>
-              </div>
+              </Card>
             </Col>
-            <Col id="thirdCol">
-              <div className="span6">
-                <form>
+            <Col id="thirdCol" xs={12} sm={12} lg={4} xl={4}>
+              <Card id="thirdCard">
+                <form className="dashForm">
+                  <h1 id="thirdColTitle">Clients Checked In</h1>
                   <Table responsive hover>
-                    <thead>
-                      <tr>Clients Checked In</tr>
-                    </thead>
                     <tbody>
                       {this.props.completeOrders?.map((complete) => (
-                        <tr>
-                          <td>
+                        <tr id="checkedInRow">
+                          <td id="checkedInItem">
                             <button
                               onClick={() => this.setLocalStateObj(complete)}
                             >
                               {complete.name}
                             </button>
+                            <CheckCircleIcon
+                              id="checkmark"
+                              style={{ fill: "#99d498" }}
+                            />
                           </td>
                         </tr>
                       ))}
                     </tbody>
                   </Table>
                 </form>
-              </div>
+              </Card>
             </Col>
           </Row>
         </Container>
