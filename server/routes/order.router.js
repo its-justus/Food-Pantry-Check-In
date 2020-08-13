@@ -77,20 +77,25 @@ router.get('/complete/today', rejectUnauthenticated, async (req, res) => {
 
 router.post('/', rejectUnauthenticated, async (req, res) => {
   const accountID = req.user.id;
+  const accessLevel = req.user.access_level;
 
   const locationID = req.body.location_id;
   const dietaryRestrictions = req.body.dietary_restrictions;
   const walkingHome = req.body.walking_home;
   const pregnant = req.body.pregnant;
   const childBirthday = req.body.child_birthday;
-  const snap = req.body.snap;
+	const snap = req.body.snap;
+	const pickupName = req.body.pickup_name;
   const other = req.body.other;
-  let waitTimeMinutes;
-  try {
-    waitTimeMinutes = Number(req.body.wait_time_minutes);
-  } catch (error) {
-    res.sendStatus(400);
-    return;
+  let waitTimeMinutes = null;
+
+  if (accessLevel >= 10) {
+    try {
+      waitTimeMinutes = Number(req.body.wait_time_minutes);
+    } catch (error) {
+      res.sendStatus(400);
+      return;
+    }
   }
 
   // TODO only allow volunteers to specify the wait time.
@@ -99,7 +104,8 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     typeof walkingHome !== 'boolean' ||
     typeof pregnant !== 'boolean' ||
     typeof childBirthday !== 'boolean' ||
-    typeof snap !== 'boolean' ||
+		typeof snap !== 'boolean' ||
+		typeof pickupName !== 'string' ||
     typeof other !== 'string'
   ) {
     res.sendStatus(400);
@@ -116,11 +122,12 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
       walking_home,
       pregnant,
       child_birthday,
-      snap,
+			snap,
+			pickup_name,
       other,
       wait_time_minutes
       )
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
       RETURNING *;`;
     query.values = [
       accountID,
@@ -129,7 +136,8 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
       walkingHome,
       pregnant,
       childBirthday,
-      snap,
+			snap,
+			pickupName,
       other,
       waitTimeMinutes
     ];
