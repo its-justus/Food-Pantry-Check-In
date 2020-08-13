@@ -13,8 +13,10 @@ class ManualOrder extends Component {
     pregnant: false,
     childBirthday: false,
     snap: false,
+    other: '',
     waitTime: '',
     houseHoldId: '',
+    waitTimeMinutes: '15'
   };
 
   render() {
@@ -37,7 +39,7 @@ class ManualOrder extends Component {
                       this.setState({ houseHoldId: event.target.value })
                     }
                   />
-                   </label>
+                </label>
               </h3>
               <h3 id="lastPickup">
                 Last pickup:
@@ -61,13 +63,6 @@ class ManualOrder extends Component {
                     }
                   />
                   <br></br>
-                  <input
-                    type="button"
-                    name="submit"
-                    value="Check-In"
-                    id="checkInButton"
-                    disabled={!Boolean(this.state.locationID)}
-                  />
                 </label>
               </form>
             </div>
@@ -149,22 +144,37 @@ class ManualOrder extends Component {
                   />
                 </label>
                 <br></br>
-                <label htmlFor="waitTime">
-                  Estimated Wait Time:
+                 <label htmlFor="other" className="checkboxLabel">
+                    Please list any other needs:
                     <br></br>
-                  <textarea
-                    type="number"
+                    <textarea
+                      rows="2"
+                      cols="40"
+                      id="other"
+                      name="other"
+                      placeholder="Example: Baby supplies, hygiene, pet needs"
+                      checked={this.state.other}
+                      onChange={() =>
+                        this.setState({ other: !this.state.other })
+                      }
+                    />
+                  </label>
+                  <br />
+                <label for="waitTime">Please choose a wait time:
+                  <select
                     name="waitTime"
-                    min="5"
-                    max="45"
-                    value={this.state.waitTime}
+                    id="times"
+                    value={this.state.waitTimeMinutes}
                     onChange={(event) =>
                       this.setState({
-                        waitTime: event.target.value,
+                        waitTimeMinutes: event.target.value,
                       })
-                    }
-                    placeholder="Wait time:"
-                  ></textarea>
+                    }>
+                    <option value="15">15 minutes</option>
+                    <option value="30">30 minutes</option>
+                    <option value="45">45 minutes</option>
+                    <option value="60">1 hour</option>
+                  </select>
                 </label>
                 <br></br>
                 <button
@@ -180,6 +190,8 @@ class ManualOrder extends Component {
                         pregnant: this.state.pregnant,
                         child_birthday: this.state.childBirthday,
                         snap: this.state.snap,
+                        other: this.state.other,
+                        wait_time_minutes: this.state.waitTimeMinutes
                       },
                     });
                   }}
