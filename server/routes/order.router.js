@@ -85,16 +85,22 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
   const childBirthday = req.body.child_birthday;
   const snap = req.body.snap;
   const other = req.body.other;
-  const waitTimeMinutes = req.body.wait_time_minutes;
+  let waitTimeMinutes;
+  try {
+    waitTimeMinutes = Number(req.body.wait_time_minutes);
+  } catch (error) {
+    res.sendStatus(400);
+    return;
+  }
 
+  // TODO only allow volunteers to specify the wait time.
   if (!locationID ||
     typeof dietaryRestrictions !== 'string' ||
     typeof walkingHome !== 'boolean' ||
     typeof pregnant !== 'boolean' ||
     typeof childBirthday !== 'boolean' ||
     typeof snap !== 'boolean' ||
-    typeof other !== 'string' ||
-    typeof waitTimeMinutes !== 'number'
+    typeof other !== 'string'
   ) {
     res.sendStatus(400);
     return;
@@ -145,14 +151,22 @@ router.put('/checkout/:id', async (req, res) => {
     res.sendStatus(401);
     return;
   }
+  let waitTimeMinutes;
+  try {
+    waitTimeMinutes = Number(req.body.wait_time_minutes);
+  } catch (error) {
+    res.sendStatus(400);
+    return;
+  }
+
   const conn = await pool.connect();
   try {
     const query = {};
     query.text = `UPDATE "order"
-      SET checkout_at = NOW()
+      SET checkout_at = NOW(), wait_time_minutes = $2
       WHERE id = $1
       RETURNING *;`;
-    query.values = [req.params.id];
+    query.values = [req.params.id, waitTimeMinutes];
     await conn.query('BEGIN');
     const result = await conn.query(query.text, query.values);
     await conn.query('COMMIT');
