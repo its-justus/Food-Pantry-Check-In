@@ -85,6 +85,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
   const childBirthday = req.body.child_birthday;
   const snap = req.body.snap;
   const other = req.body.other;
+  const waitTimeMinutes = req.body.wait_time_minutes;
 
   if (!locationID ||
     typeof dietaryRestrictions !== 'string' ||
@@ -92,7 +93,8 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     typeof pregnant !== 'boolean' ||
     typeof childBirthday !== 'boolean' ||
     typeof snap !== 'boolean' ||
-    typeof other !== 'string'
+    typeof other !== 'string' ||
+    typeof waitTimeMinutes !== 'number'
   ) {
     res.sendStatus(400);
     return;
@@ -109,9 +111,10 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
       pregnant,
       child_birthday,
       snap,
-      other
+      other,
+      wait_time_minutes
       )
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
       RETURNING *;`;
     query.values = [
       accountID,
@@ -121,7 +124,8 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
       pregnant,
       childBirthday,
       snap,
-      other
+      other,
+      waitTimeMinutes
     ];
     await conn.query('BEGIN');
     const result = await conn.query(query.text, query.values);
