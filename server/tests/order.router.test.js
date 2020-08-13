@@ -82,7 +82,7 @@ describe('Normal client with access level 1 for /api/order', () => {
         child_birthday: childBirthday,
         snap: snap,
         other: other,
-        wait_time_minutes: expect.any(Number)
+        wait_time_minutes: null
       });
       done();
     });
