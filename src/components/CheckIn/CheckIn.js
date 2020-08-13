@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
-
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import "./CheckIn.css";
 
 class CheckIn extends React.Component {
@@ -24,7 +24,12 @@ class CheckIn extends React.Component {
     console.log(this.state);
     return (
       <>
-        <Container id="checkInContainer">
+        <Container id="checkInContainer" fluid>
+          <Row className="instructionsRow">
+            <div id="titleDiv">
+              <h1 id="checkInTitle">Client Check-In</h1>
+            </div>
+          </Row>
           <Row id="clientInfoRow">
             <div id="clientInfo">
               <h1 id="accountName">Hi, {this.props.account.name}</h1>
@@ -36,13 +41,15 @@ class CheckIn extends React.Component {
               </h3>
             </div>
           </Row>
-          <div id="orangeBox"></div>
+          <div>
+            <div id="greyLine"></div>
+          </div>
           <Row>
             {this.state.showCheckIn && (
               <div id="clientInput">
                 <form>
                   <label htmlFor="name" id="parkingLabel">
-                    Please enter parking spot number:
+                    Start checking in by selecting your parking spot:
                     <br></br>
                     <input
                       type="text"
@@ -76,6 +83,9 @@ class CheckIn extends React.Component {
             {this.state.showQuestions && (
               <>
                 <div id="clientQuestions">
+                  <p id="instructions">
+                    Fill out this form to finish your check-in:
+                  </p>
                   <label htmlFor="foodRestrictions" id="foodRestrictionsLabel">
                     Please list any food restrictions here:
                     <br></br>
@@ -169,7 +179,9 @@ class CheckIn extends React.Component {
                   <button
                     id="submitButton"
                     onClick={() => {
-                      this.props.dispatch({ type: 'CLEAR_ORDER_PLACEMENT_ERROR' });
+                      this.props.dispatch({
+                        type: "CLEAR_ORDER_PLACEMENT_ERROR",
+                      });
                       this.props.dispatch({
                         type: "SUBMIT_ORDER",
                         payload: {
@@ -178,8 +190,8 @@ class CheckIn extends React.Component {
                           walking_home: this.state.walkingHome,
                           pregnant: this.state.pregnant,
                           child_birthday: this.state.childBirthday,
-													snap: this.state.snap,
-                          other: this.state.other
+                          snap: this.state.snap,
+                          other: this.state.other,
                         },
                       });
                       this.setState({
@@ -195,7 +207,7 @@ class CheckIn extends React.Component {
             )}
           </Form.Row>
           {this.state.showSuccess && (
-            <div id="clientInput">
+            <div id="thankYou">
               <h3>Thank you, we have received your order!</h3>
               <p>We will be with you in about {this.props.waitTime}.</p>
               <p>You may now log out.</p>
