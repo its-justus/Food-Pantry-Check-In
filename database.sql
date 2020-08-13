@@ -35,6 +35,7 @@ CREATE TABLE "order" (
 	"pregnant" BOOLEAN NOT NULL DEFAULT 'false',
 	"child_birthday" BOOLEAN NOT NULL DEFAULT 'false',
 	"snap" BOOLEAN NOT NULL DEFAULT 'false',
+	"pickup_name" VARCHAR(100),
 	"other" TEXT,
 	"wait_time_minutes" integer,
 	CONSTRAINT "order_pk" PRIMARY KEY ("id")
@@ -58,6 +59,8 @@ CREATE TABLE "location" (
 ALTER TABLE "order" ADD CONSTRAINT "order_is_linked_to_account" FOREIGN KEY ("account_id") REFERENCES "account"("id");
 ALTER TABLE "order" ADD CONSTRAINT "order_is_linked_to_location" FOREIGN KEY ("location_id") REFERENCES "location"("id");
 ALTER TABLE "profile" ADD CONSTRAINT "account_is_linked_to_most_recent_order" FOREIGN KEY ("latest_order") REFERENCES "order"("id");
+
+
 
 -- insert a test account and location used for testing 
 -- TODO Remove from production build
