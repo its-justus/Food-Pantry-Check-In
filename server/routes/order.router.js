@@ -77,6 +77,7 @@ router.get('/complete/today', rejectUnauthenticated, async (req, res) => {
 
 router.post('/', rejectUnauthenticated, async (req, res) => {
   const accountID = req.user.id;
+  const accessLevel = req.user.access_level;
 
   const locationID = req.body.location_id;
   const dietaryRestrictions = req.body.dietary_restrictions;
@@ -86,12 +87,15 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 	const snap = req.body.snap;
 	const pickupName = req.body.pickup_name;
   const other = req.body.other;
-  let waitTimeMinutes;
-  try {
-    waitTimeMinutes = Number(req.body.wait_time_minutes);
-  } catch (error) {
-    res.sendStatus(400);
-    return;
+  let waitTimeMinutes = null;
+
+  if (accessLevel >= 10) {
+    try {
+      waitTimeMinutes = Number(req.body.wait_time_minutes);
+    } catch (error) {
+      res.sendStatus(400);
+      return;
+    }
   }
 
   // TODO only allow volunteers to specify the wait time.

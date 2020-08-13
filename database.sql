@@ -37,7 +37,7 @@ CREATE TABLE "order" (
 	"snap" BOOLEAN NOT NULL DEFAULT 'false',
 	"pickup_name" VARCHAR(100),
 	"other" TEXT,
-	"wait_time_minutes" integer NOT NULL DEFAULT 15,
+	"wait_time_minutes" integer,
 	CONSTRAINT "order_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
