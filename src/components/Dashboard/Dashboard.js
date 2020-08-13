@@ -18,16 +18,23 @@ class Dashboard extends Component {
 
   componentDidMount = () => {
     this.props.dispatch({ type: "FETCH_ACTIVE_ORDERS" });
-    setInterval(
+    const activeInterval = setInterval(
       () => this.props.dispatch({ type: "FETCH_ACTIVE_ORDERS" }),
       10 * 1000
     );
     this.props.dispatch({ type: "FETCH_COMPLETE_ORDERS" });
-    setInterval(
+		
+		const completeInterval = setInterval(
       () => this.props.dispatch({ type: "FETCH_COMPLETE_ORDERS" }),
       10 * 1000
-    );
-  };
+		);
+		this.setState({activeInterval: activeInterval, completeInterval: completeInterval});
+	};
+	
+	componentWillUnmount = () => {
+		clearInterval(this.state.activeInterval);
+		clearInterval(this.state.completeInterval);
+	}
 
   setLocalStateObj = (order) => {
     this.setState({ orderObj: order });
