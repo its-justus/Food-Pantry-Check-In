@@ -18,10 +18,23 @@ class CheckIn extends React.Component {
     showCheckIn: true,
     showQuestions: false,
     showSuccess: false,
+    estWaitTimeInterval: ''
   };
 
+  startFetchEstWaitTime = () => {
+    this.props.dispatch({ type: 'FETCH_WAIT_TIME' });
+    const activeInterval = setInterval(
+      () => this.props.dispatch({ type: 'FETCH_WAIT_TIME' }),
+      3 * 1000
+    );
+    this.setState({ estWaitTimeInterval: activeInterval });
+  }
+
+  stopFetchEstWaitTime = () => {
+    clearInterval(this.state.estWaitTimeInterval);
+  }
+
   render() {
-    console.log(this.state);
     return (
       <>
         <Container id="checkInContainer">
@@ -178,7 +191,7 @@ class CheckIn extends React.Component {
                           walking_home: this.state.walkingHome,
                           pregnant: this.state.pregnant,
                           child_birthday: this.state.childBirthday,
-													snap: this.state.snap,
+                          snap: this.state.snap,
                           other: this.state.other
                         },
                       });
@@ -186,6 +199,7 @@ class CheckIn extends React.Component {
                         showSuccess: true,
                         showQuestions: false,
                       });
+                      // this.startFetchEstWaitTime();
                     }}
                   >
                     Submit
@@ -197,8 +211,17 @@ class CheckIn extends React.Component {
           {this.state.showSuccess && (
             <div id="clientInput">
               <h3>Thank you, we have received your order!</h3>
-              <p>We will be with you in about {this.props.waitTime}.</p>
-              <p>You may now log out.</p>
+              {/* If the order is still processing because the person hasn't been checked
+              in the the staff show the global state: 'Processing...' until they have
+              been checked in. */}
+              {console.log(this.props.waitTime)}
+              {this.props.waitTime === 'Processing...' ?
+                (<p>{this.props.waitTime}</p>)
+                : (<>
+                  <p>We will be with you in about {this.props.waitTime}.</p>
+                  <p>You may now log out.</p>
+                </>)
+              }
             </div>
           )}
         </Container>

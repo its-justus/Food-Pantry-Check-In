@@ -13,8 +13,33 @@ function* submitCheckIn(action) {
 function* fetchWaitTime() {
   try {
     const response = yield axios.get('/api/order/client-order-status');
-    // Processing...
-    yield put({ type: 'SET_WAIT_TIME', payload: response.data && response.data[0] });
+    // CHeck to see if the wait_time_minutes for the order is null.
+    // If it is return "processing...", otherwise return the actual value.
+    let returnStr = '';
+    if (response.data[0]) {
+      if (response.data[0].wait_time_minutes) {
+        returnStr = response.data[0].wait_time_minutes;
+      } else {
+        returnStr = 'Processing...';
+      }
+    } else {
+      returnStr = 'Processing...';
+    }
+
+    // let returnStr = '';
+    // let processing = true;
+    // while (processing === true) {
+    //   const response = yield axios.get('/api/order/client-order-status');
+    //   yield delay(5000);
+    //   console.log(response.data[0].est_wait_time);
+    //   console.log(response.data[0]);
+    //   if (response.data[0].est_wait_time !== null) {
+    //     returnStr = response.data[0].est_wait_time;
+    //     processing = false;
+    //   }
+    // }
+
+    yield put({ type: 'SET_WAIT_TIME', payload: returnStr });
   } catch (error) {
     yield put({ type: 'SET_RETRIEVE_ACTIVE_ORDER_ERROR' });
     console.log('User order get request failed', error);
