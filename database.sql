@@ -36,7 +36,7 @@ CREATE TABLE "order" (
 	"child_birthday" BOOLEAN NOT NULL DEFAULT 'false',
 	"snap" BOOLEAN NOT NULL DEFAULT 'false',
 	"other" TEXT,
-	"wait_time_minutes" integer NOT NULL DEFAULT 15,
+	"wait_time_minutes" integer,
 	CONSTRAINT "order_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
