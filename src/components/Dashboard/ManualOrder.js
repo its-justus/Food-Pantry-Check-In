@@ -15,6 +15,7 @@ class ManualOrder extends Component {
     snap: false,
     waitTime: '',
     houseHoldId: '',
+    name: '',
   };
 
   render() {
@@ -26,9 +27,9 @@ class ManualOrder extends Component {
             <div id="clientInfo">
               <h1 id="accountName">Hi, </h1>
               <h3 id="houseId">
-                <label htmlFor="houseHoldId" >
+                <label htmlFor="houseHoldId">
                   Enter Household ID:
-                    <br></br>
+                  <br></br>
                   <input
                     type="number"
                     name="houseHoldId"
@@ -37,11 +38,20 @@ class ManualOrder extends Component {
                       this.setState({ houseHoldId: event.target.value })
                     }
                   />
-                   </label>
+                </label>
               </h3>
-              <h3 id="lastPickup">
-                Last pickup:
-              </h3>
+              <label htmlFor="name">
+                Enter Name:
+                <br></br>
+                <input
+                  type="text"
+                  name="name"
+                  value={this.state.name}
+                  onChange={(event) =>
+                    this.setState({ name: event.target.value })
+                  }
+                />
+              </label>
             </div>
           </Row>
           <div id="orangeBox"></div>
@@ -50,7 +60,7 @@ class ManualOrder extends Component {
               <form>
                 <label htmlFor="name" id="parkingLabel">
                   Please enter parking spot number:
-                    <br></br>
+                  <br></br>
                   <input
                     type="text"
                     name="parking"
@@ -77,7 +87,7 @@ class ManualOrder extends Component {
               <div id="clientQuestions">
                 <label htmlFor="foodRestrictions" id="foodRestrictionsLabel">
                   Please list any food restrictions here:
-                    <br></br>
+                  <br></br>
                   <textarea
                     rows="2"
                     cols="40"
@@ -94,7 +104,7 @@ class ManualOrder extends Component {
                 <br></br>
                 <label htmlFor="walking" className="checkboxLabel">
                   Are you walking home?
-                    <input
+                  <input
                     type="checkbox"
                     id="walkingHome"
                     className="check"
@@ -107,9 +117,9 @@ class ManualOrder extends Component {
                 </label>
                 <br></br>
                 <label htmlFor="birthday" className="checkboxLabel">
-                  Is there a child in the household with a birthday in the
-                  next 2 months?
-                    <input
+                  Is there a child in the household with a birthday in the next
+                  2 months?
+                  <input
                     type="checkbox"
                     id="childBirthday"
                     className="check"
@@ -125,7 +135,7 @@ class ManualOrder extends Component {
                 <br></br>
                 <label htmlFor="pregnant" className="checkboxLabel">
                   Is there a woman in the household who is pregnant?
-                    <input
+                  <input
                     type="checkbox"
                     id="pregnant"
                     className="check"
@@ -139,7 +149,7 @@ class ManualOrder extends Component {
                 <br></br>
                 <label htmlFor="snap" className="checkboxLabel">
                   Are you currently receiving SNAP?
-                    <input
+                  <input
                     type="checkbox"
                     id="snap"
                     className="check"
@@ -151,7 +161,7 @@ class ManualOrder extends Component {
                 <br></br>
                 <label htmlFor="waitTime">
                   Estimated Wait Time:
-                    <br></br>
+                  <br></br>
                   <textarea
                     type="number"
                     name="waitTime"
@@ -170,7 +180,9 @@ class ManualOrder extends Component {
                 <button
                   id="submitButton"
                   onClick={() => {
-                    this.props.dispatch({ type: 'CLEAR_ORDER_PLACEMENT_ERROR' });
+                    this.props.dispatch({
+                      type: "CLEAR_ORDER_PLACEMENT_ERROR",
+                    });
                     this.props.dispatch({
                       type: "SUBMIT_ORDER",
                       payload: {
@@ -185,7 +197,7 @@ class ManualOrder extends Component {
                   }}
                 >
                   Submit
-                  </button>
+                </button>
               </div>
             </>
           </Form.Row>

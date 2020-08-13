@@ -5,6 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import "./Dashboard.css";
+import ManualOrder from './ManualOrder';
 
 //this component is for the dashboard view that is seen by the volunteers
 class Dashboard extends Component {
@@ -142,6 +143,7 @@ class Dashboard extends Component {
             </Col>
           </Row>
         </Container>
+        <ManualOrder />
       </>
     );
   }
