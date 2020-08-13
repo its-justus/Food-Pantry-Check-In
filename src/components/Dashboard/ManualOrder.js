@@ -144,22 +144,22 @@ class ManualOrder extends Component {
                   />
                 </label>
                 <br></br>
-                 <label htmlFor="other" className="checkboxLabel">
-                    Please list any other needs:
+                <label htmlFor="other" className="checkboxLabel">
+                  Please list any other needs:
                     <br></br>
-                    <textarea
-                      rows="2"
-                      cols="40"
-                      id="other"
-                      name="other"
-                      placeholder="Example: Baby supplies, hygiene, pet needs"
-                      checked={this.state.other}
-                      onChange={() =>
-                        this.setState({ other: !this.state.other })
-                      }
-                    />
-                  </label>
-                  <br />
+                  <textarea
+                    rows="2"
+                    cols="40"
+                    id="other"
+                    name="other"
+                    placeholder="Example: Baby supplies, hygiene, pet needs"
+                    value={this.state.other}
+                    onChange={event =>
+                      this.setState({ other: event.target.value })
+                    }
+                  />
+                </label>
+                <br />
                 <label for="waitTime">Please choose a wait time:
                   <select
                     name="waitTime"
