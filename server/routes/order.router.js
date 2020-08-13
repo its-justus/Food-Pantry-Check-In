@@ -77,7 +77,7 @@ router.get('/complete/today', rejectUnauthenticated, async (req, res) => {
 
 router.post('/', rejectUnauthenticated, async (req, res) => {
   const accountID = req.user.id;
-  const accessLevel = req.user.accessLevel;
+  const accessLevel = req.user.access_level;
 
   const locationID = req.body.location_id;
   const dietaryRestrictions = req.body.dietary_restrictions;
