@@ -1,6 +1,6 @@
 footer {
     padding: 20px;
-    position: absolute;
+    position: relative;
     right: 0;
     bottom: 0;
     left: 0;
@@ -10,5 +10,4 @@ footer {
     text-align: center;
     font-family: 'Signika', sans-serif;
     margin-top: 100px;
-    position: fixed;
 }
