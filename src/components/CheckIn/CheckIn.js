@@ -8,7 +8,7 @@ import "./CheckIn.css";
 
 class CheckIn extends React.Component {
   state = {
-    locationID: '',
+    locationID: "",
     dietaryRestrictions: "",
     walkingHome: false,
     pregnant: false,
@@ -18,6 +18,8 @@ class CheckIn extends React.Component {
     showCheckIn: true,
     showQuestions: false,
     showSuccess: false,
+    showTextArea: false,
+    name: "",
   };
 
   render() {
@@ -38,6 +40,39 @@ class CheckIn extends React.Component {
           </Row>
           <div id="orangeBox"></div>
           <Row>
+            <label htmlFor="showTextArea" className="checkboxLabel">
+                    <h3>Is there another person picking up the order?</h3>
+                    <input
+                      type="checkbox"
+											className="check"
+											checked={this.state.showTextArea}
+                      onChange={(event) =>
+                        this.setState({ showTextArea: !this.state.showTextArea })
+                      }
+                    />
+                  </label>
+                  <br />
+                  {this.state.showTextArea && (
+                    <>
+                    <label htmlFor="name" id="nameLabel">
+                    Please enter the name here:
+                    <br></br>
+                    <textarea
+                      rows="2"
+                      cols="40"
+                      name="name"
+                      value={this.state.name}
+                      onChange={(event) =>
+                        this.setState({
+                          name: event.target.value,
+                        })
+                      }
+                      placeholder="Enter name of person picking up"
+                    ></textarea>
+                  </label>
+                  <br></br>
+                  </>
+                  )}
             {this.state.showCheckIn && (
               <div id="clientInput">
                 <form>
