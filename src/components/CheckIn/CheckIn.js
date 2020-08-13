@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import "./CheckIn.css";
 
 class CheckIn extends React.Component {
