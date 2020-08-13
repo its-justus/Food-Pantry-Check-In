@@ -14,7 +14,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 router.get('/:id', rejectUnauthenticated, async (req, res) => {
-	const accessLevel = req.user.access_level;
+  const accessLevel = req.user.access_level;
   // If the current user doesn't have a high enough access level return unauthorized.
   if (accessLevel < 100) {
     res.sendStatus(401);
@@ -106,6 +106,10 @@ router.put('/:id', rejectUnauthenticated, async (req, res) => {
   const accessLevel = req.body.accessLevel;
   if (!id || !name || !email || !accessLevel) {
     res.sendStatus(400);
+    return;
+  }
+  if (accessLevel < 100) {
+    res.sendStatus(401);
     return;
   }
   const conn = await pool.connect();
