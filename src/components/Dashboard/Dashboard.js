@@ -6,13 +6,14 @@ import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import Card from "react-bootstrap/Card";
+import ManualOrder from "./ManualOrder";
 import "./Dashboard.css";
 
 //this component is for the dashboard view that is seen by the volunteers
 class Dashboard extends Component {
   state = {
     orderObj: {},
-    waitTime: "",
+    waitTimeMinutes: '15',
   };
 
   componentDidMount = () => {
@@ -35,10 +36,11 @@ class Dashboard extends Component {
   render() {
     return (
       <>
+        <ManualOrder />
         <Container fluid id="dashContainer">
           <Row>
             <div id="orangeDiv">
-              <img id="efpLogoDash" src="EFP_Logo_Color.png" alt="EFP Logo"/>
+              <img id="efpLogoDash" src="EFP_Logo_Color.png" alt="EFP Logo" />
             </div>
           </Row>
           <Row id="dashRow">
@@ -97,6 +99,22 @@ class Dashboard extends Component {
                       Other needs: <b>{this.state.orderObj.other}</b>
                     </p>
                   </body>
+                  <label for="waitTime">Please choose a wait time:
+                    <select
+                      name="waitTime"
+                      id="times"
+                      value={this.state.waitTimeMinutes}
+                      onChange={(event) =>
+                        this.setState({
+                          waitTimeMinutes: event.target.value,
+                        })
+                      }>
+                      <option value="15">15 minutes</option>
+                      <option value="30">30 minutes</option>
+                      <option value="45">45 minutes</option>
+                      <option value="60">60 minutes</option>
+                    </select>
+                  </label>
                   <button
                     disabled={this.state.orderObj.checkout_at}
                     id="checkInClient"
@@ -104,13 +122,12 @@ class Dashboard extends Component {
                     onClick={() =>
                       this.props.dispatch({
                         type: "ORDER_CHECKOUT",
-                        payload: this.state.orderObj.id,
+                        payload: { id: this.state.orderObj.id, waitTimeMinutes: this.state.waitTimeMinutes },
                       })
                     }
                   >
                     Check In
                   </button>
-                  {/* </body> */}
                   <button
                     id="addClient"
                     className="btn btn-large btn-primary"
