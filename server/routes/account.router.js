@@ -14,7 +14,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 router.get('/:id', rejectUnauthenticated, async (req, res) => {
-	const accessLevel = req.user.access_level;
+  const accessLevel = req.user.access_level;
   // If the current user doesn't have a high enough access level return unauthorized.
   if (accessLevel < 100) {
     res.sendStatus(401);
@@ -66,7 +66,7 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
-router.post('/', async (req, res) => {
+router.post('/', rejectUnauthenticated, async (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
   const houseId = req.body.household_id;
@@ -106,6 +106,10 @@ router.put('/:id', rejectUnauthenticated, async (req, res) => {
   const accessLevel = req.body.accessLevel;
   if (!id || !name || !email || !accessLevel) {
     res.sendStatus(400);
+    return;
+  }
+  if (accessLevel < 100) {
+    res.sendStatus(401);
     return;
   }
   const conn = await pool.connect();

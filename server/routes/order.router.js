@@ -6,6 +6,11 @@ const {
 const pool = require('../modules/pool');
 
 router.get('/', rejectUnauthenticated, async (req, res) => {
+  const accessLevel = req.user.access_level;
+  if (accessLevel < 10) {
+    res.sendStatus(401);
+    return;
+  }
   const conn = await pool.connect();
   try {
     const result = await conn.query(`SELECT "order".*, account."name", account.email,
@@ -21,6 +26,11 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
 });
 
 router.get('/active', rejectUnauthenticated, async (req, res) => {
+  const accessLevel = req.user.access_level;
+  if (accessLevel < 10) {
+    res.sendStatus(401);
+    return;
+  }
   const conn = await pool.connect();
   try {
     const query = {};
@@ -40,6 +50,11 @@ router.get('/active', rejectUnauthenticated, async (req, res) => {
 });
 
 router.get('/complete/today', rejectUnauthenticated, async (req, res) => {
+  const accessLevel = req.user.access_level;
+  if (accessLevel < 10) {
+    res.sendStatus(401);
+    return;
+  }
   const conn = await pool.connect();
   try {
     const query = {};
@@ -121,6 +136,11 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 });
 
 router.put('/checkout/:id', async (req, res) => {
+  const accessLevel = req.user.access_level;
+  if (accessLevel < 10) {
+    res.sendStatus(401);
+    return;
+  }
   const conn = await pool.connect();
   try {
     const query = {};
@@ -142,6 +162,11 @@ router.put('/checkout/:id', async (req, res) => {
 });
 
 router.delete('/:id', rejectUnauthenticated, async (req, res) => {
+  const accessLevel = req.user.access_level;
+  if (accessLevel < 100) {
+    res.sendStatus(401);
+    return;
+  }
   const conn = await pool.connect();
   try {
     const query = {};
