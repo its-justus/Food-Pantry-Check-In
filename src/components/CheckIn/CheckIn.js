@@ -18,7 +18,6 @@ class CheckIn extends React.Component {
     showCheckIn: true,
     showQuestions: false,
     showSuccess: false,
-    waitTime: '',
   };
 
   render() {
@@ -162,7 +161,7 @@ class CheckIn extends React.Component {
                       placeholder="Example: Baby supplies, hygiene, pet needs"
                       checked={this.state.other}
                       onChange={() =>
-                        this.setState({ snap: !this.state.other })
+                        this.setState({ other: !this.state.other })
                       }
                     />
                   </label>
@@ -180,7 +179,7 @@ class CheckIn extends React.Component {
                           pregnant: this.state.pregnant,
                           child_birthday: this.state.childBirthday,
 													snap: this.state.snap,
-													other: this.state.other,
+                          other: this.state.other
                         },
                       });
                       this.setState({
@@ -210,7 +209,6 @@ class CheckIn extends React.Component {
 
 const mapStateToProps = (state) => ({
   account: state.account,
-  waitTime: state.waitTime,
 });
 
 export default connect(mapStateToProps)(CheckIn);
