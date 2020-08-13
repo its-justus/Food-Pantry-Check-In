@@ -8,10 +8,10 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  pool.query(`SELECT account.id, account."name", account.email, account.access_level, profile.*
-		FROM account
-		LEFT JOIN profile ON account.id = profile.account_id
-		WHERE account.id = $1;`, [id])
+  pool.query(`SELECT account.id, account."name", account.email, account.access_level,
+              profile.household_id, profile.latest_order FROM account
+              LEFT JOIN profile ON account.id = profile.account_id
+              WHERE account.id = $1;`, [id])
     .then((result) => {
       // Handle Errors
       const user = result && result.rows && result.rows[0];

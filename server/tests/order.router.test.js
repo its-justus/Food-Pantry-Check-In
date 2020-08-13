@@ -1,18 +1,8 @@
 const app = require('../server');
 const request = require('supertest');
-// const pool = require('../modules/pool');
+const pool = require('../modules/pool');
 
-// beforeAll(async (done) => {
-//   await pool.query(
-//     "INSERT INTO location (id, description) VALUES (1234567, 'order test location');"
-//   );
-//   done();
-// });
-
-// afterAll(async (done) => {
-//   await pool.query("DELETE FROM location WHERE id = 1234567;");
-//   done();
-// });
+const locationID = 1234567;
 
 const testUser = request.agent(app);
 const testUserID = 2;
@@ -20,13 +10,20 @@ const testUserName = 'test_order';
 const testUserEmail = 'test_order@email.com';
 const testUserPassword = 'test_order_password';
 
-const locationID = 1234567;
 const dietaryRestrictions = 'Dairy';
 const walkingHome = false;
 const pregnant = false;
 const childBirthday = true;
 const snap = true;
 const other = 'Love and attention';
+
+afterAll(async (done) => {
+  // Normally we don''t delete orders so set the test account's most recent order to null
+  // since that's a foreign key so we can delete the order that was just added.
+  await pool.query(`UPDATE profile SET latest_order = null WHERE account_id = ${testUserID};`);
+  await pool.query(`DELETE FROM "order" WHERE account_id = ${testUserID};`);
+  done();
+});
 
 describe('Normal client with access level 1 for /api/order', () => {
   describe('POST to login /api/account/login', () => {
@@ -51,7 +48,9 @@ describe('Normal client with access level 1 for /api/order', () => {
         id: testUserID,
         name: testUserName,
         email: testUserEmail,
-        access_level: 1
+        access_level: 1,
+        household_id: '2',
+        latest_order: null
       });
       done();
     });
