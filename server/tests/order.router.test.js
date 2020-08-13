@@ -15,7 +15,9 @@ const walkingHome = false;
 const pregnant = false;
 const childBirthday = true;
 const snap = true;
+const pickupName = "Alice";
 const other = 'Love and attention';
+const waitTimeMinutes = 30;
 
 afterAll(async (done) => {
   // Normally we don''t delete orders so set the test account's most recent order to null
@@ -66,8 +68,10 @@ describe('Normal client with access level 1 for /api/order', () => {
           walking_home: walkingHome,
           pregnant: pregnant,
           child_birthday: childBirthday,
-          snap: snap,
-          other: other
+					snap: snap,
+					pickup_name: pickupName,
+          other: other,
+          wait_time_minutes: waitTimeMinutes
         })
         .expect(201);
       expect(res.body).toEqual({
@@ -80,7 +84,8 @@ describe('Normal client with access level 1 for /api/order', () => {
         walking_home: walkingHome,
         pregnant: pregnant,
         child_birthday: childBirthday,
-        snap: snap,
+				snap: snap,
+				pickup_name: pickupName,
         other: other,
         wait_time_minutes: null
       });
