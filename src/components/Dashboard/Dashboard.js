@@ -16,7 +16,6 @@ class Dashboard extends Component {
   };
 
   componentDidMount = () => {
-		console.log("Dashboard.componentDidMount");
     this.props.dispatch({ type: "FETCH_ACTIVE_ORDERS" });
     const activeInterval = setInterval(
       () => this.props.dispatch({ type: "FETCH_ACTIVE_ORDERS" }),
@@ -28,15 +27,10 @@ class Dashboard extends Component {
       () => this.props.dispatch({ type: "FETCH_COMPLETE_ORDERS" }),
       10 * 1000
 		);
-
-		console.log(activeInterval, completeInterval);
-		
 		this.setState({activeInterval: activeInterval, completeInterval: completeInterval});
 	};
 	
 	componentWillUnmount = () => {
-		console.log("Dashboard.componentWillUnmount");
-		console.log(this.state.activeInterval, this.state.completeInterval);
 		clearInterval(this.state.activeInterval);
 		clearInterval(this.state.completeInterval);
 	}
