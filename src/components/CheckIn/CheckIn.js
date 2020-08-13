@@ -209,6 +209,7 @@ class CheckIn extends React.Component {
 
 const mapStateToProps = (state) => ({
   account: state.account,
+  waitTime: state.waitTime
 });
 
 export default connect(mapStateToProps)(CheckIn);

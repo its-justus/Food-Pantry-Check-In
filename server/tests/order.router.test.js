@@ -89,6 +89,31 @@ describe('Normal client with access level 1 for /api/order', () => {
       done();
     });
   });
+
+  describe('GET /api/order/client-order-status', () => {
+    it("Get the test order user's order status", async (done) => {
+      const res = await testUser
+        .get('/api/order/client-order-status')
+        .expect(200);
+      expect(res.body[0]).toEqual({
+        id: expect.any(Number),
+        account_id: testUserID,
+        checkin_at: expect.any(String),
+        checkout_at: null,
+        location_id: locationID,
+        dietary_restrictions: dietaryRestrictions,
+        walking_home: walkingHome,
+        pregnant: pregnant,
+        child_birthday: childBirthday,
+        snap: snap,
+        other: other,
+        wait_time_minutes: Number(waitTimeMinutes),
+        household_id: '2',
+        latest_order: null
+      });
+      done();
+    });
+  });
 });
 
 // describe("GET to /api/order", () => {

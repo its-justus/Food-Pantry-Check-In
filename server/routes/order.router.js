@@ -75,6 +75,29 @@ router.get('/complete/today', rejectUnauthenticated, async (req, res) => {
   }
 });
 
+router.get('/client-order-status', async (req, res) => {
+  const id = req.user.id;
+  const conn = await pool.connect();
+  try {
+    const query = {};
+    query.text = `SELECT "order".*, profile.household_id, profile.latest_order FROM "order"
+      LEFT JOIN account ON "order".account_id = account.id
+      LEFT JOIN profile ON account.id = profile.account_id 
+        WHERE checkin_at 
+          BETWEEN NOW() - INTERVAL '24 HOURS' 
+          AND NOW()
+        AND "order".account_id = $1
+        ORDER BY checkout_at DESC;`;
+    query.values = [id];
+    const result = await conn.query(query.text, query.values);
+    conn.release();
+    res.status(200).send(result.rows);
+  } catch (error) {
+    console.log('Error GET /api/order/active', error);
+    res.sendStatus(500);
+  }
+});
+
 router.post('/', rejectUnauthenticated, async (req, res) => {
   const accountID = req.user.id;
 
