@@ -19,8 +19,10 @@ class CheckIn extends React.Component {
     showQuestions: false,
     showSuccess: false,
     showTextArea: false,
-    name: "",
+    pickup_name: "",
   };
+
+ 
 
   render() {
     console.log(this.state);
@@ -41,38 +43,38 @@ class CheckIn extends React.Component {
           <div id="orangeBox"></div>
           <Row>
             <label htmlFor="showTextArea" className="checkboxLabel">
-                    <h3>Is there another person picking up the order?</h3>
-                    <input
-                      type="checkbox"
-											className="check"
-											checked={this.state.showTextArea}
-                      onChange={(event) =>
-                        this.setState({ showTextArea: !this.state.showTextArea })
-                      }
-                    />
-                  </label>
-                  <br />
-                  {this.state.showTextArea && (
-                    <>
-                    <label htmlFor="name" id="nameLabel">
-                    Please enter the name here:
-                    <br></br>
-                    <textarea
-                      rows="2"
-                      cols="40"
-                      name="name"
-                      value={this.state.name}
-                      onChange={(event) =>
-                        this.setState({
-                          name: event.target.value,
-                        })
-                      }
-                      placeholder="Enter name of person picking up"
-                    ></textarea>
-                  </label>
+              <h3>Is there another person picking up the order?</h3>
+              <input
+                type="checkbox"
+                className="check"
+                checked={this.state.showTextArea}
+                onChange={(event) =>
+                  this.setState({ showTextArea: !this.state.showTextArea })
+                }
+              />
+            </label>
+            <br />
+            {this.state.showTextArea && (
+              <>
+                <label htmlFor="pickup_name" id="nameLabel">
+                  Please enter the name here:
                   <br></br>
-                  </>
-                  )}
+                  <textarea
+                    rows="2"
+                    cols="40"
+                    name="name"
+                    value={this.state.pickup_name}
+                    onChange={(event) =>
+                      this.setState({
+                        pickup_name: event.target.value,
+                      })
+                    }
+                    placeholder="Enter name of person picking up"
+                  ></textarea>
+                </label>
+                <br></br>
+              </>
+            )}
             {this.state.showCheckIn && (
               <div id="clientInput">
                 <form>
@@ -194,9 +196,9 @@ class CheckIn extends React.Component {
                       id="other"
                       name="other"
                       placeholder="Example: Baby supplies, hygiene, pet needs"
-                      value={this.state.other}
-                      onChange={event =>
-                        this.setState({ other: event.target.value })
+                      checked={this.state.other}
+                      onChange={() =>
+                        this.setState({ other: !this.state.other })
                       }
                     />
                   </label>
@@ -204,7 +206,9 @@ class CheckIn extends React.Component {
                   <button
                     id="submitButton"
                     onClick={() => {
-                      this.props.dispatch({ type: 'CLEAR_ORDER_PLACEMENT_ERROR' });
+                      this.props.dispatch({
+                        type: "CLEAR_ORDER_PLACEMENT_ERROR",
+                      });
                       this.props.dispatch({
                         type: "SUBMIT_ORDER",
                         payload: {
@@ -213,8 +217,9 @@ class CheckIn extends React.Component {
                           walking_home: this.state.walkingHome,
                           pregnant: this.state.pregnant,
                           child_birthday: this.state.childBirthday,
-													snap: this.state.snap,
-                          other: this.state.other
+                          snap: this.state.snap,
+                          other: this.state.other,
+                          pickup_name: this.state.pickup_name,
                         },
                       });
                       this.setState({

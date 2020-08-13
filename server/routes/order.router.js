@@ -88,6 +88,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 	const pickupName = req.body.pickup_name;
   const other = req.body.other;
   let waitTimeMinutes = null;
+console.log("this is the order router body:",req.body);
 
   if (accessLevel >= 10) {
     try {
@@ -108,6 +109,13 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 		typeof pickupName !== 'string' ||
     typeof other !== 'string'
   ) {
+    console.log(typeof dietaryRestrictions);
+    console.log(typeof walkingHome);
+    console.log(typeof pregnant);
+    console.log(typeof childBirthday);
+    console.log(typeof snap);
+    console.log(typeof pickupName);
+    console.log(typeof other);
     res.sendStatus(400);
     return;
   }
