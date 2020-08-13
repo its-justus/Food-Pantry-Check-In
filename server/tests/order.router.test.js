@@ -16,7 +16,7 @@ const pregnant = false;
 const childBirthday = true;
 const snap = true;
 const other = 'Love and attention';
-const waitTimeMinutes = 30;
+const waitTimeMinutes = '30';
 
 afterAll(async (done) => {
   // Normally we don''t delete orders so set the test account's most recent order to null
@@ -84,7 +84,7 @@ describe('Normal client with access level 1 for /api/order', () => {
         child_birthday: childBirthday,
         snap: snap,
         other: other,
-        wait_time_minutes: waitTimeMinutes
+        wait_time_minutes: Number(waitTimeMinutes)
       });
       done();
     });
