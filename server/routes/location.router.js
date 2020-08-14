@@ -73,7 +73,7 @@ router.get('/', async (req, res) => {
   const conn = await pool.connect();
   try {
     const query = {};
-    query.text = 'SELECT * FROM "location";';
+    query.text = 'SELECT * FROM "location" ORDER BY id ASC;';
     await conn.query('BEGIN');
     const result = await conn.query(query.text);
     await conn.query('COMMIT');
