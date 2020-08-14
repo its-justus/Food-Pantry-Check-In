@@ -6,6 +6,7 @@ function* fetchActiveOrders() {
     const response = yield axios.get('/api/order/active');
     yield put({ type: 'SET_ACTIVE_ORDERS', payload: response.data });
   } catch (error) {
+    yield put({ type: 'FAILED_REQUEST' });
     console.log('Order get request failed', error);
   }
 }
