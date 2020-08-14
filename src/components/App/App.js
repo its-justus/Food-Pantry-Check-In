@@ -32,7 +32,7 @@ class App extends Component {
               {this.props.account.access_level === 1
                 ? (<Redirect exact from='/login' to='/checkin' />)
                 : this.props.account.access_level >= 10 ? (<Redirect exact from='/login' to='/dashboard' />)
-                  : (<Redirect from='/' to='/login' />)}
+                  : (<Redirect exact from='/' to='/login' />)}
               <Route path='/login'>
                 <LoginPage />
               </Route>
@@ -53,7 +53,6 @@ class App extends Component {
         </Router>
         : <Router>
           <Header />
-          <h1>Loading</h1>
           <Footer />
         </Router>
     );

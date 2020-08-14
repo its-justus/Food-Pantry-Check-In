@@ -25,7 +25,6 @@ function* fetchInfo() {
     const locationsResponse = yield axios.get('/api/location');
     yield put({ type: 'SET_PARKING_LOCATIONS', payload: locationsResponse.data });
   } catch (error) {
-    yield put({ type: 'FAILED_REQUEST' });
     console.log('User get request failed', error);
   } finally {
     yield put({ type: 'CLEAR_SERVER_LOADING' });
