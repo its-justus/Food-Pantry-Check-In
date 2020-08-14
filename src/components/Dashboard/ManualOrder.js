@@ -16,7 +16,7 @@ class ManualOrder extends Component {
     other: '',
     waitTime: '',
     houseHoldId: '',
-    waitTimeMinutes: '15'
+    waitTimeMinutes: '15',
   };
 
   render() {
@@ -26,7 +26,6 @@ class ManualOrder extends Component {
         <Container id="checkInContainer">
           <Row id="clientInfoRow">
             <div id="clientInfo">
-              <h1 id="accountName">Hi, </h1>
               <h3 id="houseId">
                 <label htmlFor="houseHoldId" >
                   Enter Household ID:
@@ -40,9 +39,6 @@ class ManualOrder extends Component {
                     }
                   />
                 </label>
-              </h3>
-              <h3 id="lastPickup">
-                Last pickup:
               </h3>
             </div>
           </Row>
@@ -180,6 +176,7 @@ class ManualOrder extends Component {
                 <button
                   id="submitButton"
                   onClick={() => {
+                    this.props.showClientInfo = false;
                     this.props.dispatch({ type: 'CLEAR_ORDER_PLACEMENT_ERROR' });
                     this.props.dispatch({
                       type: "SUBMIT_ORDER",
@@ -197,6 +194,11 @@ class ManualOrder extends Component {
                   }}
                 >
                   Submit
+                  </button>
+                  <button 
+                    onClick={!this.props.showClientInfo}
+                  >
+                    Cancel
                   </button>
               </div>
             </>
