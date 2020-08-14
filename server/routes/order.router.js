@@ -176,7 +176,13 @@ router.put('/checkout/:id', async (req, res) => {
       RETURNING *;`;
     query.values = [req.params.id, waitTimeMinutes];
     await conn.query('BEGIN');
-    const result = await conn.query(query.text, query.values);
+		const result = await conn.query(query.text, query.values);
+		// do a second query that updates the user's profile to include the latest order
+		query.text = `UPDATE "profile"
+			SET latest_order = $1
+			WHERE account_id = $2;`;
+		query.values = [result.rows[0].id, req.params.id];
+		await conn.query(query.text, query.values);
     await conn.query('COMMIT');
     conn.release();
     res.status(200).send(result.rows);
