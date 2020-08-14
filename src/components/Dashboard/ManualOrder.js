@@ -25,34 +25,41 @@ class ManualOrder extends Component {
       <>
         <Container id="checkInContainer">
           <Row id="clientInfoRow">
-            <div id="clientInfo">
-              <h1 id="accountName">Hi, </h1>
-              <h3 id="houseId">
-                <label htmlFor="houseHoldId">
-                  Enter Household ID:
-                  <br></br>
-                  <input
-                    type="number"
-                    name="houseHoldId"
-                    value={this.state.houseHoldId}
-                    onChange={(event) =>
-                      this.setState({ houseHoldId: event.target.value })
-                    }
-                  />
-                </label>
-              </h3>
-              <h3 id="lastPickup">Last pickup:</h3>
+            <div id="secondColManualHeader">
+              <h1 id="secondColManualTitle">
+                Enter information to check-in a client.
+              </h1>
+              <button
+                id="cancelButton"
+                className="btn btn-large btn-primary"
+                onClick={() => this.props.toggleShowClientInfo()}
+              >
+                Cancel
+              </button>
+            </div>
+            <div id="clientInfoManual">
+              <label htmlFor="houseHoldIdManual">
+                Enter Household ID:
+                <br></br>
+                <input
+                  type="number"
+                  name="houseHoldIdManual"
+                  value={this.state.houseHoldId}
+                  onChange={(event) =>
+                    this.setState({ houseHoldId: event.target.value })
+                  }
+                />
+              </label>
             </div>
           </Row>
           <div id="orangeBox"></div>
           <Row>
-            <div id="clientInput">
+            <div id="clientInputManual">
               <form>
                 <label htmlFor="name" id="parkingLabel">
-                  Please enter parking spot number:
+                  Choose parking spot:
                   <br></br>
                   <select
-                    type="text"
                     name="parking"
                     value={this.state.locationID}
                     id="parkingNumber"
@@ -61,12 +68,14 @@ class ManualOrder extends Component {
                     }
                   >
                     <>
-                      {this.props.parkingLocations.map((location, index) =>
+                      {this.props.parkingLocations.map((location, index) => (
                         <option
                           value={location.id}
                           key={`parking-locations-${index}`}
-                        >{location.description}</option>
-                      )}
+                        >
+                          {location.description}
+                        </option>
+                      ))}
                     </>
                   </select>
                   <br></br>
@@ -223,6 +232,7 @@ class ManualOrder extends Component {
                         wait_time_minutes: this.state.waitTimeMinutes,
                       },
                     });
+                    this.props.toggleShowClientInfo();
                   }}
                 >
                   Submit

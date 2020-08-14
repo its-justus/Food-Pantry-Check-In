@@ -32,19 +32,11 @@ thead {
 }
 
 #addClient {
-  position: absolute;
-  margin-bottom: 20px;
-  margin-left: 20px;
-  bottom: 0;
-  left: 0;
+  float: right;
 }
 
 #checkInClient {
-  position: absolute;
-  margin-bottom: 20px;
-  margin-right: 20px;
-  bottom: 0;
-  right: 0;
+  float: right;
   background-color: #3ca342;
   border: 1px solid #3ca342;
   transition: 200ms;
@@ -63,20 +55,46 @@ thead {
 
 #firstColTitle {
   color: white;
-  background-color: #faaf46;
-  padding: 10px;
   font-size: 30px;
+  display: inline-block;
+}
+
+#firstColHeader {  
+  padding: 10px;
+  background-color: #faaf46;
   margin: 0px;
   margin-top: -20px;
+  width: 100%;
+  display: inline-block;
 }
 
 #secondColTitle {
   color: white;
+  font-size: 30px;
+  display: inline-block;
+}
+
+#secondColManualTitle {
+  color: white;
+  font-size: 30px;
+  display: inline-block;  
+}
+
+#secondColManualHeader {
+  background-color: #0071f8;
+  padding: 10px;
+  margin: 0px;
+  width: 100%;
+  display: inline-block;   
+}
+
+#secondColHeader {
   background-color: #99e0f7;
   padding: 10px;
-  font-size: 30px;
   margin: 0px;
   margin-top: -20px;
+  width: 100%;
+  display: inline-block;  
 }
 
 #firstCard, #secondCard, #thirdCard {
