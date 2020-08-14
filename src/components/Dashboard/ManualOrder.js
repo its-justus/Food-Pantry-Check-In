@@ -190,6 +190,7 @@ class ManualOrder extends Component {
                         pregnant: this.state.pregnant,
                         child_birthday: this.state.childBirthday,
                         snap: this.state.snap,
+                        pickup_name: '',
                         other: this.state.other,
                         wait_time_minutes: this.state.waitTimeMinutes
                       },

@@ -77,6 +77,7 @@ router.get('/complete/today', rejectUnauthenticated, async (req, res) => {
 
 router.post('/', rejectUnauthenticated, async (req, res) => {
   const accountID = req.user.id;
+  console.log(req.user);
   const accessLevel = req.user.access_level;
 
   const locationID = req.body.location_id;
@@ -88,7 +89,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 	const pickupName = req.body.pickup_name;
   const other = req.body.other;
   let waitTimeMinutes = null;
-console.log("this is the order router body:",req.body);
+  console.log("this is the order router body:",req.body);
 
   if (accessLevel >= 10) {
     try {
@@ -100,6 +101,13 @@ console.log("this is the order router body:",req.body);
   }
 
   // TODO only allow volunteers to specify the wait time.
+  console.log(typeof dietaryRestrictions);
+  console.log(typeof walkingHome);
+  console.log(typeof pregnant);
+  console.log(typeof childBirthday);
+  console.log(typeof snap);
+  console.log(typeof pickupName);
+  console.log(typeof other);
   if (!locationID ||
     typeof dietaryRestrictions !== 'string' ||
     typeof walkingHome !== 'boolean' ||
@@ -109,13 +117,6 @@ console.log("this is the order router body:",req.body);
 		typeof pickupName !== 'string' ||
     typeof other !== 'string'
   ) {
-    console.log(typeof dietaryRestrictions);
-    console.log(typeof walkingHome);
-    console.log(typeof pregnant);
-    console.log(typeof childBirthday);
-    console.log(typeof snap);
-    console.log(typeof pickupName);
-    console.log(typeof other);
     res.sendStatus(400);
     return;
   }

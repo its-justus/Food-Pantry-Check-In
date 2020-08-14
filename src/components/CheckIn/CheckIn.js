@@ -227,8 +227,8 @@ class CheckIn extends React.Component {
                           pregnant: this.state.pregnant,
                           child_birthday: this.state.childBirthday,
                           snap: this.state.snap,
-                          other: this.state.other,
                           pickup_name: this.state.pickup_name,
+                          other: this.state.other,
                         },
                       });
                       this.setState({
