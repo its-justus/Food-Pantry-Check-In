@@ -68,6 +68,7 @@ class Dashboard extends Component {
                       Add Client
                     </button>
                   </div>
+                  <h1 id="firstColTitle">Client Queue</h1>
                   <Table responsive hover>
                     <tbody>
                       {this.props.activeOrders?.map((cur, i) => (

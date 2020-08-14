@@ -7,7 +7,7 @@ import "./CheckIn.css";
 
 class CheckIn extends React.Component {
   state = {
-    locationID: '',
+    locationID: "",
     dietaryRestrictions: "",
     walkingHome: false,
     pregnant: false,
@@ -17,10 +17,15 @@ class CheckIn extends React.Component {
     showCheckIn: true,
     showQuestions: false,
     showSuccess: false,
+    showTextArea: false,
+    pickup_name: "",
   };
 
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_ALL_LOCATIONS' });
+  }
+
   render() {
-    console.log(this.state);
     return (
       <>
         <Container id="checkInContainer" fluid>
@@ -44,13 +49,46 @@ class CheckIn extends React.Component {
             <div id="greyLine"></div>
           </div>
           <Row>
+            <label htmlFor="showTextArea" className="checkboxLabel">
+              <h3>Is there another person picking up the order?</h3>
+              <input
+                type="checkbox"
+                className="check"
+                checked={this.state.showTextArea}
+                onChange={(event) =>
+                  this.setState({ showTextArea: !this.state.showTextArea })
+                }
+              />
+            </label>
+            <br />
+            {this.state.showTextArea && (
+              <>
+                <label htmlFor="pickup_name" id="nameLabel">
+                  Please enter the name here:
+                  <br></br>
+                  <textarea
+                    rows="2"
+                    cols="40"
+                    name="name"
+                    value={this.state.pickup_name}
+                    onChange={(event) =>
+                      this.setState({
+                        pickup_name: event.target.value,
+                      })
+                    }
+                    placeholder="Enter name of person picking up"
+                  ></textarea>
+                </label>
+                <br></br>
+              </>
+            )}
             {this.state.showCheckIn && (
               <div id="clientInput">
                 <form>
                   <label htmlFor="name" id="parkingLabel">
                     Start checking in by selecting your parking spot:
                     <br></br>
-                    <input
+                    <select
                       type="text"
                       name="parking"
                       value={this.state.locationID}
@@ -58,7 +96,16 @@ class CheckIn extends React.Component {
                       onChange={(event) =>
                         this.setState({ locationID: event.target.value })
                       }
-                    />
+                    >
+                      <>
+                        {this.props.parkingLocations.map((location, index) =>
+                          <option
+                            value={location.id}
+                            key={`parking-locations-${index}`}
+                          >{location.description}</option>
+                        )}
+                      </>
+                    </select>
                     <br></br>
                     <input
                       type="button"
@@ -169,7 +216,7 @@ class CheckIn extends React.Component {
                       name="other"
                       placeholder="Example: Baby supplies, hygiene, pet needs"
                       value={this.state.other}
-                      onChange={event =>
+                      onChange={(event) =>
                         this.setState({ other: event.target.value })
                       }
                     />
@@ -190,6 +237,7 @@ class CheckIn extends React.Component {
                           pregnant: this.state.pregnant,
                           child_birthday: this.state.childBirthday,
                           snap: this.state.snap,
+                          pickup_name: this.state.pickup_name,
                           other: this.state.other,
                         },
                       });
@@ -220,6 +268,7 @@ class CheckIn extends React.Component {
 
 const mapStateToProps = (state) => ({
   account: state.account,
+  parkingLocations: state.parkingLocations
 });
 
 export default connect(mapStateToProps)(CheckIn);

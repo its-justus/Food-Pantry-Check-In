@@ -17,19 +17,23 @@ class ManualOrder extends Component {
     waitTime: '',
     houseHoldId: '',
     waitTimeMinutes: '15',
+    pickup_name: '',
   };
 
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_ALL_LOCATIONS' });
+  }
+
   render() {
-    console.log(this.state);
     return (
       <>
         <Container id="checkInContainer">
           <Row id="clientInfoRow">
             <div id="clientInfo">
               <h3 id="houseId">
-                <label htmlFor="houseHoldId" >
+                <label htmlFor="houseHoldId">
                   Enter Household ID:
-                    <br></br>
+                  <br></br>
                   <input
                     type="number"
                     name="houseHoldId"
@@ -48,8 +52,8 @@ class ManualOrder extends Component {
               <form>
                 <label htmlFor="name" id="parkingLabel">
                   Please enter parking spot number:
-                    <br></br>
-                  <input
+                  <br></br>
+                  <select
                     type="text"
                     name="parking"
                     value={this.state.locationID}
@@ -57,7 +61,16 @@ class ManualOrder extends Component {
                     onChange={(event) =>
                       this.setState({ locationID: event.target.value })
                     }
-                  />
+                  >
+                    <>
+                      {this.props.parkingLocations.map((location, index) =>
+                        <option
+                          value={location.id}
+                          key={`parking-locations-${index}`}
+                        >{location.description}</option>
+                      )}
+                    </>
+                  </select>
                   <br></br>
                 </label>
               </form>
@@ -66,9 +79,26 @@ class ManualOrder extends Component {
           <Form.Row xs={12}>
             <>
               <div id="clientQuestions">
+                <label htmlFor="pickup_name" id="nameLabel">
+                  Please enter the name here:
+                  <br></br>
+                  <textarea
+                    rows="2"
+                    cols="40"
+                    name="name"
+                    value={this.state.pickup_name}
+                    onChange={(event) =>
+                      this.setState({
+                        pickup_name: event.target.value,
+                      })
+                    }
+                    placeholder="Enter name of person picking up"
+                  ></textarea>
+                </label>
+                <br></br>
                 <label htmlFor="foodRestrictions" id="foodRestrictionsLabel">
                   Please list any food restrictions here:
-                    <br></br>
+                  <br></br>
                   <textarea
                     rows="2"
                     cols="40"
@@ -85,7 +115,7 @@ class ManualOrder extends Component {
                 <br></br>
                 <label htmlFor="walking" className="checkboxLabel">
                   Are you walking home?
-                    <input
+                  <input
                     type="checkbox"
                     id="walkingHome"
                     className="check"
@@ -98,9 +128,9 @@ class ManualOrder extends Component {
                 </label>
                 <br></br>
                 <label htmlFor="birthday" className="checkboxLabel">
-                  Is there a child in the household with a birthday in the
-                  next 2 months?
-                    <input
+                  Is there a child in the household with a birthday in the next
+                  2 months?
+                  <input
                     type="checkbox"
                     id="childBirthday"
                     className="check"
@@ -116,7 +146,7 @@ class ManualOrder extends Component {
                 <br></br>
                 <label htmlFor="pregnant" className="checkboxLabel">
                   Is there a woman in the household who is pregnant?
-                    <input
+                  <input
                     type="checkbox"
                     id="pregnant"
                     className="check"
@@ -130,7 +160,7 @@ class ManualOrder extends Component {
                 <br></br>
                 <label htmlFor="snap" className="checkboxLabel">
                   Are you currently receiving SNAP?
-                    <input
+                  <input
                     type="checkbox"
                     id="snap"
                     className="check"
@@ -142,7 +172,7 @@ class ManualOrder extends Component {
                 <br></br>
                 <label htmlFor="other" className="checkboxLabel">
                   Please list any other needs:
-                    <br></br>
+                  <br></br>
                   <textarea
                     rows="2"
                     cols="40"
@@ -150,13 +180,14 @@ class ManualOrder extends Component {
                     name="other"
                     placeholder="Example: Baby supplies, hygiene, pet needs"
                     value={this.state.other}
-                    onChange={event =>
+                    onChange={(event) =>
                       this.setState({ other: event.target.value })
                     }
                   />
                 </label>
                 <br />
-                <label for="waitTime">Please choose a wait time:
+                <label for="waitTime">
+                  Please choose a wait time:
                   <select
                     name="waitTime"
                     id="times"
@@ -165,7 +196,8 @@ class ManualOrder extends Component {
                       this.setState({
                         waitTimeMinutes: event.target.value,
                       })
-                    }>
+                    }
+                  >
                     <option value="15">15 minutes</option>
                     <option value="30">30 minutes</option>
                     <option value="45">45 minutes</option>
@@ -187,8 +219,9 @@ class ManualOrder extends Component {
                         pregnant: this.state.pregnant,
                         child_birthday: this.state.childBirthday,
                         snap: this.state.snap,
+                        pickup_name: this.state.pickup_name,
                         other: this.state.other,
-                        wait_time_minutes: this.state.waitTimeMinutes
+                        wait_time_minutes: this.state.waitTimeMinutes,
                       },
                     });
                   }}
@@ -212,6 +245,7 @@ class ManualOrder extends Component {
 const mapStateToProps = (state) => ({
   activeOrders: state.activeOrders,
   completeOrders: state.completeOrders,
+  parkingLocations: state.parkingLocations
 });
 
 export default connect(mapStateToProps)(ManualOrder);
