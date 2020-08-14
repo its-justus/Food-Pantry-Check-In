@@ -4,6 +4,8 @@ import { put, takeLatest } from 'redux-saga/effects';
 // This will get info about the current user and the parking locations.
 function* fetchInfo() {
   try {
+    yield put({ type: 'SET_SERVER_LOADING' });
+    
     const config = {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true
@@ -14,8 +16,6 @@ function* fetchInfo() {
     // If a user is logged in, this will return their information
     // from the server session (req.user)
     const response = yield axios.get('/api/account', config);
-
-    yield put({ type: 'SET_SERVER_LOADING' });
 
     // now that the session has given us a user object
     // with an id and username set the client-side user object to let
