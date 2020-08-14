@@ -7,7 +7,7 @@ import "./CheckIn.css";
 
 class CheckIn extends React.Component {
   state = {
-    locationID: '',
+    locationID: "",
     dietaryRestrictions: "",
     walkingHome: false,
     pregnant: false,
@@ -17,7 +17,11 @@ class CheckIn extends React.Component {
     showCheckIn: true,
     showQuestions: false,
     showSuccess: false,
+    showTextArea: false,
+    pickup_name: "",
   };
+
+
 
   render() {
     console.log(this.state);
@@ -44,6 +48,39 @@ class CheckIn extends React.Component {
             <div id="greyLine"></div>
           </div>
           <Row>
+            <label htmlFor="showTextArea" className="checkboxLabel">
+              <h3>Is there another person picking up the order?</h3>
+              <input
+                type="checkbox"
+                className="check"
+                checked={this.state.showTextArea}
+                onChange={(event) =>
+                  this.setState({ showTextArea: !this.state.showTextArea })
+                }
+              />
+            </label>
+            <br />
+            {this.state.showTextArea && (
+              <>
+                <label htmlFor="pickup_name" id="nameLabel">
+                  Please enter the name here:
+                  <br></br>
+                  <textarea
+                    rows="2"
+                    cols="40"
+                    name="name"
+                    value={this.state.pickup_name}
+                    onChange={(event) =>
+                      this.setState({
+                        pickup_name: event.target.value,
+                      })
+                    }
+                    placeholder="Enter name of person picking up"
+                  ></textarea>
+                </label>
+                <br></br>
+              </>
+            )}
             {this.state.showCheckIn && (
               <div id="clientInput">
                 <form>
@@ -169,7 +206,7 @@ class CheckIn extends React.Component {
                       name="other"
                       placeholder="Example: Baby supplies, hygiene, pet needs"
                       value={this.state.other}
-                      onChange={event =>
+                      onChange={(event) =>
                         this.setState({ other: event.target.value })
                       }
                     />
@@ -190,6 +227,7 @@ class CheckIn extends React.Component {
                           pregnant: this.state.pregnant,
                           child_birthday: this.state.childBirthday,
                           snap: this.state.snap,
+                          pickup_name: this.state.pickup_name,
                           other: this.state.other,
                         },
                       });

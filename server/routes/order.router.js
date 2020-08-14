@@ -104,8 +104,8 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     typeof walkingHome !== 'boolean' ||
     typeof pregnant !== 'boolean' ||
     typeof childBirthday !== 'boolean' ||
-		typeof snap !== 'boolean' ||
-		typeof pickupName !== 'string' ||
+    typeof snap !== 'boolean' ||
+    typeof pickupName !== 'string' ||
     typeof other !== 'string'
   ) {
     res.sendStatus(400);
