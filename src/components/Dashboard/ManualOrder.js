@@ -20,10 +20,6 @@ class ManualOrder extends Component {
     pickup_name: '',
   };
 
-  componentDidMount() {
-    this.props.dispatch({ type: 'FETCH_ALL_LOCATIONS' });
-  }
-
   render() {
     return (
       <>

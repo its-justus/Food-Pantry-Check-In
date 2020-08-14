@@ -18,6 +18,7 @@ import CheckIn from '../CheckIn/CheckIn';
 class App extends Component {
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_USER' });
+    this.props.dispatch({ type: 'FETCH_ALL_LOCATIONS' });
   }
 
   render() {
