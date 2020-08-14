@@ -40,7 +40,7 @@ class CheckIn extends React.Component {
                 Household ID: <strong>{this.props.account.household_id}</strong>
               </h3>
               <h3 id="lastPickup">
-                Last pickup: {this.props.account.last_pickup}
+                Please fill out this form to pickup your order.
               </h3>
             </div>
           </Row>
