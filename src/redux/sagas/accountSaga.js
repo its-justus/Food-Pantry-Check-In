@@ -9,13 +9,13 @@ function* fetchInfo() {
       withCredentials: true
     };
 
-    yield put({ type: 'SET_SERVER_LOADING' });
-
     // the config includes credentials which
     // allow the server session to recognize the user
     // If a user is logged in, this will return their information
     // from the server session (req.user)
     const response = yield axios.get('/api/account', config);
+
+    yield put({ type: 'SET_SERVER_LOADING' });
 
     // now that the session has given us a user object
     // with an id and username set the client-side user object to let
@@ -24,10 +24,11 @@ function* fetchInfo() {
 
     const locationsResponse = yield axios.get('/api/location');
     yield put({ type: 'SET_PARKING_LOCATIONS', payload: locationsResponse.data });
-    yield put({ type: 'CLEAR_SERVER_LOADING' });
   } catch (error) {
     yield put({ type: 'FAILED_REQUEST' });
     console.log('User get request failed', error);
+  } finally {
+    yield put({ type: 'CLEAR_SERVER_LOADING' });
   }
 }
 

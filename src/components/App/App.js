@@ -17,37 +17,52 @@ import CheckIn from '../CheckIn/CheckIn';
 
 class App extends Component {
   componentDidMount() {
-    this.props.dispatch({ type: 'FETCH' });
+    this.props.dispatch({ type: 'FETCH_INFO' });
   }
 
   render() {
     return (
-      <Router>
-        <div>
-          <Header />
-          <Switch>
-            {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-            <Redirect exact from='/' to='/checkin' />
-            <Route path='/login'>
-              <LoginPage />
-            </Route>
-            <Route path='/register'>
-              <RegisterPage />
-            </Route>
-            {/* For protected routes, the view could show one of several things on the same route.
+      !this.props.loading ?
+        <Router>
+          <div>
+            <Header />
+            <Switch>
+              {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
+              {/* <Redirect exact from='/' to='/login' /> */}
+              {/* {this.props.account.access_level === 1
+                ? (<Redirect to='/checkin' />)
+                : this.props.account.access_level >= 10 ? (<Redirect from='/' to='/dashboard' />)
+                  : (<Redirect to='/login' />)} */}
+              <Route path='/login'>
+                <LoginPage />
+              </Route>
+              <Route path='/register'>
+                <RegisterPage />
+              </Route>
+              {/* For protected routes, the view could show one of several things on the same route.
               If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Create Account' page. */}
-            <ProtectedRoute exact path='/checkin' component={CheckIn} />
-            <ProtectedRoute exact path='/dashboard' component={Dashboard} minimumAccessLevel={10} />
-            {/* This works the same as the other protected route, except that if the user is logged in,
+              <ProtectedRoute exact path='/checkin' component={CheckIn} />
+              <ProtectedRoute exact path='/dashboard' component={Dashboard} minimumAccessLevel={10} />
+              {/* This works the same as the other protected route, except that if the user is logged in,
               they will see their profile page instead. */}
-            {/* If none of the other routes matched, we will show a 404. */}
-            <Route render={() => <h1>404</h1>} />
-          </Switch>
+              {/* If none of the other routes matched, we will show a 404. */}
+              <Route render={() => <h1>404</h1>} />
+            </Switch>
+            <Footer />
+          </div>
+        </Router>
+        : <Router>
+          <Header />
+          <h1>Loading</h1>
           <Footer />
-        </div>
-      </Router>
+        </Router>
     );
   }
 }
 
-export default connect()(App);
+const mapStateToProps = (state) => ({
+  account: state.account,
+  loading: state.loading
+});
+
+export default connect(mapStateToProps)(App);
