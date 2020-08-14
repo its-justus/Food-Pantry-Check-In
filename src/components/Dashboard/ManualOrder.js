@@ -20,8 +20,11 @@ class ManualOrder extends Component {
     pickup_name: '',
   };
 
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_ALL_LOCATIONS' });
+  }
+
   render() {
-    console.log(this.state);
     return (
       <>
         <Container id="checkInContainer">
@@ -52,7 +55,7 @@ class ManualOrder extends Component {
                 <label htmlFor="name" id="parkingLabel">
                   Please enter parking spot number:
                   <br></br>
-                  <input
+                  <select
                     type="text"
                     name="parking"
                     value={this.state.locationID}
@@ -60,7 +63,16 @@ class ManualOrder extends Component {
                     onChange={(event) =>
                       this.setState({ locationID: event.target.value })
                     }
-                  />
+                  >
+                    <>
+                      {this.props.parkingLocations.map((location, index) =>
+                        <option
+                          value={location.id}
+                          key={`parking-locations-${index}`}
+                        >{location.description}</option>
+                      )}
+                    </>
+                  </select>
                   <br></br>
                 </label>
               </form>
@@ -231,6 +243,7 @@ class ManualOrder extends Component {
 const mapStateToProps = (state) => ({
   activeOrders: state.activeOrders,
   completeOrders: state.completeOrders,
+  parkingLocations: state.parkingLocations
 });
 
 export default connect(mapStateToProps)(ManualOrder);

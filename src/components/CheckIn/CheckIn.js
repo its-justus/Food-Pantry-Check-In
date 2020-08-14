@@ -21,10 +21,11 @@ class CheckIn extends React.Component {
     pickup_name: "",
   };
 
-
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_ALL_LOCATIONS' });
+  }
 
   render() {
-    console.log(this.state);
     return (
       <>
         <Container id="checkInContainer" fluid>
@@ -87,7 +88,7 @@ class CheckIn extends React.Component {
                   <label htmlFor="name" id="parkingLabel">
                     Start checking in by selecting your parking spot:
                     <br></br>
-                    <input
+                    <select
                       type="text"
                       name="parking"
                       value={this.state.locationID}
@@ -95,7 +96,16 @@ class CheckIn extends React.Component {
                       onChange={(event) =>
                         this.setState({ locationID: event.target.value })
                       }
-                    />
+                    >
+                      <>
+                        {this.props.parkingLocations.map((location, index) =>
+                          <option
+                            value={location.id}
+                            key={`parking-locations-${index}`}
+                          >{location.description}</option>
+                        )}
+                      </>
+                    </select>
                     <br></br>
                     <input
                       type="button"
@@ -258,6 +268,7 @@ class CheckIn extends React.Component {
 
 const mapStateToProps = (state) => ({
   account: state.account,
+  parkingLocations: state.parkingLocations
 });
 
 export default connect(mapStateToProps)(CheckIn);
