@@ -7,7 +7,6 @@ import Table from "react-bootstrap/Table";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import Card from "react-bootstrap/Card";
 import ManualOrder from "./ManualOrder";
-import locations from '../SomeTextValues/locations.json';
 import "./Dashboard.css";
 
 //this component is for the dashboard view that is seen by the volunteers
