@@ -7,6 +7,7 @@ import Table from "react-bootstrap/Table";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import Card from "react-bootstrap/Card";
 import ManualOrder from "./ManualOrder";
+import locations from '../SomeTextValues/locations.json';
 import "./Dashboard.css";
 
 //this component is for the dashboard view that is seen by the volunteers
@@ -54,7 +55,7 @@ class Dashboard extends Component {
             <Col id="firstCol" xs={12} sm={12} lg={4} xl={4}>
               <Card id="firstCard">
                 <form className="dashForm">
-                  <h1 id="firstColTitle">Client Que</h1>
+                  <h1 id="firstColTitle">Client Queue</h1>
                   <Table responsive hover>
                     <tbody>
                       {this.props.activeOrders?.map((cur, i) => (
