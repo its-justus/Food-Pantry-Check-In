@@ -21,7 +21,7 @@ class CheckIn extends React.Component {
     pickup_name: "",
   };
 
- 
+
 
   render() {
     console.log(this.state);
@@ -205,9 +205,9 @@ class CheckIn extends React.Component {
                       id="other"
                       name="other"
                       placeholder="Example: Baby supplies, hygiene, pet needs"
-                      checked={this.state.other}
-                      onChange={() =>
-                        this.setState({ other: !this.state.other })
+                      value={this.state.other}
+                      onChange={(event) =>
+                        this.setState({ other: event.target.value })
                       }
                     />
                   </label>
