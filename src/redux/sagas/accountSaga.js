@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-// worker Saga: will be fired on "FETCH_USER" actions
-function* fetchUser() {
+// This will get info about the current user and the parking locations.
+function* fetchInfo() {
   try {
+    yield put({ type: 'SET_SERVER_LOADING' });
+    
     const config = {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true
@@ -19,9 +21,13 @@ function* fetchUser() {
     // with an id and username set the client-side user object to let
     // the client-side code know the user is logged in
     yield put({ type: 'SET_USER', payload: response.data });
+
+    const locationsResponse = yield axios.get('/api/location');
+    yield put({ type: 'SET_PARKING_LOCATIONS', payload: locationsResponse.data });
   } catch (error) {
-    yield put({ type: 'FAILED_REQUEST' });
     console.log('User get request failed', error);
+  } finally {
+    yield put({ type: 'CLEAR_SERVER_LOADING' });
   }
 }
 
@@ -38,7 +44,7 @@ function* fetchUser() {
 // }
 
 function* accountSaga() {
-  yield takeLatest('FETCH_USER', fetchUser);
+  yield takeLatest('FETCH_INFO', fetchInfo);
   // yield takeLatest('GET_HOUSEHOLD_MEMBERS', getHouseholdMembers);
 }
 
