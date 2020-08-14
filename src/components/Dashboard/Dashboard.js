@@ -16,6 +16,12 @@ class Dashboard extends Component {
     waitTimeMinutes: '15',
   };
 
+  pickupName =(cur) => {
+    if (cur.pickup_name !== '') {
+                              return cur.pickup_name }
+                              else { return cur.name};
+  }
+
   componentDidMount = () => {
     this.props.dispatch({ type: "FETCH_ACTIVE_ORDERS" });
     const activeInterval = setInterval(
@@ -64,8 +70,12 @@ class Dashboard extends Component {
                               id="clientNameButton"
                               onClick={() => this.setLocalStateObj(cur)}
                             >
-                              {cur.name}
-                            </button>
+                              {cur.pickup_name && cur.name ?
+                              cur.pickup_name :
+                              cur.name}
+                              
+                              
+                             </button>
                           </td>
                         </tr>
                       ))}
@@ -106,7 +116,8 @@ class Dashboard extends Component {
                       Other needs: <b>{this.state.orderObj.other}</b>
                     </p>
                   </body>
-                  <label for="waitTime">Please choose a wait time:
+                  <label for="waitTime">
+                    Please choose a wait time:
                     <select
                       name="waitTime"
                       id="times"
@@ -115,7 +126,8 @@ class Dashboard extends Component {
                         this.setState({
                           waitTimeMinutes: event.target.value,
                         })
-                      }>
+                      }
+                    >
                       <option value="15">15 minutes</option>
                       <option value="30">30 minutes</option>
                       <option value="45">45 minutes</option>
@@ -129,7 +141,10 @@ class Dashboard extends Component {
                     onClick={() =>
                       this.props.dispatch({
                         type: "ORDER_CHECKOUT",
-                        payload: { id: this.state.orderObj.id, waitTimeMinutes: this.state.waitTimeMinutes },
+                        payload: {
+                          id: this.state.orderObj.id,
+                          waitTimeMinutes: this.state.waitTimeMinutes,
+                        },
                       })
                     }
                   >
