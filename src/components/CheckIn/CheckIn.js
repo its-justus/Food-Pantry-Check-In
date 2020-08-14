@@ -21,10 +21,7 @@ class CheckIn extends React.Component {
     pickup_name: "",
   };
 
- 
-
   render() {
-    console.log(this.state);
     return (
       <>
         <Container id="checkInContainer" fluid>
@@ -48,18 +45,6 @@ class CheckIn extends React.Component {
             <div id="greyLine"></div>
           </div>
           <Row>
-            <label htmlFor="showTextArea" className="checkboxLabel">
-              <h3>Is there another person picking up the order?</h3>
-              <input
-                type="checkbox"
-                className="check"
-                checked={this.state.showTextArea}
-                onChange={(event) =>
-                  this.setState({ showTextArea: !this.state.showTextArea })
-                }
-              />
-            </label>
-            <br />
             {this.state.showTextArea && (
               <>
                 <label htmlFor="pickup_name" id="nameLabel">
@@ -87,15 +72,23 @@ class CheckIn extends React.Component {
                   <label htmlFor="name" id="parkingLabel">
                     Start checking in by selecting your parking spot:
                     <br></br>
-                    <input
-                      type="text"
+                    <select
                       name="parking"
                       value={this.state.locationID}
                       id="parkingNumber"
                       onChange={(event) =>
                         this.setState({ locationID: event.target.value })
                       }
-                    />
+                    >
+                      <>
+                        {this.props.parkingLocations.map((location, index) =>
+                          <option
+                            value={location.id}
+                            key={`parking-locations-${index}`}
+                          >{location.description}</option>
+                        )}
+                      </>
+                    </select>
                     <br></br>
                     <input
                       type="button"
@@ -118,6 +111,18 @@ class CheckIn extends React.Component {
           <Form.Row xs={12}>
             {this.state.showQuestions && (
               <>
+                <label htmlFor="showTextArea" className="checkboxLabel">
+                  <h3>Is there another person picking up the order?</h3>
+                  <input
+                    type="checkbox"
+                    className="check"
+                    checked={this.state.showTextArea}
+                    onChange={(event) =>
+                      this.setState({ showTextArea: !this.state.showTextArea })
+                    }
+                  />
+                </label>
+                <br />
                 <div id="clientQuestions">
                   <p id="instructions">
                     Fill out this form to finish your check-in:
@@ -205,9 +210,9 @@ class CheckIn extends React.Component {
                       id="other"
                       name="other"
                       placeholder="Example: Baby supplies, hygiene, pet needs"
-                      checked={this.state.other}
-                      onChange={() =>
-                        this.setState({ other: !this.state.other })
+                      value={this.state.other}
+                      onChange={(event) =>
+                        this.setState({ other: event.target.value })
                       }
                     />
                   </label>
@@ -245,7 +250,10 @@ class CheckIn extends React.Component {
           </Form.Row>
           {this.state.showSuccess && (
             <div id="thankYou">
-              <h3>Thank you, we have received your order!</h3>
+              {this.props.errors.orderMessage ?
+                this.props.errors.orderMessage
+                : <h3>Thank you, we have received your order!</h3>
+              }
               <p>We will be with you in about {this.props.waitTime}.</p>
               <p>You may now log out.</p>
             </div>
@@ -258,6 +266,8 @@ class CheckIn extends React.Component {
 
 const mapStateToProps = (state) => ({
   account: state.account,
+  parkingLocations: state.parkingLocations,
+  errors: state.errors
 });
 
 export default connect(mapStateToProps)(CheckIn);

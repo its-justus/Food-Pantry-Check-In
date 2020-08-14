@@ -11,6 +11,7 @@ function* checkOutOrder(action) {
     yield put({ type: 'FETCH_ACTIVE_ORDERS' });
     yield put({ type: 'FETCH_COMPLETE_ORDERS' });
   } catch (error) {
+    yield put({ type: 'FAILED_REQUEST' });
     console.log('Update checkout time failed', error);
   }
 }
