@@ -29,10 +29,10 @@ class App extends Component {
             <Switch>
               {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
               {/* <Redirect exact from='/' to='/login' /> */}
-              {/* {this.props.account.access_level === 1
-                ? (<Redirect to='/checkin' />)
-                : this.props.account.access_level >= 10 ? (<Redirect from='/' to='/dashboard' />)
-                  : (<Redirect to='/login' />)} */}
+              {this.props.account.access_level === 1
+                ? (<Redirect exact from='/login' to='/checkin' />)
+                : this.props.account.access_level >= 10 ? (<Redirect exact from='/login' to='/dashboard' />)
+                  : (<Redirect from='/' to='/login' />)}
               <Route path='/login'>
                 <LoginPage />
               </Route>
