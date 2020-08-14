@@ -36,9 +36,11 @@ class CheckIn extends React.Component {
               <h3 id="houseId">
                 Household ID: <strong>{this.props.account.household_id}</strong>
               </h3>
-              <h3 id="lastPickup">
-                Last pickup: {this.props.account.last_pickup}
-              </h3>
+              <span id="checkinDirections">
+                <h3 id="lastPickup">
+                  Please fill out this form to pickup your order.
+                </h3>
+              </span>
             </div>
           </Row>
           <div>
@@ -81,12 +83,14 @@ class CheckIn extends React.Component {
                       }
                     >
                       <>
-                        {this.props.parkingLocations.map((location, index) =>
+                        {this.props.parkingLocations.map((location, index) => (
                           <option
                             value={location.id}
                             key={`parking-locations-${index}`}
-                          >{location.description}</option>
-                        )}
+                          >
+                            {location.description}
+                          </option>
+                        ))}
                       </>
                     </select>
                     <br></br>
@@ -250,10 +254,11 @@ class CheckIn extends React.Component {
           </Form.Row>
           {this.state.showSuccess && (
             <div id="thankYou">
-              {this.props.errors.orderMessage ?
+              {this.props.errors.orderMessage ? (
                 this.props.errors.orderMessage
-                : <h3>Thank you, we have received your order!</h3>
-              }
+              ) : (
+                <h3>Thank you, we have received your order!</h3>
+              )}
               <p>We will be with you in about {this.props.waitTime}.</p>
               <p>You may now log out.</p>
             </div>

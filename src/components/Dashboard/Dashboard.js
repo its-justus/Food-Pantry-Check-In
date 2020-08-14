@@ -81,7 +81,9 @@ class Dashboard extends Component {
                               id="clientNameButton"
                               onClick={() => this.setLocalStateObj(cur)}
                             >
-                              {cur.name}
+                              {cur.pickup_name && cur.name
+                                ? cur.pickup_name
+                                : cur.name}
                             </button>
                           </td>
                         </tr>
