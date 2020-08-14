@@ -26,7 +26,6 @@ class App extends Component {
       <Router>
         <div>
           <Header />
-          <div>{this.props.errors.orderMessage}</div>
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from='/' to='/checkin' />
@@ -52,8 +51,4 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  errors: state.errors,
-});
-
-export default connect(mapStateToProps)(App);
+export default connect()(App);
