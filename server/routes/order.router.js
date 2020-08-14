@@ -181,7 +181,7 @@ router.put('/checkout/:id', async (req, res) => {
 		query.text = `UPDATE "profile"
 			SET latest_order = $1
 			WHERE account_id = $2;`;
-		query.values = [req.params.id, result.rows[0].id];
+		query.values = [result.rows[0].id, req.params.id];
 		await conn.query(query.text, query.values);
     await conn.query('COMMIT');
     conn.release();
