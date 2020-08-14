@@ -44,6 +44,10 @@ class Dashboard extends Component {
     this.setState({ orderObj: order });
   };
 
+  toggleShowClientInfo = () => {
+    this.setState({ showClientInfo: !this.state.showClientInfo });
+  };
+
   render() {
     return (
       <>
@@ -155,25 +159,9 @@ class Dashboard extends Component {
                         <option value="60">60 minutes</option>
                       </select>
                     </label>
-                    {/* <button
-                      disabled={this.state.orderObj.checkout_at}
-                      id="checkInClient"
-                      className="btn btn-large btn-primary"
-                      onClick={() =>
-                        this.props.dispatch({
-                          type: "ORDER_CHECKOUT",
-                          payload: {
-                            id: this.state.orderObj.id,
-                            waitTimeMinutes: this.state.waitTimeMinutes,
-                          },
-                        })
-                      }
-                    >
-                      Check In
-                    </button> */}
                   </form>
                 ) : (
-                  <ManualOrder showClientInfo={this.state.showClientInfo} />
+                  <ManualOrder toggleShowClientInfo={this.toggleShowClientInfo} />
                 )}
               </Card>
             </Col>

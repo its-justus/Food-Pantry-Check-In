@@ -208,7 +208,6 @@ class ManualOrder extends Component {
                 <button
                   id="submitButton"
                   onClick={() => {
-                    this.props.showClientInfo = false;
                     this.props.dispatch({ type: 'CLEAR_ORDER_PLACEMENT_ERROR' });
                     this.props.dispatch({
                       type: "SUBMIT_ORDER",
@@ -224,12 +223,13 @@ class ManualOrder extends Component {
                         wait_time_minutes: this.state.waitTimeMinutes,
                       },
                     });
+                    this.props.toggleShowClientInfo();
                   }}
                 >
                   Submit
                   </button>
                   <button 
-                    onClick={!this.props.showClientInfo}
+                    onClick={() => this.props.toggleShowClientInfo()}
                   >
                     Cancel
                   </button>
