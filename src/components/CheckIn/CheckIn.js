@@ -45,18 +45,6 @@ class CheckIn extends React.Component {
             <div id="greyLine"></div>
           </div>
           <Row>
-            <label htmlFor="showTextArea" className="checkboxLabel">
-              <h3>Is there another person picking up the order?</h3>
-              <input
-                type="checkbox"
-                className="check"
-                checked={this.state.showTextArea}
-                onChange={(event) =>
-                  this.setState({ showTextArea: !this.state.showTextArea })
-                }
-              />
-            </label>
-            <br />
             {this.state.showTextArea && (
               <>
                 <label htmlFor="pickup_name" id="nameLabel">
@@ -123,6 +111,18 @@ class CheckIn extends React.Component {
           <Form.Row xs={12}>
             {this.state.showQuestions && (
               <>
+                <label htmlFor="showTextArea" className="checkboxLabel">
+                  <h3>Is there another person picking up the order?</h3>
+                  <input
+                    type="checkbox"
+                    className="check"
+                    checked={this.state.showTextArea}
+                    onChange={(event) =>
+                      this.setState({ showTextArea: !this.state.showTextArea })
+                    }
+                  />
+                </label>
+                <br />
                 <div id="clientQuestions">
                   <p id="instructions">
                     Fill out this form to finish your check-in:
@@ -250,7 +250,10 @@ class CheckIn extends React.Component {
           </Form.Row>
           {this.state.showSuccess && (
             <div id="thankYou">
-              <h3>Thank you, we have received your order!</h3>
+              {this.props.errors.orderMessage ?
+                this.props.errors.orderMessage
+                : <h3>Thank you, we have received your order!</h3>
+              }
               <p>We will be with you in about {this.props.waitTime}.</p>
               <p>You may now log out.</p>
             </div>
@@ -263,7 +266,8 @@ class CheckIn extends React.Component {
 
 const mapStateToProps = (state) => ({
   account: state.account,
-  parkingLocations: state.parkingLocations
+  parkingLocations: state.parkingLocations,
+  errors: state.errors
 });
 
 export default connect(mapStateToProps)(CheckIn);

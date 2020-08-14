@@ -6,6 +6,7 @@ function* fetchCompleteOrders() {
     const response = yield axios.get('/api/order/complete/today');
     yield put({ type: 'SET_COMPLETE_ORDERS', payload: response.data });
   } catch (error) {
+    yield put({ type: 'FAILED_REQUEST' });
     console.log('Order get request failed', error);
   }
 }

@@ -6,6 +6,7 @@ function* fetchCompleteOrders() {
     const response = yield axios.get('/api/location');
     yield put({ type: 'SET_PARKING_LOCATIONS', payload: response.data });
   } catch (error) {
+    yield put({ type: 'FAILED_REQUEST' });
     console.log('Location get request failed', error);
   }
 }
