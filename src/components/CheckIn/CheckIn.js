@@ -73,7 +73,6 @@ class CheckIn extends React.Component {
                     Start checking in by selecting your parking spot:
                     <br></br>
                     <select
-                      type="text"
                       name="parking"
                       value={this.state.locationID}
                       id="parkingNumber"
