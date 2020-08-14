@@ -74,6 +74,20 @@ thead {
   display: inline-block;
 }
 
+#secondColManualTitle {
+  color: white;
+  font-size: 30px;
+  display: inline-block;  
+}
+
+#secondColManualHeader {
+  background-color: #0071f8;
+  padding: 10px;
+  margin: 0px;
+  width: 100%;
+  display: inline-block;   
+}
+
 #secondColHeader {
   background-color: #99e0f7;
   padding: 10px;

@@ -62,7 +62,7 @@ class Dashboard extends Component {
               <Card id="firstCard">
                 <form className="dashForm">
                   <div id="firstColHeader">
-                    <h1 id="firstColTitle">Client Que</h1>
+                    <h1 id="firstColTitle">Client Queue</h1>
                     <button
                       id="addClient"
                       className="btn btn-large btn-primary"
@@ -72,7 +72,6 @@ class Dashboard extends Component {
                       Add Client
                     </button>
                   </div>
-                  <h1 id="firstColTitle">Client Queue</h1>
                   <Table responsive hover>
                     <tbody>
                       {this.props.activeOrders?.map((cur, i) => (
@@ -161,7 +160,9 @@ class Dashboard extends Component {
                     </label>
                   </form>
                 ) : (
-                  <ManualOrder toggleShowClientInfo={this.toggleShowClientInfo} />
+                  <ManualOrder
+                    toggleShowClientInfo={this.toggleShowClientInfo}
+                  />
                 )}
               </Card>
             </Col>
