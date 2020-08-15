@@ -1,3 +1,7 @@
+#dashContainer {
+  height: 100vh;
+}
+
 #efpLogoDash {
   height: 105px;
   width: 120px;
@@ -145,5 +149,5 @@ thead {
 }
 
 .selectedOrder {
-  background-color: #3cc243;
+  background-color: #dedede;
 }

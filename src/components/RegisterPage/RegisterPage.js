@@ -43,10 +43,7 @@ class RegisterPage extends Component {
 
   render() {
     return (
-      <div>
-        <div>
-          <img src="EFP_Logo_Color.png" alt="EFP Logo" id="efpLogo" />
-        </div>
+      <div id="registerBody">
         <Container id="registerContainer">
           <Row id="registerRow">
             <Card id="registerCard">
