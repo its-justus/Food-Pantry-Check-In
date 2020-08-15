@@ -16,6 +16,5 @@ module.exports = {
     householdID: null,
     latestOrder: null,
     active: true
-  },
-  locationID: 1234567
+  }
 };

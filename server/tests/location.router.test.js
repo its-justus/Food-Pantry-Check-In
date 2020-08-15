@@ -7,7 +7,7 @@ const adminInfo = users.adminUser;
 const adminEmail = adminInfo.adminEmail;
 const adminPassword = adminInfo.adminPassword;
 
-const locationID = users.locationID;
+const locationID = 1234567;
 const locationDescription = 'order test location';
 const newLocationDescription = 'New description.';
 const locationObject = {
