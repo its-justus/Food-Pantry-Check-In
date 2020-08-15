@@ -6,6 +6,7 @@ CREATE TABLE "account" (
 	"email" varchar(320) NOT NULL UNIQUE,
 	"password" varchar(320) NOT NULL,
 	"access_level" integer NOT NULL DEFAULT '1',
+	"active" BOOLEAN NOT NULL DEFAULT 'true',
 	CONSTRAINT "account_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -14,10 +15,9 @@ CREATE TABLE "account" (
 
 
 CREATE TABLE "profile" (
-	"account_id" serial NOT NULL,
+	"account_id" integer,
 	"household_id" varchar(12) NOT NULL,
 	"latest_order" integer,
-	CONSTRAINT "profile_pk" PRIMARY KEY ("account_id")
 ) WITH (
   OIDS=FALSE
 );
@@ -59,6 +59,7 @@ CREATE TABLE "location" (
 ALTER TABLE "order" ADD CONSTRAINT "order_is_linked_to_account" FOREIGN KEY ("account_id") REFERENCES "account"("id");
 ALTER TABLE "order" ADD CONSTRAINT "order_is_linked_to_location" FOREIGN KEY ("location_id") REFERENCES "location"("id");
 ALTER TABLE "profile" ADD CONSTRAINT "account_is_linked_to_most_recent_order" FOREIGN KEY ("latest_order") REFERENCES "order"("id");
+ALTER TABLE "profile" ADD CONSTRAINT "account_id_is_linked_to_account" FOREIGN KEY ("account_id") REFERENCES "account"("id");
 
 
 

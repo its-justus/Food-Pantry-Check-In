@@ -24,7 +24,7 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
   const conn = await pool.connect();
   try {
     const query = {};
-    query.text = `SELECT account.id, account."name", account.email, account.access_level,
+    query.text = `SELECT account.id, account."name", account.email, account.access_level, account.active,
                   profile.household_id, profile.latest_order FROM account
                   LEFT JOIN profile ON account.id = profile.account_id
                   WHERE account.id = $1;`;
@@ -141,7 +141,7 @@ router.delete('/:id', rejectUnauthenticated, async (req, res) => {
   const conn = await pool.connect();
   try {
     const query = {};
-    query.text = 'DELETE from "account" WHERE "id" = $1;';
+    query.text = 'UPDATE account SET active = false WHERE "id" = $1;';
     query.values = [id];
     await conn.query('BEGIN');
     await conn.query(query.text, query.values);

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
+import moment from 'moment';
 import "./CheckIn.css";
 
 class CheckIn extends React.Component {
@@ -35,6 +36,9 @@ class CheckIn extends React.Component {
               <h1 id="accountName">Hi, {this.props.account.name}</h1>
               <h3 id="houseId">
                 Household ID: <strong>{this.props.account.household_id}</strong>
+              </h3>
+              <h3>
+                Last Pickup: <strong>{this.props.account.latest_order ? moment(this.props.account.latest_order.checkout_at).format('yyyy-MM-DD') : 'Never'}</strong>
               </h3>
               <span id="checkinDirections">
                 <h3 id="lastPickup">

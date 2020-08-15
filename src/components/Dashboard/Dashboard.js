@@ -12,7 +12,15 @@ import "./Dashboard.css";
 //this component is for the dashboard view that is seen by the volunteers
 class Dashboard extends Component {
   state = {
-    orderObj: {},
+    orderObj: {
+      name: '',
+      account_id: '',
+      walking_home: '',
+      child_birthday: '',
+      dietary_restrictions: ' ',
+      snap: '',
+      other: ' '
+    },
     waitTimeMinutes: "15",
     showClientInfo: true,
   };
@@ -121,25 +129,25 @@ class Dashboard extends Component {
                       <h4>Household ID: {this.state.orderObj.account_id}</h4>
                       <br />
                       <p className="clientInformation">
-                        Walking home: <b>{this.state.orderObj.walking_home}</b>
+                        Walking home: <b>{String(this.state.orderObj.walking_home)}</b>
                       </p>
                       <p className="clientInformation">
                         Child Birthday coming up:{" "}
-                        <b>{this.state.orderObj.child_birthday}</b>
+                        <b>{String(this.state.orderObj.child_birthday)}</b>
                       </p>
                       <p className="clientInformation">
                         Someone at home is pregnant:{" "}
-                        <b>{this.state.orderObj.pregnant}</b>
+                        <b>{String(this.state.orderObj.child_birthday)}</b>
                       </p>
                       <p className="clientInformation">
                         Dietary restrictions:{" "}
-                        <b>{this.state.orderObj.dietary_restrictions}</b>
+                        <b>{this.state.orderObj.dietary_restrictions || 'None'}</b>
                       </p>
                       <p className="clientInformation">
-                        SNAP: <b>{this.state.orderObj.snap}</b>
+                        SNAP: <b>{String(this.state.orderObj.snap)}</b>
                       </p>
                       <p className="clientInformation">
-                        Other needs: <b>{this.state.orderObj.other}</b>
+                        Other needs: <b>{this.state.orderObj.other || 'None'}</b>
                       </p>
                     </body>
                     <label for="waitTime">
