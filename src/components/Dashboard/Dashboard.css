@@ -143,3 +143,7 @@ thead {
 .clientInformation {
   font-size: 20px;
 }
+
+.selectedOrder {
+  background-color: #3cc243;
+}
