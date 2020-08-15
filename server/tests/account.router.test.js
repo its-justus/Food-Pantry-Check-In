@@ -1,6 +1,7 @@
 const app = require('../server');
 const request = require('supertest');
 const pool = require('../modules/pool');
+const users = require('./testUsers');
 
 const newUser = request.agent(app);
 
@@ -158,8 +159,8 @@ describe('DELETE /api/account/1', () => {
 });
 
 const adminUser = request.agent(app);
-const adminEmail = process.env.ADMIN_EMAIL;
-const adminPassword = process.env.ADMIN_PASSWORD;
+const adminEmail = users.adminUser.adminEmail;
+const adminPassword = users.adminUser.adminPassword;
 
 describe('POST to login /api/account/login', () => {
   it("responds with the administrator's information", async (done) => {
