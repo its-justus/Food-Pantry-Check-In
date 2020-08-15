@@ -37,8 +37,9 @@ router.get('/active', rejectUnauthenticated, async (req, res) => {
                                     profile.household_id, profile.latest_order FROM "order"
                                     LEFT JOIN account ON "order".account_id = account.id
                                     LEFT JOIN profile ON account.id = profile.account_id 
-                                    WHERE checkout_at IS NULL 
-                                    ORDER BY checkin_at DESC;)`);
+                                    WHERE cast(checkin_at as date) = CURRENT_DATE
+                                    AND checkout_at IS NULL
+                                    ORDER BY checkin_at DESC;`);
     conn.release();
     res.status(200).send(result.rows);
   } catch (error) {
@@ -59,10 +60,9 @@ router.get('/complete/today', rejectUnauthenticated, async (req, res) => {
                                     profile.household_id, profile.latest_order FROM "order"
                                     LEFT JOIN account ON "order".account_id = account.id
                                     LEFT JOIN profile ON account.id = profile.account_id 
-                                    WHERE checkout_at 
-                                      BETWEEN NOW() - INTERVAL '24 HOURS' 
-                                      AND NOW()
-                                    ORDER BY checkout_at DESC;`);
+                                    WHERE cast(checkin_at as date) = CURRENT_DATE
+                                    AND checkout_at IS NOT NULL
+                                    ORDER BY checkin_at DESC;`);
     conn.release();
     res.status(200).send(result.rows);
   } catch (error) {
@@ -77,9 +77,7 @@ router.get('/client-order-status', async (req, res) => {
   try {
     const query = {};
     query.text = `SELECT "order".* FROM "order"
-                  WHERE checkin_at 
-                    BETWEEN NOW() - INTERVAL '24 HOURS' 
-                    AND NOW()
+                  WHERE cast(checkin_at as date) = CURRENT_DATE
                   AND "order".account_id = $1
                   ORDER BY checkin_at DESC;`;
     query.values = [id];
