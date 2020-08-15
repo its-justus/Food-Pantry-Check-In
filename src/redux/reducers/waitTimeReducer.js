@@ -1,4 +1,4 @@
-const setWaitTimeReducer = (state = 'Processing...', action) => {
+const setWaitTimeReducer = (state = '', action) => {
   switch (action.type) {
     case "SET_WAIT_TIME":
       return action.payload;

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { takeLatest, put } from 'redux-saga/effects';
+import { takeLatest, put, delay } from 'redux-saga/effects';
 
 function* submitCheckIn(action) {
   try {
@@ -12,32 +12,22 @@ function* submitCheckIn(action) {
 
 function* fetchWaitTime() {
   try {
-    const response = yield axios.get('/api/order/client-order-status');
-    // CHeck to see if the wait_time_minutes for the order is null.
-    // If it is return "processing...", otherwise return the actual value.
+    // This is the string of the wait minutes to return. Since the return value from the
+    // get request isn't saved outside of the while loop change this value by setting it here first.
     let returnStr = '';
-    if (response.data[0]) {
-      if (response.data[0].wait_time_minutes) {
+    // Boolean to prevent from infinitely requesting.
+    let processing = true;
+    // Loop a get request for the estimated wait minutes until the minutes have been
+    // specified by a volunteer/admin because the user was checked in.
+    while (processing === true) {
+      const response = yield axios.get('/api/order/client-order-status');
+      yield delay(5000);
+      // If the estimated wait time minutes have been specified break the loop and return that value.
+      if (response.data[0].wait_time_minutes !== null) {
         returnStr = response.data[0].wait_time_minutes;
-      } else {
-        returnStr = 'Processing...';
+        processing = false;
       }
-    } else {
-      returnStr = 'Processing...';
     }
-
-    // let returnStr = '';
-    // let processing = true;
-    // while (processing === true) {
-    //   const response = yield axios.get('/api/order/client-order-status');
-    //   yield delay(5000);
-    //   console.log(response.data[0].est_wait_time);
-    //   console.log(response.data[0]);
-    //   if (response.data[0].est_wait_time !== null) {
-    //     returnStr = response.data[0].est_wait_time;
-    //     processing = false;
-    //   }
-    // }
 
     yield put({ type: 'SET_WAIT_TIME', payload: returnStr });
   } catch (error) {
