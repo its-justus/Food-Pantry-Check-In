@@ -108,6 +108,15 @@ class RegisterPage extends Component {
                     id="loginButton"
                   />
                 </div>
+                  <div id="errorDiv">
+                    {this.props.error && (
+                      <Toast style={{ border: "1px solid #b13324" }}>
+                        <Toast.Body>
+                          {this.props.error}
+                        </Toast.Body>
+                      </Toast>
+                    )}
+                  </div>
               </form>
             </Card>
           </Row>
@@ -119,17 +128,6 @@ class RegisterPage extends Component {
               </Link>
             </center>
           </Row>
-          <Row>
-            <div id="errorDiv">
-              {this.props.registrationMessage && (
-                <Toast style={{ border: "1px solid #b13324" }}>
-                  <Toast.Body>
-                    {this.props.registrationMessage}
-                  </Toast.Body>
-                </Toast>
-              )}
-            </div>
-          </Row>
         </Container>
       </div>
     );
@@ -138,7 +136,7 @@ class RegisterPage extends Component {
 
 // Instead of taking everything from state, we just want the error messages.
 const mapStateToProps = (state) => ({
-  errors: state.errors.registrationMessage,
+  error: state.errors.registrationMessage,
   successfulRegistration: state.login.successfulRegistration,
   loginMode: state.login.loginMode
 });
