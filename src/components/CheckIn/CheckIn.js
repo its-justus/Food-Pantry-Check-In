@@ -20,6 +20,7 @@ class CheckIn extends React.Component {
     showSuccess: false,
     showTextArea: false,
     pickup_name: "",
+    estWaitTimeInterval: ""
   };
 
   render() {
@@ -125,7 +126,7 @@ class CheckIn extends React.Component {
                     type="checkbox"
                     className="check"
                     checked={this.state.showTextArea}
-                    onChange={(event) =>
+                    onChange={() =>
                       this.setState({ showTextArea: !this.state.showTextArea })
                     }
                   />
@@ -247,7 +248,9 @@ class CheckIn extends React.Component {
                       this.setState({
                         showSuccess: true,
                         showQuestions: false,
+                        showTextArea: false
                       });
+                      this.props.dispatch({ type: 'FETCH_WAIT_TIME' });
                     }}
                   >
                     Submit
@@ -263,8 +266,8 @@ class CheckIn extends React.Component {
               ) : (
                 <h3>Thank you, we have received your order!</h3>
               )}
-              <p>We will be with you in about {this.props.waitTime}.</p>
-              <p>You may now log out.</p>
+              <p>We will be with you in about: {`"${this.props.waitTime ? `${this.props.waitTime} minutes.` : 'Processing...'}"`}</p>
+              {this.props.waitTime && <p>You may now log out.</p>}
             </div>
           )}
         </Container>
@@ -276,7 +279,8 @@ class CheckIn extends React.Component {
 const mapStateToProps = (state) => ({
   account: state.account,
   parkingLocations: state.parkingLocations,
-  errors: state.errors
+  errors: state.errors,
+  waitTime: state.waitTime
 });
 
 export default connect(mapStateToProps)(CheckIn);

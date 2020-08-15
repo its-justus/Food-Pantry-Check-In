@@ -36,6 +36,8 @@ const orderMessage = (state = "", action) => {
   switch (action.type) {
     case "SET_ORDER_PLACEMENT_ERROR":
       return 'Error placing order, please try again.';
+    case "SET_RETRIEVE_ACTIVE_ORDER_ERROR":
+      return 'Sorry, unable to update your order status. Someone will be with you shortly.';
     case "CLEAR_ORDER_PLACEMENT_ERROR":
       return '';
     default:
