@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+// import Col from "react-bootstrap/Col";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Toast from "react-bootstrap/Toast";
 import "./LoginPage.css";
@@ -43,12 +43,9 @@ class LoginPage extends Component {
   render() {
     return (
       <div id="loginBody">
-        <div id="logoDiv">
-          <img src="EFP_Logo_Color.png" alt="EFP Logo" id="efpLogo" />
-        </div>
         <Container id="loginContainer">
           <Row id="loginRow">
-            <Col lg={true}>
+            {/* <Col lg={true}> */}
               <Card id="loginCard">
                 <form onSubmit={this.login}>
                   <div id="welcomeDiv">
@@ -88,7 +85,6 @@ class LoginPage extends Component {
                   </div>
                 </form>
               </Card>
-            </Col>
           </Row>
           <Row>
             <center id="center">
