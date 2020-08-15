@@ -3,7 +3,7 @@ const request = require('supertest');
 const pool = require('../modules/pool');
 const users = require('./testUsers');
 
-const locationID = users.locationID;
+const locationID = 1;
 
 const testUser = request.agent(app);
 const testUserInfo = users.testUser;
