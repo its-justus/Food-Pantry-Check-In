@@ -121,17 +121,6 @@ class RegisterPage extends Component {
             <div id="errorDiv">
               {this.props.errors.registrationMessage && (
                 <Toast style={{ border: "1px solid #b13324" }}>
-                  {/* <Toast.Header>
-                    <img
-                      src="holder.js/20x20?text=%20"
-                      className="rounded mr-2"
-                      alt=""
-                      onClick={this.handleClose}
-                    />
-                    <strong className="mr-auto" style={{ color: "#b13324" }}>
-                      !
-                    </strong>
-                  </Toast.Header> */}
                   <Toast.Body>
                     {this.props.errors.registrationMessage}
                   </Toast.Body>
