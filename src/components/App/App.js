@@ -11,7 +11,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import LoginPage from '../LoginPage/LoginPage';
 import Header from '../Header/Header';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import Footer from '../Footer/Footer';
+// import Footer from '../Footer/Footer';
 import Dashboard from '../Dashboard/Dashboard';
 import CheckIn from '../CheckIn/CheckIn';
 
@@ -48,12 +48,12 @@ class App extends Component {
               {/* If none of the other routes matched, we will show a 404. */}
               <Route render={() => <h1>404</h1>} />
             </Switch>
-            <Footer />
+            {/* <Footer /> */}
           </div>
         </Router>
         : <Router>
           <Header />
-          <Footer />
+          {/* <Footer /> */}
         </Router>
     );
   }

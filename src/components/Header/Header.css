@@ -1,25 +1,11 @@
-#navTitle {
-  color: white;
-  font-size: 25px;
-  border: none;
-  font-family: 'Signika', sans-serif;
-  font-weight: bold;
-  margin: 0px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  display: inline-block;
-  font-weight: lighter;
-}
-
 #navBar {
-  background-color: #726b69;
+  background-color: white;
 }
 
-/* #navRight {
-  float: right;
-  margin: 0px;
-  padding-top: 5px;
-} */
+#headerLogo {
+  height: 90px;
+  width: 103px;
+}
 
 .navButton {
   font-size: 15px;

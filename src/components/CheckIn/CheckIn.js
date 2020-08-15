@@ -51,7 +51,7 @@ class CheckIn extends React.Component {
           <div>
             <div id="greyLine"></div>
           </div>
-          <Row>
+          <Row id="checkinBody">
             {this.state.showTextArea && (
               <>
                 <label htmlFor="pickup_name" id="nameLabel">
