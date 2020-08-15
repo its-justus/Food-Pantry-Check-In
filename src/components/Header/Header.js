@@ -11,7 +11,7 @@ import "./Header.css";
 const Header = (props) => (
   <AppBar position="static" id="navBar" xs={12}>
     <Toolbar>
-      <img src="EFP_Logo_Color.png" id="headerLogo"/>
+      <img src="EFP_Logo_Color.png" alt="Emergency Food Pantry" id="headerLogo"/>
       <Typography id="navTitle">Emergency Food Pantry</Typography>
         <button
           id="logoutButton"
