@@ -6,6 +6,7 @@ import activeOrdersSaga from "./activeOrdersSaga";
 import completeOrdersSaga from "./completeOrdersSaga"
 import checkOutOrderSaga from './checkOutOrderSaga';
 import orderSaga from './orderSaga';
+import locationsSaga from './locationsSaga';
 
 export default function* rootSaga() {
   yield all([
@@ -15,6 +16,7 @@ export default function* rootSaga() {
     activeOrdersSaga(),
     completeOrdersSaga(),
     checkOutOrderSaga(),
-    orderSaga()
+    orderSaga(),
+    locationsSaga()
   ]);
 }

@@ -18,6 +18,7 @@ const Header = (props) => (
         <button
           id="logoutButton"
           onClick={() => {
+            props.dispatch({ type: 'SET_SERVER_LOADING' });
             props.dispatch({ type: "LOGOUT" },
             props.history.push('/login')
           )}}

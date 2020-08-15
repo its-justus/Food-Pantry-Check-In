@@ -30,6 +30,12 @@
   padding-bottom: 20px;
 }
 
+#lastPickup  {
+  background-color: #3372fa;
+  color: #ededed;
+  font-size: 25px;
+}
+
 
 #clientInfo {
   margin: 25px auto;
@@ -41,7 +47,7 @@
   font-size: 30px;
 }
 
-#houseId, #lastPickup {
+#houseId {
   font-size: 25px;
 }
 
@@ -64,9 +70,7 @@
 }
 
 #parkingNumber {
-  width: 70px;
-  height: 80px;
-  font-size: 45px;
+  font-size: 20px;
   margin-top: 20px;
   margin-bottom: 20px;
   border-radius: 5px;

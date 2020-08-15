@@ -1,5 +1,6 @@
 const app = require('../server');
 const request = require('supertest');
+const pool = require('../modules/pool');
 
 const newUser = request.agent(app);
 
@@ -9,8 +10,27 @@ const newUserHouseholdID = '1';
 const newUserPassword = 'test';
 let newUserId = 0;
 
-// TODO delete the empty info that was added in the "profile" table
-// directly from the pool once the test finishes running.
+const stdNewUserResp = {
+  id: expect.any(Number),
+  name: newUserName,
+  email: newUserEmail,
+  access_level: 1,
+  household_id: newUserHouseholdID,
+  latest_order: null,
+  active: true
+};
+
+afterAll(async (done) => {
+  // Normally we don't delete orders so set the test account's most recent order to null
+  // since that's a foreign key so we can delete the order that was just added.
+  await pool.query(`UPDATE profile SET account_id = null WHERE account_id = ${newUserId};`);
+  // Delete the profiles that have a null account_id for clean up.
+  await pool.query(`DELETE FROM "profile" WHERE account_id is null;`);
+  // Normally we set accounts "active" status to false but delete this test account to save space.
+  await pool.query(`DELETE FROM account WHERE id = ${newUserId};`);
+  done();
+  done();
+});
 
 describe('Test a newly added account', () => {
   describe('GET /api/account', () => {
@@ -97,14 +117,7 @@ describe('Test a newly added account', () => {
       const res = await newUser
         .get('/api/account')
         .expect(200);
-      expect(res.body).toEqual({
-        id: expect.any(Number),
-        name: newUserName,
-        email: newUserEmail,
-        access_level: 1,
-        household_id: newUserHouseholdID,
-        latest_order: null,
-      });
+      expect(res.body).toEqual(stdNewUserResp);
       done();
     });
   });
@@ -149,7 +162,8 @@ describe('Test an admin account', () => {
         email: adminEmail,
         access_level: 100,
         household_id: null,
-        latest_order: null
+        latest_order: null,
+        active: true
       });
       done();
     });
@@ -160,23 +174,26 @@ describe('Test an admin account', () => {
       const res = await adminUser
         .get(`/api/account/${newUserId}`)
         .expect(200);
-      expect(res.body).toEqual({
-        id: newUserId,
-        name: newUserName,
-        email: newUserEmail,
-        access_level: 1,
-        household_id: newUserHouseholdID,
-        latest_order: null
-      });
+      expect(res.body).toEqual(stdNewUserResp);
       done();
     });
   });
 
   describe(`DELETE /api/account/${newUserId}`, () => {
-    it('This is the last test so delete the newly added client', async (done) => {
+    it('Set the status of active for the newly added client to false', async (done) => {
       await adminUser
         .delete(`/api/account/${newUserId}`)
         .expect(204);
+      done();
+    });
+  });
+
+  describe(`GET /api/account/${newUserId}`, () => {
+    it('See if the account now has active set to false', async (done) => {
+      const res = await adminUser
+        .get(`/api/account/${newUserId}`)
+        .expect(200);
+      expect(res.body).toEqual({ ...stdNewUserResp, active: false });
       done();
     });
   });

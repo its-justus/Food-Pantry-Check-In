@@ -107,8 +107,8 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
   const walkingHome = req.body.walking_home;
   const pregnant = req.body.pregnant;
   const childBirthday = req.body.child_birthday;
-	const snap = req.body.snap;
-	const pickupName = req.body.pickup_name;
+  const snap = req.body.snap;
+  const pickupName = req.body.pickup_name;
   const other = req.body.other;
   let waitTimeMinutes = null;
 
@@ -127,8 +127,8 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     typeof walkingHome !== 'boolean' ||
     typeof pregnant !== 'boolean' ||
     typeof childBirthday !== 'boolean' ||
-		typeof snap !== 'boolean' ||
-		typeof pickupName !== 'string' ||
+    typeof snap !== 'boolean' ||
+    typeof pickupName !== 'string' ||
     typeof other !== 'string'
   ) {
     res.sendStatus(400);
@@ -159,8 +159,8 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
       walkingHome,
       pregnant,
       childBirthday,
-			snap,
-			pickupName,
+      snap,
+      pickupName,
       other,
       waitTimeMinutes
     ];
@@ -192,14 +192,22 @@ router.put('/checkout/:id', async (req, res) => {
 
   const conn = await pool.connect();
   try {
-    const query = {};
-    query.text = `UPDATE "order"
+    const placeOrderQuery = {};
+    placeOrderQuery.text = `UPDATE "order"
       SET checkout_at = NOW(), wait_time_minutes = $2
       WHERE id = $1
       RETURNING *;`;
-    query.values = [req.params.id, waitTimeMinutes];
+    placeOrderQuery.values = [req.params.id, waitTimeMinutes];
     await conn.query('BEGIN');
-    const result = await conn.query(query.text, query.values);
+    const result = await conn.query(placeOrderQuery.text, placeOrderQuery.values);
+    // do a second query that updates the user's profile to include the latest order
+    console.log('result.rows', result.rows);
+    const updateProfileLatestOrderQuery = {};
+    updateProfileLatestOrderQuery.text = `UPDATE "profile"
+      SET latest_order = $1
+      WHERE account_id = $2;`;
+    updateProfileLatestOrderQuery.values = [result.rows[0].id, result.rows[0].account_id];
+    await conn.query(updateProfileLatestOrderQuery.text, updateProfileLatestOrderQuery.values);
     await conn.query('COMMIT');
     conn.release();
     res.status(200).send(result.rows);

@@ -3,11 +3,12 @@ import { connect } from "react-redux";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
+import moment from 'moment';
 import "./CheckIn.css";
 
 class CheckIn extends React.Component {
   state = {
-    locationID: '',
+    locationID: "",
     dietaryRestrictions: "",
     walkingHome: false,
     pregnant: false,
@@ -17,7 +18,8 @@ class CheckIn extends React.Component {
     showCheckIn: true,
     showQuestions: false,
     showSuccess: false,
-    estWaitTimeInterval: ''
+    showTextArea: false,
+    pickup_name: "",
   };
 
   startFetchEstWaitTime = () => {
@@ -48,30 +50,66 @@ class CheckIn extends React.Component {
               <h3 id="houseId">
                 Household ID: <strong>{this.props.account.household_id}</strong>
               </h3>
-              <h3 id="lastPickup">
-                Last pickup: {this.props.account.last_pickup}
+              <h3>
+                Last Pickup: <strong>{this.props.account.latest_order ? moment(this.props.account.latest_order.checkout_at).format('yyyy-MM-DD') : 'Never'}</strong>
               </h3>
+              <span id="checkinDirections">
+                <h3 id="lastPickup">
+                  Please fill out this form to pickup your order.
+                </h3>
+              </span>
             </div>
           </Row>
           <div>
             <div id="greyLine"></div>
           </div>
           <Row>
+            {this.state.showTextArea && (
+              <>
+                <label htmlFor="pickup_name" id="nameLabel">
+                  Please enter the name here:
+                  <br></br>
+                  <textarea
+                    rows="2"
+                    cols="40"
+                    name="name"
+                    value={this.state.pickup_name}
+                    onChange={(event) =>
+                      this.setState({
+                        pickup_name: event.target.value,
+                      })
+                    }
+                    placeholder="Enter name of person picking up"
+                  ></textarea>
+                </label>
+                <br></br>
+              </>
+            )}
             {this.state.showCheckIn && (
               <div id="clientInput">
                 <form>
                   <label htmlFor="name" id="parkingLabel">
                     Start checking in by selecting your parking spot:
                     <br></br>
-                    <input
-                      type="text"
+                    <select
                       name="parking"
                       value={this.state.locationID}
                       id="parkingNumber"
                       onChange={(event) =>
                         this.setState({ locationID: event.target.value })
                       }
-                    />
+                    >
+                      <>
+                        {this.props.parkingLocations.map((location, index) => (
+                          <option
+                            value={location.id}
+                            key={`parking-locations-${index}`}
+                          >
+                            {location.description}
+                          </option>
+                        ))}
+                      </>
+                    </select>
                     <br></br>
                     <input
                       type="button"
@@ -94,6 +132,18 @@ class CheckIn extends React.Component {
           <Form.Row xs={12}>
             {this.state.showQuestions && (
               <>
+                <label htmlFor="showTextArea" className="checkboxLabel">
+                  <h3>Is there another person picking up the order?</h3>
+                  <input
+                    type="checkbox"
+                    className="check"
+                    checked={this.state.showTextArea}
+                    onChange={(event) =>
+                      this.setState({ showTextArea: !this.state.showTextArea })
+                    }
+                  />
+                </label>
+                <br />
                 <div id="clientQuestions">
                   <p id="instructions">
                     Fill out this form to finish your check-in:
@@ -182,7 +232,7 @@ class CheckIn extends React.Component {
                       name="other"
                       placeholder="Example: Baby supplies, hygiene, pet needs"
                       value={this.state.other}
-                      onChange={event =>
+                      onChange={(event) =>
                         this.setState({ other: event.target.value })
                       }
                     />
@@ -203,6 +253,7 @@ class CheckIn extends React.Component {
                           pregnant: this.state.pregnant,
                           child_birthday: this.state.childBirthday,
                           snap: this.state.snap,
+                          pickup_name: this.state.pickup_name,
                           other: this.state.other,
                         },
                       });
@@ -221,18 +272,13 @@ class CheckIn extends React.Component {
           </Form.Row>
           {this.state.showSuccess && (
             <div id="thankYou">
-              <h3>Thank you, we have received your order!</h3>
-              {/* If the order is still processing because the person hasn't been checked
-              in the the staff show the global state: 'Processing...' until they have
-              been checked in. */}
-              {console.log(this.props.waitTime)}
-              {this.props.waitTime === 'Processing...' ?
-                (<p>{this.props.waitTime}</p>)
-                : (<>
-                  <p>We will be with you in about {this.props.waitTime}.</p>
-                  <p>You may now log out.</p>
-                </>)
-              }
+              {this.props.errors.orderMessage ? (
+                this.props.errors.orderMessage
+              ) : (
+                <h3>Thank you, we have received your order!</h3>
+              )}
+              <p>We will be with you in about {this.props.waitTime}.</p>
+              <p>You may now log out.</p>
             </div>
           )}
         </Container>
@@ -243,7 +289,8 @@ class CheckIn extends React.Component {
 
 const mapStateToProps = (state) => ({
   account: state.account,
-  waitTime: state.waitTime
+  parkingLocations: state.parkingLocations,
+  errors: state.errors
 });
 
 export default connect(mapStateToProps)(CheckIn);

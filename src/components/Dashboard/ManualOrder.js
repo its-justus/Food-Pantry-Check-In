@@ -16,52 +16,68 @@ class ManualOrder extends Component {
     other: '',
     waitTime: '',
     houseHoldId: '',
-    waitTimeMinutes: '15'
+    waitTimeMinutes: '15',
+    pickup_name: '',
   };
 
   render() {
-    console.log(this.state);
     return (
       <>
         <Container id="checkInContainer">
           <Row id="clientInfoRow">
-            <div id="clientInfo">
-              <h1 id="accountName">Hi, </h1>
-              <h3 id="houseId">
-                <label htmlFor="houseHoldId" >
-                  Enter Household ID:
-                    <br></br>
-                  <input
-                    type="number"
-                    name="houseHoldId"
-                    value={this.state.houseHoldId}
-                    onChange={(event) =>
-                      this.setState({ houseHoldId: event.target.value })
-                    }
-                  />
-                </label>
-              </h3>
-              <h3 id="lastPickup">
-                Last pickup:
-              </h3>
+            <div id="secondColManualHeader">
+              <h1 id="secondColManualTitle">
+                Enter information to check-in a client.
+              </h1>
+              <button
+                id="cancelButton"
+                className="btn btn-large btn-primary"
+                onClick={() => this.props.toggleShowClientInfo()}
+              >
+                Cancel
+              </button>
+            </div>
+            <div id="clientInfoManual">
+              <label htmlFor="houseHoldIdManual">
+                Enter Household ID:
+                <br></br>
+                <input
+                  type="number"
+                  name="houseHoldIdManual"
+                  value={this.state.houseHoldId}
+                  onChange={(event) =>
+                    this.setState({ houseHoldId: event.target.value })
+                  }
+                />
+              </label>
             </div>
           </Row>
           <div id="orangeBox"></div>
           <Row>
-            <div id="clientInput">
+            <div id="clientInputManual">
               <form>
                 <label htmlFor="name" id="parkingLabel">
-                  Please enter parking spot number:
-                    <br></br>
-                  <input
-                    type="text"
+                  Choose parking spot:
+                  <br></br>
+                  <select
                     name="parking"
                     value={this.state.locationID}
                     id="parkingNumber"
                     onChange={(event) =>
                       this.setState({ locationID: event.target.value })
                     }
-                  />
+                  >
+                    <>
+                      {this.props.parkingLocations.map((location, index) => (
+                        <option
+                          value={location.id}
+                          key={`parking-locations-${index}`}
+                        >
+                          {location.description}
+                        </option>
+                      ))}
+                    </>
+                  </select>
                   <br></br>
                 </label>
               </form>
@@ -70,9 +86,26 @@ class ManualOrder extends Component {
           <Form.Row xs={12}>
             <>
               <div id="clientQuestions">
+                <label htmlFor="pickup_name" id="nameLabel">
+                  Please enter the name here:
+                  <br></br>
+                  <textarea
+                    rows="2"
+                    cols="40"
+                    name="name"
+                    value={this.state.pickup_name}
+                    onChange={(event) =>
+                      this.setState({
+                        pickup_name: event.target.value,
+                      })
+                    }
+                    placeholder="Enter name of person picking up"
+                  ></textarea>
+                </label>
+                <br></br>
                 <label htmlFor="foodRestrictions" id="foodRestrictionsLabel">
                   Please list any food restrictions here:
-                    <br></br>
+                  <br></br>
                   <textarea
                     rows="2"
                     cols="40"
@@ -89,7 +122,7 @@ class ManualOrder extends Component {
                 <br></br>
                 <label htmlFor="walking" className="checkboxLabel">
                   Are you walking home?
-                    <input
+                  <input
                     type="checkbox"
                     id="walkingHome"
                     className="check"
@@ -102,9 +135,9 @@ class ManualOrder extends Component {
                 </label>
                 <br></br>
                 <label htmlFor="birthday" className="checkboxLabel">
-                  Is there a child in the household with a birthday in the
-                  next 2 months?
-                    <input
+                  Is there a child in the household with a birthday in the next
+                  2 months?
+                  <input
                     type="checkbox"
                     id="childBirthday"
                     className="check"
@@ -120,7 +153,7 @@ class ManualOrder extends Component {
                 <br></br>
                 <label htmlFor="pregnant" className="checkboxLabel">
                   Is there a woman in the household who is pregnant?
-                    <input
+                  <input
                     type="checkbox"
                     id="pregnant"
                     className="check"
@@ -134,7 +167,7 @@ class ManualOrder extends Component {
                 <br></br>
                 <label htmlFor="snap" className="checkboxLabel">
                   Are you currently receiving SNAP?
-                    <input
+                  <input
                     type="checkbox"
                     id="snap"
                     className="check"
@@ -146,7 +179,7 @@ class ManualOrder extends Component {
                 <br></br>
                 <label htmlFor="other" className="checkboxLabel">
                   Please list any other needs:
-                    <br></br>
+                  <br></br>
                   <textarea
                     rows="2"
                     cols="40"
@@ -154,13 +187,14 @@ class ManualOrder extends Component {
                     name="other"
                     placeholder="Example: Baby supplies, hygiene, pet needs"
                     value={this.state.other}
-                    onChange={event =>
+                    onChange={(event) =>
                       this.setState({ other: event.target.value })
                     }
                   />
                 </label>
                 <br />
-                <label for="waitTime">Please choose a wait time:
+                <label for="waitTime">
+                  Please choose a wait time:
                   <select
                     name="waitTime"
                     id="times"
@@ -169,7 +203,8 @@ class ManualOrder extends Component {
                       this.setState({
                         waitTimeMinutes: event.target.value,
                       })
-                    }>
+                    }
+                  >
                     <option value="15">15 minutes</option>
                     <option value="30">30 minutes</option>
                     <option value="45">45 minutes</option>
@@ -180,7 +215,9 @@ class ManualOrder extends Component {
                 <button
                   id="submitButton"
                   onClick={() => {
-                    this.props.dispatch({ type: 'CLEAR_ORDER_PLACEMENT_ERROR' });
+                    this.props.dispatch({
+                      type: "CLEAR_ORDER_PLACEMENT_ERROR",
+                    });
                     this.props.dispatch({
                       type: "SUBMIT_ORDER",
                       payload: {
@@ -190,14 +227,16 @@ class ManualOrder extends Component {
                         pregnant: this.state.pregnant,
                         child_birthday: this.state.childBirthday,
                         snap: this.state.snap,
+                        pickup_name: this.state.pickup_name,
                         other: this.state.other,
-                        wait_time_minutes: this.state.waitTimeMinutes
+                        wait_time_minutes: this.state.waitTimeMinutes,
                       },
                     });
+                    this.props.toggleShowClientInfo();
                   }}
                 >
                   Submit
-                  </button>
+                </button>
               </div>
             </>
           </Form.Row>
@@ -210,6 +249,7 @@ class ManualOrder extends Component {
 const mapStateToProps = (state) => ({
   activeOrders: state.activeOrders,
   completeOrders: state.completeOrders,
+  parkingLocations: state.parkingLocations
 });
 
 export default connect(mapStateToProps)(ManualOrder);
