@@ -41,7 +41,7 @@ class App extends Component {
               </Route>
               {/* For protected routes, the view could show one of several things on the same route.
               If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Create Account' page. */}
-              <ProtectedRoute exact path='/checkin' component={CheckIn} />
+              <ProtectedRoute exact path='/checkin' component={CheckIn} maximumAccessLevel={1} />
               <ProtectedRoute exact path='/dashboard' component={Dashboard} minimumAccessLevel={10} />
               {/* This works the same as the other protected route, except that if the user is logged in,
               they will see their profile page instead. */}
