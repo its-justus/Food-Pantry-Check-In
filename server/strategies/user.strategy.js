@@ -12,7 +12,7 @@ passport.deserializeUser(async (id, done) => {
   try {
     // Get the various attributes about a ussr.
     const getUserInfoQuery = {};
-    getUserInfoQuery.text = `SELECT account.id, account."name", account.email, account.access_level,
+    getUserInfoQuery.text = `SELECT account.id, account."name", account.email, account.access_level, account.active,
                             profile.household_id, profile.latest_order FROM account
                             LEFT JOIN profile ON account.id = profile.account_id
                             WHERE account.id = $1;`;
@@ -33,7 +33,7 @@ passport.deserializeUser(async (id, done) => {
       // Remove the user's password so it doesn't get sent.
       delete user.password;
       // done takes an error (null in this case) and a user.
-      done(null, { ...user, latest_order: orderRow.rows && orderRow.rows[0] });
+      done(null, { ...user, latest_order: null && orderRow.rows && orderRow.rows[0] });
     } else {
       // User not found.
       // done takes an error (null in this case) and a user (also null in this case).
