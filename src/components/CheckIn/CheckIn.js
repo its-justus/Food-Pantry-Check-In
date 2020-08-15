@@ -38,7 +38,7 @@ class CheckIn extends React.Component {
                 Household ID: <strong>{this.props.account.household_id}</strong>
               </h3>
               <h3>
-                Last Pickup: <strong>{this.props.account.latest_order.checkout_at ? moment(this.props.account.latest_order.checkout_at).format('yyyy-MM-DD') : 'Never'}</strong>
+                Last Pickup: <strong>{this.props.account.latest_order ? moment(this.props.account.latest_order.checkout_at).format('yyyy-MM-DD') : 'Never'}</strong>
               </h3>
               <span id="checkinDirections">
                 <h3 id="lastPickup">
