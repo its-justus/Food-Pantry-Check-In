@@ -6,6 +6,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import Toast from "react-bootstrap/Toast";
+import { withRouter } from "react-router-dom";
 import "./RegisterPage.css";
 
 
@@ -33,7 +34,11 @@ class RegisterPage extends Component {
     } else {
       this.props.dispatch({ type: "REGISTRATION_INPUT_ERROR" });
     }
-  }; // end registerUser
+  };
+
+  componentDidUpdate() {
+    this.props.successfulRegistration && this.props.history.push('/login')
+  }
 
   handleInputChangeFor = (propertyName) => (event) => {
     this.setState({
@@ -116,10 +121,10 @@ class RegisterPage extends Component {
           </Row>
           <Row>
             <div id="errorDiv">
-              {this.props.errors.registrationMessage && (
+              {this.props.registrationMessage && (
                 <Toast style={{ border: "1px solid #b13324" }}>
                   <Toast.Body>
-                    {this.props.errors.registrationMessage}
+                    {this.props.registrationMessage}
                   </Toast.Body>
                 </Toast>
               )}
@@ -133,7 +138,9 @@ class RegisterPage extends Component {
 
 // Instead of taking everything from state, we just want the error messages.
 const mapStateToProps = (state) => ({
-  errors: state.errors,
+  errors: state.errors.registrationMessage,
+  successfulRegistration: state.login.successfulRegistration,
+  loginMode: state.login.loginMode
 });
 
-export default connect(mapStateToProps)(RegisterPage);
+export default withRouter(connect(mapStateToProps)(RegisterPage));

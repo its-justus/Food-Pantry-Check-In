@@ -59,7 +59,7 @@ const ProtectedRoute = (props) => {
 const mapStateToProps = (state) => {
   return {
     account: state.account,
-    login: state.login
+    login: state.login.loginMode
   };
 };
 

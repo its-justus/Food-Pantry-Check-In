@@ -1,3 +1,5 @@
+import { combineReducers } from "redux";
+
 const loginMode = (state = "login", action) => {
   switch (action.type) {
     case "SET_TO_LOGIN_MODE":
@@ -9,6 +11,18 @@ const loginMode = (state = "login", action) => {
   }
 };
 
-// loginMode will be on the redux state at:
-// state.loginMode
-export default loginMode;
+const successfulRegistration = (state = "", action) => {
+  switch (action.type) {
+    case "DISPLAY_SUCCESSFUL_REGISTRATION_MESSAGE":
+      return "You successfully registered!";
+    case "CLEAR_SUCCESSFUL_REGISTRATION_MESSAGE":
+      return "";
+    default:
+      return state;
+  }
+};
+
+export default combineReducers({
+  loginMode,
+  successfulRegistration
+});
