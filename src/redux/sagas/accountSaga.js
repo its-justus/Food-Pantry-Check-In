@@ -5,7 +5,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* fetchInfo() {
   try {
     yield put({ type: 'SET_SERVER_LOADING' });
-    
+
     const config = {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true
