@@ -178,7 +178,6 @@ router.put('/checkout/:id', async (req, res) => {
     await conn.query('BEGIN');
     const result = await conn.query(placeOrderQuery.text, placeOrderQuery.values);
     // do a second query that updates the user's profile to include the latest order
-    console.log('result.rows', result.rows);
     const updateProfileLatestOrderQuery = {};
     updateProfileLatestOrderQuery.text = `UPDATE "profile"
       SET latest_order = $1
