@@ -228,6 +228,12 @@ class CheckIn extends React.Component {
                     />
                   </label>
                   <br></br>
+									<button
+										id="backButton"
+										onClick={() => this.setState({showCheckIn: true, showQuestions: false})}
+										>
+										Back
+									</button>
                   <button
                     id="submitButton"
                     onClick={() => {
