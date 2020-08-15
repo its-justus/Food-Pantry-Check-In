@@ -1,14 +1,15 @@
 const app = require('../server');
 const request = require('supertest');
 const pool = require('../modules/pool');
+const users = require('./testUsers');
 
-const locationID = 1234567;
+const locationID = users.locationID;
 
 const testUser = request.agent(app);
-const testUserID = 2;
-const testUserName = 'test_order';
-const testUserEmail = 'test_order@email.com';
-const testUserPassword = 'test_order_password';
+const testUserID = users.testUser.testUserID;
+const testUserName = users.testUser.testUserName;
+const testUserEmail = users.testUser.testUserEmail;
+const testUserPassword = users.testUser.testUserPassword;
 
 const dietaryRestrictions = 'Dairy';
 const walkingHome = false;

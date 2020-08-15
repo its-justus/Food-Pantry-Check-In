@@ -1,12 +1,22 @@
 const app = require('../server');
 const request = require('supertest');
+const pool = require('../modules/pool');
+const users = require('./testUsers');
 
 const adminUser = request.agent(app);
-const adminEmail = process.env.ADMIN_EMAIL;
-const adminPassword = process.env.ADMIN_PASSWORD;
+const adminEmail = users.adminUser.adminEmail;
+const adminPassword = users.adminUser.adminPassword;
 
-const locationID = 1234567;
+const locationID = users.locationID;
 const locationDescription = 'order test location';
+
+let newSpotID = 0;
+
+const testUser = request.agent(app);
+const testUserID = users.testUser.testUserID;
+const testUserName = users.testUser.testUserName;
+const testUserEmail = users.testUser.testUserEmail;
+const testUserPassword = users.testUser.testUserPassword;
 
 // beforeAll(async (done) => {
 //   await pool.query(
@@ -21,9 +31,7 @@ const locationDescription = 'order test location';
 //   done();
 // });
 
-let newSpotID = 0;
-
-test('app exists', () => {
+it('app exists', () => {
   expect(true).toBe(true);
 });
 
