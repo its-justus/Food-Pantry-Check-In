@@ -159,8 +159,9 @@ describe('DELETE /api/account/1', () => {
 });
 
 const adminUser = request.agent(app);
-const adminEmail = users.adminUser.adminEmail;
-const adminPassword = users.adminUser.adminPassword;
+const adminInfo = users.adminUser;
+const adminEmail = adminInfo.adminEmail;
+const adminPassword = adminInfo.adminPassword;
 
 describe('POST to login /api/account/login', () => {
   it("responds with the administrator's information", async (done) => {
@@ -176,18 +177,18 @@ describe('POST to login /api/account/login', () => {
 });
 
 describe('GET /api/account/', () => {
-  it('Get the account owner info', async (done) => {
+  it("Get the admin's info", async (done) => {
     const res = await adminUser
       .get('/api/account')
       .expect(200);
     expect(res.body).toEqual({
       id: 1,
-      name: expect.any(String),
-      email: adminEmail,
-      access_level: 100,
-      household_id: null,
-      latest_order: null,
-      active: true
+      name: adminInfo.name,
+      email: adminInfo.adminEmail,
+      access_level: adminInfo.accessLevel,
+      household_id: adminInfo.householdID,
+      latest_order: adminInfo.latestOrder,
+      active: adminInfo.active
     });
     done();
   });

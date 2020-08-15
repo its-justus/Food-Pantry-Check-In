@@ -6,10 +6,11 @@ const users = require('./testUsers');
 const locationID = users.locationID;
 
 const testUser = request.agent(app);
-const testUserID = users.testUser.testUserID;
-const testUserName = users.testUser.testUserName;
-const testUserEmail = users.testUser.testUserEmail;
-const testUserPassword = users.testUser.testUserPassword;
+const testUserInfo = users.testUser;
+const testUserID = testUserInfo.testUserID;
+const testUserName = testUserInfo.testUserName;
+const testUserEmail = testUserInfo.testUserEmail;
+const testUserPassword = testUserInfo.testUserPassword;
 
 const dietaryRestrictions = 'Dairy';
 const walkingHome = false;

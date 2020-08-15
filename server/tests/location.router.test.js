@@ -4,26 +4,19 @@ const pool = require('../modules/pool');
 const users = require('./testUsers');
 
 const adminUser = request.agent(app);
-const adminEmail = users.adminUser.adminEmail;
-const adminPassword = users.adminUser.adminPassword;
+const adminInfo = users.adminUser;
+const adminEmail = adminInfo.adminEmail;
+const adminPassword = adminInfo.adminPassword;
 
 const locationID = users.locationID;
 const locationDescription = 'order test location';
 
-let newSpotID = 0;
-
 const testUser = request.agent(app);
-const testUserID = users.testUser.testUserID;
-const testUserName = users.testUser.testUserName;
-const testUserEmail = users.testUser.testUserEmail;
-const testUserPassword = users.testUser.testUserPassword;
-
-// beforeAll(async (done) => {
-//   await pool.query(
-//     `INSERT INTO location (id, description) VALUES (${locationID}, ${locationDescription});`
-//   );
-//   done();
-// });
+const testUserInfo = users.testUser;
+const testUserID = testUserInfo.testUserID;
+const testUserName = testUserInfo.testUserName;
+const testUserEmail = testUserInfo.testUserEmail;
+const testUserPassword = testUserInfo.testUserPassword;
 
 // afterAll(async (done) => {
 //   await pool.query(`DELETE FROM order WHERE location_id = ${locationID};`);
@@ -31,39 +24,36 @@ const testUserPassword = users.testUser.testUserPassword;
 //   done();
 // });
 
-it('app exists', () => {
-  expect(true).toBe(true);
+describe('POST to login /api/account/login', () => {
+  it("responds with the administrator's information", async (done) => {
+    await adminUser
+      .post('/api/account/login')
+      .send({
+        username: adminEmail,
+        password: adminPassword
+      })
+      .expect(200);
+    done();
+  });
 });
 
-// describe('Test an admin account', () => {
-//   describe('POST to login /api/location', () => {
-//     it("responds with the administrator's information", async (done) => {
-//       const res = await adminUser
-//         .post('/api/location')
-//         .send({
-//           id: 1,
-//           password: adminPassword
-//         })
-//         .expect(200);
-//       done();
-//       newSpotID = res.body
-//     });
-//   });
-
-//   describe('GET /api/account/', () => {
-//     it('Get the account owner info', async (done) => {
-//       const res = await adminUser
-//         .get('/api/account')
-//         .expect(200);
-//       expect(res.body).toEqual({
-//         id: 1,
-//         name: expect.any(String),
-//         email: adminEmail,
-//         access_level: 100
-//       });
-//       done();
-//     });
-//   });
+describe('GET /api/account/', () => {
+  it("Get the admin's info", async (done) => {
+    const res = await adminUser
+      .get('/api/account')
+      .expect(200);
+    expect(res.body).toEqual({
+      id: 1,
+      name: adminInfo.name,
+      email: adminInfo.adminEmail,
+      access_level: adminInfo.accessLevel,
+      household_id: adminInfo.householdID,
+      latest_order: adminInfo.latestOrder,
+      active: adminInfo.active
+    });
+    done();
+  });
+});
 
 //   describe(`GET /api/account/${newUserId}`, () => {
 //     it('Get info for the newly added client', async (done) => {

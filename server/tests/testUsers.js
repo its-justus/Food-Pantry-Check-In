@@ -9,7 +9,13 @@ module.exports = {
   },
   adminUser: {
     adminEmail: process.env.ADMIN_EMAIL,
-    adminPassword: process.env.ADMIN_PASSWORD
+    adminPassword: process.env.ADMIN_PASSWORD,
+    id: 1,
+    name: process.env.ADMIN_NAME,
+    accessLevel: 100,
+    householdID: null,
+    latestOrder: null,
+    active: true
   },
   locationID: 1234567
 };
