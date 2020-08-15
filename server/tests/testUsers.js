@@ -10,5 +10,6 @@ module.exports = {
   adminUser: {
     adminEmail: process.env.ADMIN_EMAIL,
     adminPassword: process.env.ADMIN_PASSWORD
-  }
+  },
+  locationID: 1234567
 };
