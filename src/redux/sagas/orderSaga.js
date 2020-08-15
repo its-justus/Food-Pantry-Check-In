@@ -22,13 +22,16 @@ function* fetchWaitTime() {
     while (processing === true) {
       const response = yield axios.get('/api/order/client-order-status');
       yield delay(5000);
-      // If the estimated wait time minutes have been specified break the loop and return that value.
-      if (response.data[0].wait_time_minutes !== null) {
-        returnStr = response.data[0].wait_time_minutes;
-        processing = false;
+      // If this is a user's first order they won't have any order results so keep looping
+      // to give the order a moment to go through.ß
+      if (response.data[0]) {
+        // If the estimated wait time minutes have been specified break the loop and return that value.
+        if (response.data[0].wait_time_minutes !== null) {
+          returnStr = response.data[0].wait_time_minutes;
+          processing = false;
+        }
       }
     }
-
     yield put({ type: 'SET_WAIT_TIME', payload: returnStr });
   } catch (error) {
     yield put({ type: 'SET_RETRIEVE_ACTIVE_ORDER_ERROR' });

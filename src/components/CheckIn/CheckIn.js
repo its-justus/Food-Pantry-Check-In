@@ -19,8 +19,7 @@ class CheckIn extends React.Component {
     showQuestions: false,
     showSuccess: false,
     showTextArea: false,
-    pickup_name: "",
-    estWaitTimeInterval: ""
+    pickup_name: ""
   };
 
   render() {
@@ -34,7 +33,7 @@ class CheckIn extends React.Component {
           </Row>
           <Row id="clientInfoRow">
             <div id="clientInfo">
-              <h1 id="accountName">Hi, {this.props.account.name}</h1>
+              <h1 id="accountName">Hi {this.props.account.name}!</h1>
               <h3 id="houseId">
                 Household ID: <strong>{this.props.account.household_id}</strong>
               </h3>
@@ -52,27 +51,6 @@ class CheckIn extends React.Component {
             <div id="greyLine"></div>
           </div>
           <Row id="checkinBody">
-            {this.state.showTextArea && (
-              <>
-                <label htmlFor="pickup_name" id="nameLabel">
-                  Please enter the name here:
-                  <br></br>
-                  <textarea
-                    rows="2"
-                    cols="40"
-                    name="name"
-                    value={this.state.pickup_name}
-                    onChange={(event) =>
-                      this.setState({
-                        pickup_name: event.target.value,
-                      })
-                    }
-                    placeholder="Enter name of person picking up"
-                  ></textarea>
-                </label>
-                <br></br>
-              </>
-            )}
             {this.state.showCheckIn && (
               <div id="clientInput">
                 <form>
@@ -88,6 +66,7 @@ class CheckIn extends React.Component {
                       }
                     >
                       <>
+                        <option value=""></option>
                         {this.props.parkingLocations.map((location, index) => (
                           <option
                             value={location.id}
@@ -120,22 +99,45 @@ class CheckIn extends React.Component {
           <Form.Row xs={12}>
             {this.state.showQuestions && (
               <>
-                <label htmlFor="showTextArea" className="checkboxLabel">
-                  <h3>Is there another person picking up the order?</h3>
-                  <input
-                    type="checkbox"
-                    className="check"
-                    checked={this.state.showTextArea}
-                    onChange={() =>
-                      this.setState({ showTextArea: !this.state.showTextArea })
-                    }
-                  />
-                </label>
                 <br />
                 <div id="clientQuestions">
                   <p id="instructions">
                     Fill out this form to finish your check-in:
                   </p>
+                  <label htmlFor="showTextArea" className="checkboxLabel">
+                    <h3>Is there another person picking up the order?</h3>
+                    <input
+                      type="checkbox"
+                      className="check"
+                      checked={this.state.showTextArea}
+                      onChange={() => {
+                        this.setState({ showTextArea: !this.state.showTextArea });
+                        !this.state.showTextArea && this.setState({ pickup_name: '' });
+                      }}
+                    />
+                  </label>
+                  <br />
+                  {this.state.showTextArea && (
+                    <>
+                      <label htmlFor="pickup_name" id="nameLabel">
+                        Please enter the name here:
+                        <br />
+                        <textarea
+                          rows="2"
+                          cols="40"
+                          name="name"
+                          value={this.state.pickup_name}
+                          onChange={(event) =>
+                            this.setState({
+                              pickup_name: event.target.value,
+                            })
+                          }
+                          placeholder="Enter name of person picking up"
+                        ></textarea>
+                      </label>
+                      <br></br>
+                    </>
+                  )}
                   <label htmlFor="foodRestrictions" id="foodRestrictionsLabel">
                     Please list any food restrictions here:
                     <br></br>
@@ -262,12 +264,14 @@ class CheckIn extends React.Component {
           {this.state.showSuccess && (
             <div id="thankYou">
               {this.props.errors.orderMessage ? (
-                this.props.errors.orderMessage
+                <h3>{this.props.errors.orderMessage}</h3>
               ) : (
-                <h3>Thank you, we have received your order!</h3>
-              )}
-              <p>We will be with you in about: {`"${this.props.waitTime ? `${this.props.waitTime} minutes.` : 'Processing...'}"`}</p>
-              {this.props.waitTime && <p>You may now log out.</p>}
+                  <>
+                    <h3>Thank you, we have received your order!</h3>
+                    <p>We will be with you in about: {`"${this.props.waitTime ? `${this.props.waitTime} minutes.` : 'Processing...'}"`}</p>
+                    {this.props.waitTime && <p>You may now log out.</p>}
+                  </>
+                )}
             </div>
           )}
         </Container>
