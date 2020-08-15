@@ -17,7 +17,6 @@ class Dashboard extends Component {
       account_id: '',
       walking_home: '',
       child_birthday: '',
-      child_birthday: '',
       dietary_restrictions: ' ',
       snap: '',
       other: ' '
