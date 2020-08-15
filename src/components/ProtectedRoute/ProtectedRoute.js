@@ -23,8 +23,6 @@ const ProtectedRoute = (props) => {
   } = props;
 
   let ComponentToShow;
-  console.log(account.access_level, maximumAccessLevel);
-  console.log(account.access_level > maximumAccessLevel);
   if (account.access_level < minimumAccessLevel) {
     // If a minimumAccessLevel has been specified then confirm the user who's currently
     // logged in has a sufficient access level and if not show them the unauthorized page.
