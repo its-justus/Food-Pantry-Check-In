@@ -17,7 +17,6 @@ passport.deserializeUser(async (id, done) => {
                             LEFT JOIN profile ON account.id = profile.account_id
                             WHERE account.id = $1;`;
     getUserInfoQuery.values = [id];
-    await conn.query('BEGIN');
     const result = await conn.query(getUserInfoQuery.text, getUserInfoQuery.values);
     const user = result && result.rows && result.rows[0];
 
@@ -26,14 +25,13 @@ passport.deserializeUser(async (id, done) => {
     getLatestOrderObjectQuery.text = 'SELECT * FROM "order" WHERE id = $1;';
     getLatestOrderObjectQuery.values = [user.latest_order];
     const orderRow = await conn.query(getLatestOrderObjectQuery.text, getLatestOrderObjectQuery.values);
-    await conn.query('COMMIT');
     conn.release();
 
     if (user) {
       // Remove the user's password so it doesn't get sent.
       delete user.password;
       // done takes an error (null in this case) and a user.
-      done(null, { ...user, latest_order: null && orderRow.rows && orderRow.rows[0] });
+      done(null, { ...user, latest_order: orderRow.rows[0] ? orderRow.rows[0] : null });
     } else {
       // User not found.
       // done takes an error (null in this case) and a user (also null in this case).

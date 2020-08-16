@@ -193,25 +193,6 @@ class ManualOrder extends Component {
                   />
                 </label>
                 <br />
-                <label for="waitTime">
-                  Please choose a wait time:
-                  <select
-                    name="waitTime"
-                    id="times"
-                    value={this.state.waitTimeMinutes}
-                    onChange={(event) =>
-                      this.setState({
-                        waitTimeMinutes: event.target.value,
-                      })
-                    }
-                  >
-                    <option value="15">15 minutes</option>
-                    <option value="30">30 minutes</option>
-                    <option value="45">45 minutes</option>
-                    <option value="60">1 hour</option>
-                  </select>
-                </label>
-                <br></br>
                 <button
                   id="submitButton"
                   onClick={() => {
