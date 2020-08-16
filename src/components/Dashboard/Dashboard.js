@@ -22,7 +22,8 @@ class Dashboard extends Component {
       snap: '',
       other: ' ',
       pickup_name: '',
-      checkout_at: ''
+      checkout_at: ' ',
+      wait_time_minutes: '15'
     },
     waitTimeMinutes: '15',
     showClientInfo: true,
@@ -126,6 +127,8 @@ class Dashboard extends Component {
                               snap: '',
                               other: ' ',
                               pickup_name: '',
+                              checkout_at: ' ',
+                              wait_time_minutes: ''
                             },
                             waitTimeMinutes: '15'
                           });
@@ -169,10 +172,11 @@ class Dashboard extends Component {
                       </p>
                     </body>
                     <label for="waitTime">
-                      Please choose a wait time:
+                      {!this.state.orderObj.checkout_at && 'Please choose a wait time: '}
                       <select
                         name="waitTime"
                         id="times"
+                        disabled={this.state.orderObj.checkout_at}
                         value={this.state.waitTimeMinutes}
                         onChange={(event) =>
                           this.setState({
@@ -180,10 +184,19 @@ class Dashboard extends Component {
                           })
                         }
                       >
-                        <option value="15">15 minutes</option>
-                        <option value="30">30 minutes</option>
-                        <option value="45">45 minutes</option>
-                        <option value="60">60 minutes</option>
+                        {this.state.orderObj.wait_time_minutes ?
+                          <option>{this.state.orderObj.wait_time_minutes
+                            && (this.state.orderObj.wait_time_minutes === 60 ? '1 hour'
+                              : `${this.state.orderObj.wait_time_minutes} minutes`)}
+                          </option>
+                          :
+                          <>
+                            <option value="15">15 minutes</option>
+                            <option value="30">30 minutes</option>
+                            <option value="45">45 minutes</option>
+                            <option value="60">1 hour</option>
+                          </>
+                        }ß
                       </select>
                     </label>
                   </form>
