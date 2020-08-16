@@ -31,7 +31,7 @@
     "supertest": "^4.0.2"
   },
   "scripts": {
-    "start": "node server/start.js",
+    "start": "node server/start.js & react-scripts start",
     "client": "react-scripts start",
     "server": "nodemon --watch server server/start.js",
     "build": "react-scripts build",
