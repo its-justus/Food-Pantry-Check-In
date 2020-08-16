@@ -25,7 +25,7 @@
 #instructions, #anotherPersonQuestion {
   text-align: left;
   font-size: 22px;
-  font-family: 'Signika', sans-serif;
+  font-family: 'Heebo', sans-serif;
   margin: auto;
   margin-right: 20px;
   margin-left: 20px;
@@ -43,7 +43,7 @@
 #clientInfo {
   margin: 25px auto;
   text-align: center;
-  font-family: 'Signika', sans-serif;
+  font-family: 'Catamaran', sans-serif;
 }
 
 #accountName {
@@ -83,7 +83,7 @@
   border: 1px solid #b13324;
   border-radius: 50px;
   transition: 200ms;
-  font-family: 'Signika', sans-serif;
+  font-family: 'Catamaran', sans-serif;
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -95,7 +95,7 @@
 
 #lastStep {
   font-size: 25px;
-  font-family: 'Signika', sans-serif;
+  font-family: 'Catamaran', sans-serif;
 }
 
 #clientQuestions {
@@ -133,19 +133,39 @@ textarea:hover {
   font-size: 18px;
 }
 
-#submitButton, #backButton {
+#submitButton {
   color: white;
   font-size: 18px;
   background-color: #b13324;
   border: 1px solid #b13324;
   border-radius: 50px;
-  width: 50%;
+  width: 25%;
   transition: 200ms;
-  font-family: 'Signika', sans-serif;
+  font-family: 'Catamaran', sans-serif;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  float: right;
+}
+
+#backButton {
+  color: white;
+  font-size: 18px;
+  background-color: #726b69;
+  border: 1px solid #726b69;
+  border-radius: 50px;
+  width: 25%;
+  transition: 200ms;
+  font-family: 'Catamaran', sans-serif;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
 #thankYou {
   text-align: center;
+  font-size: 25px;
+  font-family: 'Catamaran', sans-serif;
+}
+
+#waitTime {
+  font-size: 18px;
 }

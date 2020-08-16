@@ -108,7 +108,7 @@ class CheckIn extends React.Component {
                 <div id="clientQuestions">
                   <p id="lastStep">Last step to finish checking in!</p>
                   <label htmlFor="showTextArea" className="checkboxLabel">
-                    Is there another person picking up the order?
+                    Is there another person picking up <br/> the order?
                     <input
                       type="checkbox"
                       className="check"
@@ -282,7 +282,7 @@ class CheckIn extends React.Component {
               ) : (
                 <>
                   <h3>Thank you, we have received your order!</h3>
-                  <p>
+                  <p id="waitTime">
                     We will be with you in about:{" "}
                     {`"${
                       this.props.waitTime
