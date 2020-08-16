@@ -1,130 +1,126 @@
 const app = require('../server');
 const request = require('supertest');
+const users = require('./testUsers');
 
 const adminUser = request.agent(app);
-const adminEmail = process.env.ADMIN_EMAIL;
-const adminPassword = process.env.ADMIN_PASSWORD;
+const adminInfo = users.adminUser;
+const adminEmail = adminInfo.adminEmail;
+const adminPassword = adminInfo.adminPassword;
 
-let newSpotID = 0;
+const locationID = 1234567;
+const locationDescription = 'order test location';
+const newLocationDescription = 'New description.';
+const locationObject = {
+  id: locationID,
+  description: locationDescription
+};
+const newLocationObject = {
+  id: locationID,
+  description: newLocationDescription
+};
 
-test('app exists', () => {
-  expect(true).toBe(true);
+// const testUser = request.agent(app);
+// const testUserInfo = users.testUser;
+// const testUserID = testUserInfo.testUserID;
+// const testUserName = testUserInfo.testUserName;
+// const testUserEmail = testUserInfo.testUserEmail;
+// const testUserPassword = testUserInfo.testUserPassword;
+
+describe('POST to login /api/account/login', () => {
+  it("responds with the administrator's information", async (done) => {
+    await adminUser
+      .post('/api/account/login')
+      .send({
+        username: adminEmail,
+        password: adminPassword
+      })
+      .expect(200);
+    done();
+  });
 });
 
-// describe('Test an admin account', () => {
-//   describe('POST to login /api/location', () => {
-//     it("responds with the administrator's information", async (done) => {
-//       const res = await adminUser
-//         .post('/api/location')
-//         .send({
-//           id: 1,
-//           password: adminPassword
-//         })
-//         .expect(200);
-//       done();
-//       newSpotID = res.body
-//     });
-//   });
+describe('GET /api/account/', () => {
+  it("Get the admin's info", async (done) => {
+    const res = await adminUser
+      .get('/api/account')
+      .expect(200);
+    expect(res.body).toEqual({
+      id: 1,
+      name: adminInfo.name,
+      email: adminInfo.adminEmail,
+      access_level: adminInfo.accessLevel,
+      household_id: adminInfo.householdID,
+      latest_order: adminInfo.latestOrder,
+      active: adminInfo.active
+    });
+    done();
+  });
+});
 
-//   describe('GET /api/account/', () => {
-//     it('Get the account owner info', async (done) => {
-//       const res = await adminUser
-//         .get('/api/account')
-//         .expect(200);
-//       expect(res.body).toEqual({
-//         id: 1,
-//         name: expect.any(String),
-//         email: adminEmail,
-//         access_level: 100
-//       });
-//       done();
-//     });
-//   });
+describe('GET /api/location/', () => {
+  it('Responds with an array of locations.', async (done) => {
+    const res = await adminUser
+      .get('/api/location')
+      .expect(200);
+    expect(res.body).toEqual(
+      expect.arrayContaining([expect.any(Object)])
+    );
+    done();
+  });
+});
 
-//   describe(`GET /api/account/${newUserId}`, () => {
-//     it('Get info for the newly added client', async (done) => {
-//       const res = await adminUser
-//         .get(`/api/account/${newUserId}`)
-//         .expect(200);
-//       expect(res.body).toEqual({
-//         id: newUserId,
-//         name: newUserName,
-//         email: newUserEmail,
-//         access_level: 1
-//       });
-//       done();
-//     });
-//   });
+// Start with posting a new location
+describe('POST /api/location', () => {
+  it('Posts the new location', async (done) => {
+    const res = await adminUser
+      .post('/api/location')
+      .send(locationObject)
+      .expect(201);
+    expect(res.body).toEqual(locationObject);
+    done();
+  });
+});
 
-//   describe(`DELETE /api/account/${newUserId}`, () => {
-//     it('This is the last test so delete the newly added client', async (done) => {
-//       await adminUser
-//         .delete(`/api/account/${newUserId}`)
-//         .expect(204);
-//       done();
-//     });
-//   });
-// });
+describe(`PUT /api/location/${locationID}`, () => {
+  it('Responds with the updated array.', async (done) => {
+    const res = await adminUser
+      .put(`/api/location/${locationID}`)
+      .send(newLocationObject)
+      .expect(200);
+    expect(res.body).toEqual(newLocationObject);
+    done();
+  });
+});
 
+describe('GET /api/location/', () => {
+  it('Responds with an array of locations.', async (done) => {
+    const res = await adminUser
+      .get('/api/location')
+      .expect(200);
+    expect(res.body).toEqual(
+      expect.arrayContaining([newLocationObject])
+    );
+    done();
+  });
+});
 
-// // Start with posting a new location
-// describe("POST /api/location", () => {
-//   it("responds with json", async (done) => {
-//     const res = await request
-//       .post("/api/location")
-//       .send({
-//         id: 1234567,
-//         description: "test",
-//       })
-//       //.expect("Content-Type", /json/)
-//       .expect(201);
-// 			expect(res.body).toEqual(expect.objectContaining({id: 1234567}));
-//     done();
-//   });
-// });
+describe(`DELETE /api/location/${locationID}`, () => {
+  it('Responds with status code 204 OK because a location was deleted.', async (done) => {
+    await adminUser
+      .delete(`/api/location/${locationID}`)
+      .expect(204);
+    done();
+  });
+});
 
-// describe("PUT /api/location/:id", () => {
-//   it("responds with json", async (done) => {
-//     const res = await request
-//       .put("/api/location/1234567")
-//       .send({
-//         id: 1234567,
-//         description: "test edited",
-//       })
-//       //.expect("Content-Type", /json/)
-//       .expect(200);
-//     expect(res.body).toEqual({
-//       id: 1234567,
-//       description: "test edited",
-//     });
-//     done();
-//   });
-// });
-
-// describe("GET /api/location/", () => {
-//   it("responds with json", async (done) => {
-//     const res = await request
-//       .get("/api/location")
-//       .set("Accept", "application/json")
-//       // .expect("Content-Type", /json/)
-// 			.expect(200);
-
-// 		expect(res.body).toEqual(
-// 			expect.arrayContaining([expect.objectContaining({
-// 			id: 1234567,
-// 			description: "test edited",
-// 		})])
-// 		);
-		
-// 		done();
-//   });
-// });
-
-// describe("DELETE /api/location/id", () => {
-// 	it("responds with status code 204 OK", async (done) => {
-// 		const res = await request
-// 		.delete("/api/location/1234567")
-// 		.expect(204);
-// 	done();
-// 	})
-// })
+describe('GET /api/location/', () => {
+  it('Responds with an array of locations.', async (done) => {
+    const res = await adminUser
+      .get('/api/location')
+      .expect(200);
+    expect(res.body).not.toEqual(
+      expect.arrayContaining([newLocationObject])
+    );
+    done();
+  });
+});

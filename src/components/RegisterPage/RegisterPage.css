@@ -1,3 +1,7 @@
+/* #registerBody {
+  height: 100vh;
+} */
+
 #registerCard {
   width: 350px;
   height: 360px;
@@ -93,5 +97,5 @@
 }
 
 #errorDiv {
-  margin: 40px auto;
+  margin: auto;
 }

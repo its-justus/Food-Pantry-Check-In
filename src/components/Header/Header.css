@@ -1,24 +1,10 @@
-#navTitle {
-  color: white;
-  font-size: 25px;
-  border: none;
-  font-family: 'Signika', sans-serif;
-  font-weight: bold;
-  margin: 0px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  display: inline-block;
-  font-weight: lighter;
-}
-
 #navBar {
-  background-color: #726b69;
+  background-color: white;
 }
 
-#navRight {
-  float: right;
-  margin: 0px;
-  padding-top: 5px;
+#headerLogo {
+  height: 90px;
+  width: 103px;
 }
 
 .navButton {
@@ -42,11 +28,21 @@ header {
 }
 
 #logoutButton {
-  font-size: 15px;
+  font-size: 18px;
   color: white;
   background-color: #faaf46;
   border: 1px solid #faaf46;
   border-radius: 50px;
   transition: 200ms; 
   font-family: 'Signika', sans-serif;
+  /* float: right; */
+  position: absolute;
+  top: auto;
+  right: 0;
+  margin-right: 15px;
+}
+
+#logoutButton:hover {
+  border: 1px solid white;
+  transition: 200ms; 
 }

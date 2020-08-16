@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+// import Col from "react-bootstrap/Col";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Toast from "react-bootstrap/Toast";
 import "./LoginPage.css";
@@ -43,12 +43,9 @@ class LoginPage extends Component {
   render() {
     return (
       <div id="loginBody">
-        <div id="logoDiv">
-          <img src="EFP_Logo_Color.png" alt="EFP Logo" id="efpLogo"/>
-        </div>
         <Container id="loginContainer">
           <Row id="loginRow">
-            <Col>
+            {/* <Col lg={true}> */}
               <Card id="loginCard">
                 <form onSubmit={this.login}>
                   <div id="welcomeDiv">
@@ -88,7 +85,6 @@ class LoginPage extends Component {
                   </div>
                 </form>
               </Card>
-            </Col>
           </Row>
           <Row>
             <center id="center">
@@ -101,18 +97,7 @@ class LoginPage extends Component {
           <Row>
             <div id="errorDiv">
               {this.props.errors.loginMessage && (
-                <Toast style={{ border: "1px solid #b13324" }}>
-                  {/* <Toast.Header>
-                    <img
-                      src="holder.js/20x20?text=%20"
-                      className="rounded mr-2"
-                      alt=""
-                      onClick={this.handleClose}
-                    />
-                    <strong className="mr-auto" style={{ color: "#b13324" }}>
-                      !
-                    </strong>
-                  </Toast.Header> */}
+                <Toast animation="true" style={{ border: "1px solid #b13324" }}>
                   <Toast.Body>{this.props.errors.loginMessage}</Toast.Body>
                 </Toast>
               )}

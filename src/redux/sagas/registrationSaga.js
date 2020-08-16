@@ -11,10 +11,10 @@ function* registerUser(action) {
     yield axios.post("/api/account", action.payload);
 
     // automatically log a user in after registration
-    yield put({ type: "LOGIN", payload: action.payload });
+    yield put({ type: "LOGIN", payload: { username: action.payload.email, password: action.payload.password } });
 
-    // set to 'login' mode so they see the login screen
-    // after registration or after they log out
+    // Set this message so the registration page knows to redirect but it isn't actually shown currently.
+    yield put({ type: "DISPLAY_SUCCESSFUL_REGISTRATION_MESSAGE" });
     yield put({ type: "SET_TO_LOGIN_MODE" });
   } catch (error) {
     console.log("Error with user registration:", error);

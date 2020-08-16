@@ -2,13 +2,16 @@ import axios from 'axios';
 import { put, takeEvery } from 'redux-saga/effects';
 
 function* checkOutOrder(action) {
+  const id = action.payload.id;
+  const waitTimeMinutes = action.payload.waitTimeMinutes;
   try {
     // Add a checkout time of now (on the server) for the input order.
-    yield axios.put(`/api/order/checkout/${action.payload}`);
+    yield axios.put(`/api/order/checkout/${id}`, { wait_time_minutes: waitTimeMinutes });
     // Get the active and complete orders again because we just changed one.
     yield put({ type: 'FETCH_ACTIVE_ORDERS' });
     yield put({ type: 'FETCH_COMPLETE_ORDERS' });
   } catch (error) {
+    yield put({ type: 'FAILED_REQUEST' });
     console.log('Update checkout time failed', error);
   }
 }

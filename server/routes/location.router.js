@@ -28,7 +28,8 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     await conn.query('BEGIN');
     const locationInsertResults = await conn.query(query.text, query.values);
     await conn.query('COMMIT');
-    res.status(200).send(locationInsertResults.rows[0]);
+    conn.release();
+    res.status(201).send(locationInsertResults.rows[0]);
   } catch (error) {
     await conn.query('ROLLBACK');
     console.log('Error POST /api/location', error);
@@ -59,6 +60,7 @@ router.put('/:id', rejectUnauthenticated, async (req, res) => {
     await conn.query('BEGIN');
     const result = await conn.query(query.text, query.values);
     await conn.query('COMMIT');
+    conn.release();
     res.status(200).send(result.rows[0]);
   } catch (error) {
     conn.query('ROLLBACK');
@@ -71,10 +73,11 @@ router.get('/', async (req, res) => {
   const conn = await pool.connect();
   try {
     const query = {};
-    query.text = 'SELECT * FROM "location";';
+    query.text = 'SELECT * FROM "location" ORDER BY id ASC;';
     await conn.query('BEGIN');
     const result = await conn.query(query.text);
     await conn.query('COMMIT');
+    conn.release();
     res.status(200).send(result.rows);
   } catch (error) {
     conn.query('ROLLBACK');
@@ -98,12 +101,13 @@ router.delete('/:id', rejectUnauthenticated, async (req, res) => {
     query.text = 'DELETE FROM location WHERE id = $1;';
     query.values = [id];
     await conn.query('BEGIN');
-    await conn.query(query.text);
+    await conn.query(query.text, query.values);
     await conn.query('COMMIT');
-    res.sentStatus(204);
+    conn.release();
+    res.sendStatus(204);
   } catch (error) {
     conn.query('ROLLBACK');
-    console.log('Error DELETE /api/location/', error);
+    console.log(`Error DELETE /api/location/${id}`, error);
     res.sendStatus(500);
   }
 });

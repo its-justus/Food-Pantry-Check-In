@@ -1,16 +1,153 @@
-.dashBoard {
-  text-align: center;
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: center;
-  padding: inherit;
-  padding-bottom: 2em;
-  opacity: 95%;
+#dashContainer {
+  height: 100vh;
+}
+
+#efpLogoDash {
+  height: 105px;
+  width: 120px;
+  display: inline-block;
+}
+
+#dashRow {
+  margin-top: 20px;
+}
+
+#clientNameButton {
+  border-radius: 50px;
+  font-size: 20px;
+}
+
+#clientNameButton:hover {
+  background-color: white;
 }
 
 button {
-    padding-top: 2em;
-    padding-left: 1em;
-    padding-right: 1em;
+  background-color: transparent;
+  border: none;
+  color: black;
+}
+
+thead {
+  font-size: 25px;
+}
+
+.dashForm {
+  margin-top: 20px;
+}
+
+#addClient {
+  float: right;
+}
+
+#checkInClient {
+  float: right;
+  background-color: #3ca342;
+  border: 1px solid #3ca342;
+  transition: 200ms;
+}
+
+#checkInClient:hover {
+  background-color: #328a36;
+  border: 1px solid #328a36;
+  transition: 200ms;
+}
+
+.checkboxLabel {
+  font-family: sans-serif;
+  font-size: 18px;
+}
+
+#firstColTitle {
+  color: white;
+  font-size: 30px;
+  display: inline-block;
+}
+
+#firstColHeader {  
+  padding: 10px;
+  background-color: #faaf46;
+  margin: 0px;
+  margin-top: -20px;
+  width: 100%;
+  display: inline-block;
+}
+
+#secondColTitle {
+  color: white;
+  font-size: 30px;
+  display: inline-block;
+}
+
+#secondColManualTitle {
+  color: white;
+  font-size: 30px;
+  display: inline-block;  
+}
+
+#secondColManualHeader {
+  background-color: #0071f8;
+  padding: 10px;
+  margin: 0px;
+  width: 100%;
+  display: inline-block;   
+}
+
+#secondColHeader {
+  background-color: #99e0f7;
+  padding: 10px;
+  margin: 0px;
+  margin-top: -20px;
+  width: 100%;
+  display: inline-block;  
+}
+
+#firstCard, #secondCard, #thirdCard {
+  height: 675px;
+  overflow: scroll;
+}
+
+#dashBody {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 75px;
+}
+
+#thirdCol {
+  /* border-left: 1px solid lightgray; */
+  height: 675px;
+  overflow: scroll;
+}
+
+#thirdColTitle {
+  color: white;
+  background-color: #99d498;
+  padding: 10px;
+  font-size: 30px;
+  margin: 0px;
+  margin-top: -20px;
+}
+
+#checkedInItem{
+  border-bottom: 1px solid #99d498;
+  font-size: 20px;
+}
+
+#orangeDiv {
+  width: 100%;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+#dashboardTitle {
+  display: inline-block;
+  font-family: 'Signika', sans-serif;
+  font-weight: bolder;
+}
+
+.clientInformation {
+  font-size: 20px;
+}
+
+.selectedOrder {
+  background-color: #dedede;
 }

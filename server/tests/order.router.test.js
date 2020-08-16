@@ -1,30 +1,33 @@
 const app = require('../server');
 const request = require('supertest');
-// const pool = require('../modules/pool');
+const pool = require('../modules/pool');
+const users = require('./testUsers');
 
-// beforeAll(async (done) => {
-//   await pool.query(
-//     "INSERT INTO location (id, description) VALUES (1234567, 'order test location');"
-//   );
-//   done();
-// });
-
-// afterAll(async (done) => {
-//   await pool.query("DELETE FROM location WHERE id = 1234567;");
-//   done();
-// });
+const locationID = 1;
 
 const testUser = request.agent(app);
-const testUserID = 2;
-const testUserName = 'test_order';
-const testUserEmail = 'test_order@email.com';
-const testUserPassword = 'test_order_password';
+const testUserInfo = users.testUser;
+const testUserID = testUserInfo.testUserID;
+const testUserName = testUserInfo.testUserName;
+const testUserEmail = testUserInfo.testUserEmail;
+const testUserPassword = testUserInfo.testUserPassword;
 
-const locationID = 1234567;
 const dietaryRestrictions = 'Dairy';
 const walkingHome = false;
 const pregnant = false;
 const childBirthday = true;
+const snap = true;
+const pickupName = "Alice";
+const other = 'Love and attention';
+const waitTimeMinutes = 30;
+
+afterAll(async (done) => {
+  // Normally we don''t delete orders so set the test account's most recent order to null
+  // since that's a foreign key so we can delete the order that was just added.
+  await pool.query(`UPDATE profile SET latest_order = null WHERE account_id = ${testUserID};`);
+  await pool.query(`DELETE FROM "order" WHERE account_id = ${testUserID};`);
+  done();
+});
 
 describe('Normal client with access level 1 for /api/order', () => {
   describe('POST to login /api/account/login', () => {
@@ -49,7 +52,10 @@ describe('Normal client with access level 1 for /api/order', () => {
         id: testUserID,
         name: testUserName,
         email: testUserEmail,
-        access_level: 1
+        access_level: 1,
+        household_id: '2',
+        latest_order: null,
+        active: true
       });
       done();
     });
@@ -64,7 +70,11 @@ describe('Normal client with access level 1 for /api/order', () => {
           dietary_restrictions: dietaryRestrictions,
           walking_home: walkingHome,
           pregnant: pregnant,
-          child_birthday: childBirthday
+          child_birthday: childBirthday,
+          snap: snap,
+          pickup_name: pickupName,
+          other: other,
+          wait_time_minutes: waitTimeMinutes
         })
         .expect(201);
       expect(res.body).toEqual({
@@ -76,7 +86,35 @@ describe('Normal client with access level 1 for /api/order', () => {
         dietary_restrictions: dietaryRestrictions,
         walking_home: walkingHome,
         pregnant: pregnant,
-        child_birthday: childBirthday
+        child_birthday: childBirthday,
+        snap: snap,
+        pickup_name: pickupName,
+        other: other,
+        wait_time_minutes: null
+      });
+      done();
+    });
+  });
+
+  describe('GET /api/order/client-order-status', () => {
+    it("Get the test order user's order status", async (done) => {
+      const res = await testUser
+        .get('/api/order/client-order-status')
+        .expect(200);
+      expect(res.body[0]).toEqual({
+        id: expect.any(Number),
+        account_id: testUserID,
+        checkin_at: expect.any(String),
+        checkout_at: null,
+        location_id: locationID,
+        dietary_restrictions: dietaryRestrictions,
+        walking_home: walkingHome,
+        pregnant: pregnant,
+        child_birthday: childBirthday,
+        snap: snap,
+        other: other,
+        pickup_name: pickupName,
+        wait_time_minutes: null
       });
       done();
     });

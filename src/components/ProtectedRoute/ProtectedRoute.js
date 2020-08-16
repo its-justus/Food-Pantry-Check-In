@@ -17,6 +17,7 @@ const ProtectedRoute = (props) => {
     component: ComponentToProtect,
     account,
     login,
+    maximumAccessLevel,
     minimumAccessLevel,
     ...otherProps
   } = props;
@@ -25,6 +26,10 @@ const ProtectedRoute = (props) => {
   if (account.access_level < minimumAccessLevel) {
     // If a minimumAccessLevel has been specified then confirm the user who's currently
     // logged in has a sufficient access level and if not show them the unauthorized page.
+    ComponentToShow = UnauthorizedPage;
+  } else if (account.access_level > maximumAccessLevel) {
+    // If a user has a rank higher than 10 (a volunteer or admin) don't let them access
+    // the checkin page.
     ComponentToShow = UnauthorizedPage;
   } else if (account.id) {
     // if the user is logged in (only logged in users have ids)
@@ -54,7 +59,7 @@ const ProtectedRoute = (props) => {
 const mapStateToProps = (state) => {
   return {
     account: state.account,
-    login: state.login
+    login: state.login.loginMode
   };
 };
 
