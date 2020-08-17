@@ -37,55 +37,86 @@ class ManualOrder extends Component {
                 Cancel
               </button>
             </div>
-            <div id="clientInfoManual">
-              <label htmlFor="houseHoldIdManual">
-                Enter Household ID:
-                <br></br>
-                <input
-                  type="number"
-                  name="houseHoldIdManual"
-                  value={this.state.houseHoldId}
-                  onChange={(event) =>
-                    this.setState({ houseHoldId: event.target.value })
-                  }
-                />
-              </label>
-            </div>
-          </Row>
-          <div id="orangeBox"></div>
-          <Row>
-            <div id="clientInputManual">
-              <form>
-                <label htmlFor="name" id="parkingLabel">
-                  Choose parking spot:
-                  <br></br>
-                  <select
-                    name="parking"
-                    value={this.state.locationID}
-                    id="parkingNumber"
-                    onChange={(event) =>
-                      this.setState({ locationID: event.target.value })
-                    }
-                  >
-                    <>
-                      {this.props.parkingLocations.map((location, index) => (
-                        <option
-                          value={location.id}
-                          key={`parking-locations-${index}`}
-                        >
-                          {location.description}
-                        </option>
-                      ))}
-                    </>
-                  </select>
-                  <br></br>
-                </label>
-              </form>
-            </div>
           </Row>
           <Form.Row xs={12}>
             <>
+              {/* <label htmlFor="houseHoldIdManual">
+                  Enter Household ID:
+                  <br></br>
+                  <input
+                    type="number"
+                    name="houseHoldIdManual"
+                    value={this.state.houseHoldId}
+                    onChange={(event) =>
+                      this.setState({ houseHoldId: event.target.value })
+                    }
+                  />
+                </label>
+                <form>
+                  <label htmlFor="name" id="parkingLabel">
+                    Choose parking spot:
+                    <br></br>
+                    <select
+                      name="parking"
+                      value={this.state.locationID}
+                      id="parkingNumber"
+                      onChange={(event) =>
+                        this.setState({ locationID: event.target.value })
+                      }
+                    >
+                      <>
+                        {this.props.parkingLocations.map((location, index) => (
+                          <option
+                            value={location.id}
+                            key={`parking-locations-${index}`}
+                          >
+                            {location.description}
+                          </option>
+                        ))}
+                      </>
+                    </select>
+                    <br></br>
+                  </label>
+                </form> */}
               <div id="clientQuestions">
+                <label htmlFor="houseHoldIdManual">
+                  Enter Household ID:
+                  <br></br>
+                  <input
+                    type="number"
+                    name="houseHoldIdManual"
+                    value={this.state.houseHoldId}
+                    onChange={(event) =>
+                      this.setState({ houseHoldId: event.target.value })
+                    }
+                  />
+                </label>
+                <form>
+                  <label htmlFor="name" id="parkingLabelManual">
+                    Choose parking spot:
+                    <br></br>
+                    <select
+                      name="parking"
+                      value={this.state.locationID}
+                      id="parkingNumber"
+                      onChange={(event) =>
+                        this.setState({ locationID: event.target.value })
+                      }
+                    >
+                      <>
+                        {this.props.parkingLocations.map((location, index) => (
+                          <option
+                            value={location.id}
+                            key={`parking-locations-${index}`}
+                          >
+                            {location.description}
+                          </option>
+                        ))}
+                      </>
+                    </select>
+                    <br></br>
+                  </label>
+                </form>
                 <label htmlFor="pickup_name" id="nameLabel">
                   Please enter the name here:
                   <br></br>

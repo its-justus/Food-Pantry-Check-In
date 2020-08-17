@@ -171,7 +171,7 @@ class Dashboard extends Component {
                         Other needs: <b>{this.state.orderObj.other || 'None'}</b>
                       </p>
                     </body>
-                    <label for="waitTime">
+                    <label id="waitTimeLabel" for="waitTime">
                       {!this.state.orderObj.checkout_at && 'Please choose a wait time: '}
                       <select
                         name="waitTime"
