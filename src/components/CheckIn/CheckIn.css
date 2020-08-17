@@ -22,23 +22,21 @@
   margin-right: 20px;
 }
 
-#instructions, #anotherPersonQuestion {
+#instructions {
   text-align: left;
   font-size: 22px;
   font-family: 'Heebo', sans-serif;
   margin: auto;
   margin-right: 20px;
   margin-left: 20px;
-  margin-top: 25px;
+  color: #8AA8A1;
+  font-weight: bold;
+  margin-top: 30px;
 }
 
 #lastPickup  {
-  background-color: #3372fa;
-  border: 1px solid #3372fa;
-  border-radius: 5px;
   padding-right: 5px;
   padding-left: 5px;
-  color: #ededed;
   font-size: 25px;
 }
 
@@ -47,6 +45,7 @@
   margin: 25px auto;
   text-align: center;
   font-family: 'Catamaran', sans-serif;
+  color: #424B54;
 }
 
 #accountName {
@@ -60,7 +59,7 @@
 #greyLine {
   width: 100%;
   height: 5px;
-  background-color: #ededed;
+  background-color: #424B54;
 }
 
 #clientInput {
@@ -72,22 +71,22 @@
   font-size: 20px;
   margin-bottom: 20px;
   border-radius: 5px;
-}
-
-#parkingNumber:hover {
+  width: 100%;
+  padding: 5px;
   border: 1px solid #faaf46;
 }
 
 #checkInButton {
   color: white;
   font-size: 18px;
-  background-color: #b13324;
-  border: 1px solid #b13324;
+  background-color: #00C2D1;
+  border: 1px solid #00C2D1;
   border-radius: 50px;
   transition: 200ms;
   font-family: 'Catamaran', sans-serif;
   margin-top: 10px;
   margin-bottom: 10px;
+  float: right;
 }
 
 #checkInButton:hover {
@@ -98,6 +97,8 @@
 #lastStep {
   font-size: 25px;
   font-family: 'Catamaran', sans-serif;
+  color: #8AA8A1;
+  font-weight: bolder;
 }
 
 #clientQuestions {
@@ -106,6 +107,7 @@
   padding-right: 10px;
   padding-bottom: 100px;
   font-size: 18px;
+  color: #424B54;
 }
 
 .check {
@@ -120,10 +122,7 @@
 textarea {
   border: 0.5px solid black;
   border-radius: 5px;
-}
-
-textarea:hover {
-  border: 0.5px solid #faaf46;;
+  border: 1px solid #faaf46;
 }
 
 .checkboxLabel {
@@ -138,8 +137,8 @@ textarea:hover {
 #submitButton {
   color: white;
   font-size: 18px;
-  background-color: #b13324;
-  border: 1px solid #b13324;
+  background-color: #00C2D1;
+  border: 1px solid #00C2D1;
   border-radius: 50px;
   width: 25%;
   transition: 200ms;
@@ -149,11 +148,16 @@ textarea:hover {
   float: right;
 }
 
+#submitButton:hover, #backButton:hover {
+  border: 1px solid white;
+  transition: 200ms; 
+}
+
 #backButton {
   color: white;
   font-size: 18px;
-  background-color: #726b69;
-  border: 1px solid #726b69;
+  background-color: #00C2D1;
+  border: 1px solid #00C2D1;
   border-radius: 50px;
   width: 25%;
   transition: 200ms;
@@ -169,19 +173,27 @@ textarea:hover {
   margin-top: 25px;
 }
 
+#thankYouMessage {
+  color: #8AA8A1;
+  font-weight: bolder; 
+}
+
 #waitTime {
   font-size: 23px;
+  color: #424B54;
 }
 
 #logOutPrompt {
   font-size: 18px;
+  color: #424B54;
+  font-weight: bold;
 }
 
 #thankYouLogout {
   font-size: 18px;
   color: white;
-  background-color: #faaf46;
-  border: 1px solid #faaf46;
+  background-color: #B13324;
+  border: 1px solid #B13324;
   border-radius: 50px;
   transition: 200ms; 
   font-family: 'Catamaran', sans-serif;

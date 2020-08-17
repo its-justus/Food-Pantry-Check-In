@@ -53,60 +53,60 @@ class CheckIn extends React.Component {
             <div id="greyLine"></div>
           </div>
           <Row id="checkinBody">
-            {this.state.showCheckIn && (
-              <div id="clientInput">
-                <span id="checkinDirections">
-                  <h3 id="instructions">
-                    Please fill out this form to pickup your order. Start
-                    checking in by selecting your parking spot:
-                  </h3>
-                </span>
-                <form id="spotForm">
-                  <br></br>
-                  <select
-                    name="parking"
-                    value={this.state.locationID}
-                    id="parkingNumber"
-                    onChange={(event) =>
-                      this.setState({ locationID: event.target.value })
-                    }
-                  >
-                    <>
-                      <option value=""></option>
-                      {this.props.parkingLocations.map((location, index) => (
-                        <option
-                          value={location.id}
-                          key={`parking-locations-${index}`}
-                        >
-                          {location.description}
-                        </option>
-                      ))}
-                    </>
-                  </select>
-                  <br></br>
-                  <input
-                    type="button"
-                    name="submit"
-                    value="Check-In"
-                    id="checkInButton"
-                    disabled={!Boolean(this.state.locationID)}
-                    onClick={() =>
-                      this.setState({
-                        showQuestions: true,
-                        showCheckIn: false,
-                      })
-                    }
-                  />
-                </form>
-              </div>
-            )}
+              {this.state.showCheckIn && (
+                <div id="clientInput">
+                  <span id="checkinDirections">
+                    <h3 id="instructions">
+                      Please fill out this form to pickup your order. Start
+                      checking in by selecting your parking spot:
+                    </h3>
+                  </span>
+                  <form id="spotForm">
+                    <br></br>
+                    <select
+                      name="parking"
+                      value={this.state.locationID}
+                      id="parkingNumber"
+                      onChange={(event) =>
+                        this.setState({ locationID: event.target.value })
+                      }
+                    >
+                      <>
+                        <option value=""></option>
+                        {this.props.parkingLocations.map((location, index) => (
+                          <option
+                            value={location.id}
+                            key={`parking-locations-${index}`}
+                          >
+                            {location.description}
+                          </option>
+                        ))}
+                      </>
+                    </select>
+                    <br></br>
+                    <input
+                      type="button"
+                      name="submit"
+                      value="Check-In"
+                      id="checkInButton"
+                      disabled={!Boolean(this.state.locationID)}
+                      onClick={() =>
+                        this.setState({
+                          showQuestions: true,
+                          showCheckIn: false,
+                        })
+                      }
+                    />
+                  </form>
+                </div>
+              )}
           </Row>
           <Form.Row xs={12}>
             {this.state.showQuestions && (
               <>
                 <br />
                 <div id="clientQuestions">
-                  <p id="lastStep">Last step to finish checking in!</p>
+                  <p id="lastStep">Final Step</p>
                   <label htmlFor="showTextArea" className="checkboxLabel">
                     Is there another person picking up <br /> the order?
                     <input
@@ -281,7 +281,7 @@ class CheckIn extends React.Component {
                 <h3>{this.props.errors.orderMessage}</h3>
               ) : (
                 <>
-                  <h3>Thank you, we have received your order!</h3>
+                  <h3 id="thankYouMessage">Thank you, we have received your order!</h3>
                   <p id="waitTime">
                     We will be with you in about:
                     <br />{" "}
@@ -293,20 +293,20 @@ class CheckIn extends React.Component {
                   </p>
                   {this.props.waitTime && (
                     <>
-                    <p id="logOutPrompt">You may now log out.</p>
-                    <button
-                      id="thankYouLogout"
-                      onClick={() => {
-                        this.props.dispatch({ type: "SET_SERVER_LOADING" });
-                        this.props.dispatch(
-                          { type: "LOGOUT" },
-                          this.props.history.push("/login")
-                        );
-                      }}
-                    >
-                    Log Out
-                  </button>
-                  </>
+                      <p id="logOutPrompt">You may now log out.</p>
+                      <button
+                        id="thankYouLogout"
+                        onClick={() => {
+                          this.props.dispatch({ type: "SET_SERVER_LOADING" });
+                          this.props.dispatch(
+                            { type: "LOGOUT" },
+                            this.props.history.push("/login")
+                          );
+                        }}
+                      >
+                        Log Out
+                      </button>
+                    </>
                   )}
                 </>
               )}
