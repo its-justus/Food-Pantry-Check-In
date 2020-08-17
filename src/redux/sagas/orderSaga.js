@@ -20,10 +20,11 @@ function* fetchWaitTime() {
     // Loop a get request for the estimated wait minutes until the minutes have been
     // specified by a volunteer/admin because the user was checked in.
     while (processing === true) {
-      const response = yield axios.get('/api/order/client-order-status');
+      // Pause for 5 seconds before looping again.
       yield delay(5000);
-      // If this is a user's first order they won't have any order results so keep looping
-      // to give the order a moment to go through.ß
+      const response = yield axios.get('/api/order/client-order-status');
+      // The get finds orders for today's date so keep looping
+      // to give the order a moment to go through.
       if (response.data[0]) {
         // If the estimated wait time minutes have been specified break the loop and return that value.
         if (response.data[0].wait_time_minutes !== null) {

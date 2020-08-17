@@ -9,7 +9,7 @@ const loginMessage = (state = "", action) => {
     case "LOGIN_INPUT_ERROR":
       return "Please enter your username and password!";
     case "LOGIN_FAILED":
-      return "Oops! The username and password didn't match. Try again!";
+      return "Oops! The email and password didn't match. Try again!";
     case 'FAILED_REQUEST':
       return "Oops! Something went wrong on our end, please try again shortly.";
     default:

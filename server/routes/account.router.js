@@ -17,7 +17,7 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
   const accessLevel = req.user.access_level;
   // If the current user doesn't have a high enough access level return unauthorized.
   if (accessLevel < 100) {
-    res.sendStatus(401);
+    res.sendStatus(403);
     return;
   }
   const id = req.params.id;
@@ -100,41 +100,45 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', rejectUnauthenticated, async (req, res) => {
-  const id = req.body.id;
+  const id = req.params.id;
   const name = req.body.name;
   const email = req.body.email;
-  const accessLevel = req.body.accessLevel;
-  if (!id || !name || !email || !accessLevel) {
+  const accessLevel = req.body.access_level;
+  const active = req.body.active;
+
+  if (req.user.access_level < 100) {
+    res.sendStatus(403);
+    return;
+  }
+
+  if (!id || !name || !email || !accessLevel || !active) {
     res.sendStatus(400);
     return;
   }
-  if (accessLevel < 100) {
-    res.sendStatus(401);
-    return;
-  }
+
   const conn = await pool.connect();
   try {
     const query = {};
-    query.text = 'UPDATE "account" SET "name" = $1, "email" = $2, "access_level" = $3 WHERE id = $4 RETURNING *;';
-    query.values = [name, email, accessLevel, id];
+    query.text = `UPDATE "account" SET "name" = $1, "email" = $2, "access_level" = $3, "active" = $4
+                  WHERE id = $5 RETURNING id, "name", email, access_level, active;`;
+    query.values = [name, email, accessLevel, active, id];
     await conn.query('BEGIN');
     const result = await conn.query(query.text, query.values);
     await conn.query('COMMIT');
     conn.release();
-    res.status(200).send(result.rows);
+    res.status(200).send(result.rows && result.rows[0]);
   } catch (error) {
     conn.query('ROLLBACK');
     console.log('Error PUT /account', error);
     res.sendStatus(500);
   }
-  res.send(req.user);
 });
 
 router.delete('/:id', rejectUnauthenticated, async (req, res) => {
   const accessLevel = req.user.access_level;
   // If the current user doesn't have a high enough access level return unauthorized.
   if (accessLevel < 100) {
-    res.sendStatus(401);
+    res.sendStatus(403);
     return;
   }
   const id = req.params.id;
