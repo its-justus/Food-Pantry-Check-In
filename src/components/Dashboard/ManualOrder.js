@@ -27,7 +27,7 @@ class ManualOrder extends Component {
           <Row id="clientInfoRow">
             <div id="secondColManualHeader">
               <h1 id="secondColManualTitle">
-                Enter information to check-in a client.
+                Enter information to check in a client.
               </h1>
               <button
                 id="cancelButton"
@@ -40,51 +40,14 @@ class ManualOrder extends Component {
           </Row>
           <Form.Row xs={12}>
             <>
-              {/* <label htmlFor="houseHoldIdManual">
-                  Enter Household ID:
-                  <br></br>
-                  <input
-                    type="number"
-                    name="houseHoldIdManual"
-                    value={this.state.houseHoldId}
-                    onChange={(event) =>
-                      this.setState({ houseHoldId: event.target.value })
-                    }
-                  />
-                </label>
-                <form>
-                  <label htmlFor="name" id="parkingLabel">
-                    Choose parking spot:
-                    <br></br>
-                    <select
-                      name="parking"
-                      value={this.state.locationID}
-                      id="parkingNumber"
-                      onChange={(event) =>
-                        this.setState({ locationID: event.target.value })
-                      }
-                    >
-                      <>
-                        {this.props.parkingLocations.map((location, index) => (
-                          <option
-                            value={location.id}
-                            key={`parking-locations-${index}`}
-                          >
-                            {location.description}
-                          </option>
-                        ))}
-                      </>
-                    </select>
-                    <br></br>
-                  </label>
-                </form> */}
               <div id="clientQuestions">
-                <label htmlFor="houseHoldIdManual">
+                <label id="idManualLabel" htmlFor="houseHoldIdManual">
                   Enter Household ID:
                   <br></br>
                   <input
                     type="number"
                     name="houseHoldIdManual"
+                    id="houseHoldIdInput"
                     value={this.state.houseHoldId}
                     onChange={(event) =>
                       this.setState({ houseHoldId: event.target.value })
@@ -98,7 +61,7 @@ class ManualOrder extends Component {
                     <select
                       name="parking"
                       value={this.state.locationID}
-                      id="parkingNumber"
+                      id="parkingNumberManual"
                       onChange={(event) =>
                         this.setState({ locationID: event.target.value })
                       }
@@ -114,7 +77,6 @@ class ManualOrder extends Component {
                         ))}
                       </>
                     </select>
-                    <br></br>
                   </label>
                 </form>
                 <label htmlFor="pickup_name" id="nameLabel">
@@ -130,7 +92,7 @@ class ManualOrder extends Component {
                         pickup_name: event.target.value,
                       })
                     }
-                    placeholder="Enter name of person picking up"
+                    placeholder="Name of person picking up"
                   ></textarea>
                 </label>
                 <br></br>
@@ -166,7 +128,7 @@ class ManualOrder extends Component {
                 </label>
                 <br></br>
                 <label htmlFor="birthday" className="checkboxLabel">
-                  Is there a child in the household with a birthday in the next
+                  Is there a child in the household with a birthday in the next <br></br>
                   2 months?
                   <input
                     type="checkbox"
@@ -225,7 +187,7 @@ class ManualOrder extends Component {
                 </label>
                 <br />
                 <button
-                  id="submitButton"
+                  id="submitButtonManual"
                   onClick={() => {
                     this.props.dispatch({
                       type: "CLEAR_ORDER_PLACEMENT_ERROR",

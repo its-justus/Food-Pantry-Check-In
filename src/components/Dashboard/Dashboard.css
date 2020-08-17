@@ -25,6 +25,7 @@ button {
   background-color: transparent;
   border: none;
   color: black;
+  font-family: 'Heebo', sans-serif;
 }
 
 thead {
@@ -41,12 +42,15 @@ thead {
   color: #B13324;
   border: none;
   transition: 200ms;
+  font-family: 'Heebo', sans-serif;
 }
 
-/* #checkInClient:hover, #addClient:hover, #cancelButton:hover {
-  border-bottom: 2px solid #B13324;
+#checkInClient:hover, #addClient:hover, #cancelButton:hover {
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
   transition: 200ms;
-} */
+}
 
 .checkboxLabel {
   font-family: sans-serif;
@@ -130,10 +134,17 @@ thead {
   margin-top: 20px;
 }
 
+#homeIcon {
+  margin-top: -20px;
+  margin-right: 10px;
+}
+
 #dashboardTitle {
   display: inline-block;
-  font-family: sans-serif;
+  font-family: 'Heebo', sans-serif;
   font-weight: bolder;
+  color: #424B54;
+  font-size: 45px;
 }
 
 .clientInformation {
@@ -156,4 +167,33 @@ thead {
   padding-left: 20px;
   padding-right: 20px;
   font-size: 20px;
+}
+
+#houseHoldIdInput {
+  border: 0.5px solid black;
+  border-radius: 5px;
+  border: 1px solid #faaf46;
+}
+
+#idManualLabel {
+  margin-top: 25px;
+}
+
+#parkingNumberManual {
+  font-size: 20px;
+  border-radius: 5px;
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #faaf46;
+}
+
+#submitButtonManual {
+  font-size: 18px;
+  color: white;
+  background-color: #B13324;
+  border: 1px solid #B13324;
+  border-radius: 50px;
+  width: 30%;
+  transition: 200ms; 
+  font-family: 'Heebo', sans-serif;
 }
