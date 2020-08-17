@@ -37,25 +37,31 @@ class CheckIn extends React.Component {
               <h3 id="houseId">
                 Household ID: <strong>{this.props.account.household_id}</strong>
               </h3>
-              <h3>
-                Last Pickup: <strong>{this.props.account.latest_order ? moment(this.props.account.latest_order.checkout_at).format('yyyy-MM-DD') : 'Never'}</strong>
+              <h3 id="lastPickup">
+                Last Pickup:{" "}
+                <strong>
+                  {this.props.account.latest_order
+                    ? moment(
+                        this.props.account.latest_order.checkout_at
+                      ).format("yyyy-MM-DD")
+                    : "Never"}
+                </strong>
               </h3>
-              <span id="checkinDirections">
-                <h3 id="lastPickup">
-                  Please fill out this form to pickup your order.
-                </h3>
-              </span>
             </div>
           </Row>
           <div>
             <div id="greyLine"></div>
           </div>
           <Row id="checkinBody">
-            {this.state.showCheckIn && (
-              <div id="clientInput">
-                <form>
-                  <label htmlFor="name" id="parkingLabel">
-                    Start checking in by selecting your parking spot:
+              {this.state.showCheckIn && (
+                <div id="clientInput">
+                  <span id="checkinDirections">
+                    <h3 id="instructions">
+                      Please fill out this form to pickup your order. Start
+                      checking in by selecting your parking spot:
+                    </h3>
+                  </span>
+                  <form id="spotForm">
                     <br></br>
                     <select
                       name="parking"
@@ -91,28 +97,28 @@ class CheckIn extends React.Component {
                         })
                       }
                     />
-                  </label>
-                </form>
-              </div>
-            )}
+                  </form>
+                </div>
+              )}
           </Row>
           <Form.Row xs={12}>
             {this.state.showQuestions && (
               <>
                 <br />
                 <div id="clientQuestions">
-                  <p id="instructions">
-                    Fill out this form to finish your check-in:
-                  </p>
+                  <p id="lastStep">Final Step</p>
                   <label htmlFor="showTextArea" className="checkboxLabel">
-                    <h3>Is there another person picking up the order?</h3>
+                    Is there another person picking up <br /> the order?
                     <input
                       type="checkbox"
                       className="check"
                       checked={this.state.showTextArea}
                       onChange={() => {
-                        this.setState({ showTextArea: !this.state.showTextArea });
-                        !this.state.showTextArea && this.setState({ pickup_name: '' });
+                        this.setState({
+                          showTextArea: !this.state.showTextArea,
+                        });
+                        !this.state.showTextArea &&
+                          this.setState({ pickup_name: "" });
                       }}
                     />
                   </label>
@@ -123,7 +129,7 @@ class CheckIn extends React.Component {
                         Please enter the name here:
                         <br />
                         <textarea
-                          rows="2"
+                          rows="1"
                           cols="40"
                           name="name"
                           value={this.state.pickup_name}
@@ -132,7 +138,7 @@ class CheckIn extends React.Component {
                               pickup_name: event.target.value,
                             })
                           }
-                          placeholder="Enter name of person picking up"
+                          placeholder="Name of person picking up"
                         ></textarea>
                       </label>
                       <br></br>
@@ -228,12 +234,14 @@ class CheckIn extends React.Component {
                     />
                   </label>
                   <br></br>
-									<button
-										id="backButton"
-										onClick={() => this.setState({showCheckIn: true, showQuestions: false})}
-										>
-										Back
-									</button>
+                  <button
+                    id="backButton"
+                    onClick={() =>
+                      this.setState({ showCheckIn: true, showQuestions: false })
+                    }
+                  >
+                    Back
+                  </button>
                   <button
                     id="submitButton"
                     onClick={() => {
@@ -256,9 +264,9 @@ class CheckIn extends React.Component {
                       this.setState({
                         showSuccess: true,
                         showQuestions: false,
-                        showTextArea: false
+                        showTextArea: false,
                       });
-                      this.props.dispatch({ type: 'FETCH_WAIT_TIME' });
+                      this.props.dispatch({ type: "FETCH_WAIT_TIME" });
                     }}
                   >
                     Submit
@@ -272,12 +280,36 @@ class CheckIn extends React.Component {
               {this.props.errors.orderMessage ? (
                 <h3>{this.props.errors.orderMessage}</h3>
               ) : (
-                  <>
-                    <h3>Thank you, we have received your order!</h3>
-                    <p>We will be with you in about: {`"${this.props.waitTime ? `${this.props.waitTime} minutes.` : 'Processing...'}"`}</p>
-                    {this.props.waitTime && <p>You may now log out.</p>}
-                  </>
-                )}
+                <>
+                  <h3 id="thankYouMessage">Thank you, we have received your order!</h3>
+                  <p id="waitTime">
+                    We will be with you in about:
+                    <br />{" "}
+                    {`${
+                      this.props.waitTime
+                        ? `${this.props.waitTime} minutes.`
+                        : "Processing..."
+                    }`}
+                  </p>
+                  {this.props.waitTime && (
+                    <>
+                      <p id="logOutPrompt">You may now log out.</p>
+                      <button
+                        id="thankYouLogout"
+                        onClick={() => {
+                          this.props.dispatch({ type: "SET_SERVER_LOADING" });
+                          this.props.dispatch(
+                            { type: "LOGOUT" },
+                            this.props.history.push("/login")
+                          );
+                        }}
+                      >
+                        Log Out
+                      </button>
+                    </>
+                  )}
+                </>
+              )}
             </div>
           )}
         </Container>
