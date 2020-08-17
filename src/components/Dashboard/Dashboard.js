@@ -160,19 +160,19 @@ class Dashboard extends Component {
                         </h3>
                       )}
                       <h3>Name: {this.state.orderObj.name}</h3>
-                      <h4>Household ID: {this.state.orderObj.account_id}</h4>
+                      <h4>Household ID: {this.state.orderObj.household_id}</h4>
                       <br />
                       <p className="clientInformation">
                         Walking home:{" "}
-                        <b>{String(this.state.orderObj.walking_home)}</b>
+                        <b>{this.state.orderObj.walking_home ? "Yes" : "No"}</b>
                       </p>
                       <p className="clientInformation">
                         Child birthday coming up:{" "}
-                        <b>{String(this.state.orderObj.child_birthday)}</b>
+                        <b>{this.state.orderObj.child_birthday ? "Yes" : "No"}</b>
                       </p>
                       <p className="clientInformation">
                         Someone at home is pregnant:{" "}
-                        <b>{String(this.state.orderObj.child_birthday)}</b>
+                        <b>{this.state.orderObj.child_birthday ? "Yes" : "No"}</b>
                       </p>
                       <p className="clientInformation">
                         Dietary restrictions:{" "}
@@ -181,7 +181,7 @@ class Dashboard extends Component {
                         </b>
                       </p>
                       <p className="clientInformation">
-                        SNAP: <b>{String(this.state.orderObj.snap)}</b>
+                        SNAP: <b>{this.state.orderObj.snap ? "Yes" : "No"}</b>
                       </p>
                       <p className="clientInformation">
                         Other needs:{" "}

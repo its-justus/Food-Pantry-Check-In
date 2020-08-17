@@ -36,13 +36,21 @@ thead {
   margin-top: 20px;
 }
 
-#addClient, #checkInClient, #cancelButton {
+#addClient, #checkInClient{
   float: right;
   background-color: white;
   color: #B13324;
   border: none;
   transition: 200ms;
   font-family: 'Heebo', sans-serif;
+}
+
+#cancelButton {
+  background-color: white;
+  color: #B13324;
+  border: none;
+  transition: 200ms;
+  font-family: 'Heebo', sans-serif; 
 }
 
 #checkInClient:hover, #addClient:hover, #cancelButton:hover {
