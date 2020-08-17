@@ -108,7 +108,7 @@ class CheckIn extends React.Component {
                 <div id="clientQuestions">
                   <p id="lastStep">Last step to finish checking in!</p>
                   <label htmlFor="showTextArea" className="checkboxLabel">
-                    Is there another person picking up <br/> the order?
+                    Is there another person picking up <br /> the order?
                     <input
                       type="checkbox"
                       className="check"
@@ -283,14 +283,31 @@ class CheckIn extends React.Component {
                 <>
                   <h3>Thank you, we have received your order!</h3>
                   <p id="waitTime">
-                    We will be with you in about:{" "}
-                    {`"${
+                    We will be with you in about:
+                    <br />{" "}
+                    {`${
                       this.props.waitTime
                         ? `${this.props.waitTime} minutes.`
                         : "Processing..."
-                    }"`}
+                    }`}
                   </p>
-                  {this.props.waitTime && <p>You may now log out.</p>}
+                  {this.props.waitTime && (
+                    <>
+                    <p id="logOutPrompt">You may now log out.</p>
+                    <button
+                      id="thankYouLogout"
+                      onClick={() => {
+                        this.props.dispatch({ type: "SET_SERVER_LOADING" });
+                        this.props.dispatch(
+                          { type: "LOGOUT" },
+                          this.props.history.push("/login")
+                        );
+                      }}
+                    >
+                    Log Out
+                  </button>
+                  </>
+                  )}
                 </>
               )}
             </div>
