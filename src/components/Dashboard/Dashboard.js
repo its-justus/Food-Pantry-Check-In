@@ -28,7 +28,6 @@ class Dashboard extends Component {
     },
     waitTimeMinutes: '15',
     showClientInfo: true,
-    hideInfo: true,
   };
 
   componentDidMount = () => {
@@ -68,12 +67,16 @@ class Dashboard extends Component {
         <Container fluid id="dashContainer">
           <Row>
             <div id="orangeDiv">
-              <HomeIcon fontSize="large" style={{ fill: "#424B54" }} id="homeIcon"/>
+              <HomeIcon
+                fontSize="large"
+                style={{ fill: "#424B54" }}
+                id="homeIcon"
+              />
               <h1 id="dashboardTitle">Dashboard</h1>
             </div>
           </Row>
           <Row id="dashRow">
-            <Col id="firstCol" xs={12} sm={12} lg={4} xl={4}>
+            <Col id="firstCol" xs={12} sm={12} md={12} lg={4} xl={4}>
               <Card id="firstCard">
                 <form className="dashForm">
                   <div id="firstColHeader">
@@ -110,7 +113,7 @@ class Dashboard extends Component {
                 </form>
               </Card>
             </Col>
-            <Col id="secondCol" xs={12} sm={12} lg={4} xl={4}>
+            <Col id="secondCol" xs={12} sm={12} md={12} lg={4} xl={4}>
               <Card id="secondCard">
                 {this.state.showClientInfo ? (
                   <form className="dashForm">
@@ -132,11 +135,11 @@ class Dashboard extends Component {
                               account_id: "",
                               walking_home: "",
                               child_birthday: "",
-                              dietary_restrictions: " ",
+                              dietary_restrictions: "",
                               snap: "",
-                              other: " ",
+                              other: "",
                               pickup_name: "",
-                              checkout_at: " ",
+                              checkout_at: "",
                               wait_time_minutes: "",
                             },
                             waitTimeMinutes: "15",
@@ -153,74 +156,96 @@ class Dashboard extends Component {
                         Check In
                       </button>
                     </div>
-                    <body id="dashBody">
-                      {this.state.orderObj.pickup_name && (
-                        <h3>
-                          Person picking it up:{" "}
-                          {this.state.orderObj.pickup_name}
-                        </h3>
-                      )}
-                      <h3>Name: {this.state.orderObj.name}</h3>
-                      <h4>Household ID: {this.state.orderObj.household_id}</h4>
-                      <br />
-                      <p className="clientInformation">
-                        Walking home:{" "}
-                        <b>{this.state.orderObj.walking_home ? "Yes" : "No"}</b>
-                      </p>
-                      <p className="clientInformation">
-                        Child birthday coming up:{" "}
-                        <b>{this.state.orderObj.child_birthday ? "Yes" : "No"}</b>
-                      </p>
-                      <p className="clientInformation">
-                        Someone at home is pregnant:{" "}
-                        <b>{this.state.orderObj.child_birthday ? "Yes" : "No"}</b>
-                      </p>
-                      <p className="clientInformation">
-                        Dietary restrictions:{" "}
-                        <b>
-                          {this.state.orderObj.dietary_restrictions || "None"}
-                        </b>
-                      </p>
-                      <p className="clientInformation">
-                        SNAP: <b>{this.state.orderObj.snap ? "Yes" : "No"}</b>
-                      </p>
-                      <p className="clientInformation">
-                        Other needs:{" "}
-                        <b>{this.state.orderObj.other || "None"}</b>
-                      </p>
-                    </body>
-                    <label id="waitTimeLabel" for="waitTime">
-                      {!this.state.orderObj.checkout_at &&
-                        "Please choose a wait time: "}
-                      <select
-                        name="waitTime"
-                        id="times"
-                        disabled={this.state.orderObj.checkout_at}
-                        value={this.state.waitTimeMinutes}
-                        onChange={(event) =>
-                          this.setState({
-                            waitTimeMinutes: event.target.value,
-                          })
-                        }
-                      >
-                        {this.state.orderObj.wait_time_minutes ? (
-                          <option>
-                            {this.state.orderObj.wait_time_minutes &&
-                              (this.state.orderObj.wait_time_minutes === 60
-                                ? "1 hour"
-                                : `${this.state.orderObj.wait_time_minutes} minutes`)}
-                          </option>
-                        ) : (
-                          <>
-                            <option value="15">15 minutes</option>
-                            <option value="30">30 minutes</option>
-                            <option value="45">45 minutes</option>
-                            <option value="60">1 hour</option>
-                          </>
-                        )}
-                        ß
-                      </select>
-                    </label>
+                    {this.state.orderObj.id ? (
+                      <>
+                        <body id="dashBody">
+                          {this.state.orderObj.pickup_name && (
+                            <h3>
+                              Person picking it up:{" "}
+                              {this.state.orderObj.pickup_name}
+                            </h3>
+                          )}
+                          <h3 id="infoName">Name: {this.state.orderObj.name}</h3>
+                          <h4 id="infoId">
+                            Household ID: {this.state.orderObj.household_id}
+                          </h4>
+                          <br />
+                          <p className="clientInformation">
+                            Walking home:{" "}
+                            <b>
+                              {this.state.orderObj.walking_home ? "Yes" : "No"}
+                            </b>
+                          </p>
+                          <p className="clientInformation">
+                            Child birthday coming up:{" "}
+                            <b>
+                              {this.state.orderObj.child_birthday
+                                ? "Yes"
+                                : "No"}
+                            </b>
+                          </p>
+                          <p className="clientInformation">
+                            Someone at home is pregnant:{" "}
+                            <b>
+                              {this.state.orderObj.child_birthday
+                                ? "Yes"
+                                : "No"}
+                            </b>
+                          </p>
+                          <p className="clientInformation">
+                            Dietary restrictions:{" "}
+                            <b>
+                              {this.state.orderObj.dietary_restrictions ||
+                                "None"}
+                            </b>
+                          </p>
+                          <p className="clientInformation">
+                            SNAP:{" "}
+                            <b>{this.state.orderObj.snap ? "Yes" : "No"}</b>
+                          </p>
+                          <p className="clientInformation">
+                            Other needs:{" "}
+                            <b>{this.state.orderObj.other || "None"}</b>
+                          </p>
+                        </body>
+                        <label id="waitTimeLabel" for="waitTime">
+                          {!this.state.orderObj.checkout_at &&
+                            "Please choose a wait time: "}
+                          <select
+                            name="waitTime"
+                            id="times"
+                            disabled={this.state.orderObj.checkout_at}
+                            value={this.state.waitTimeMinutes}
+                            onChange={(event) =>
+                              this.setState({
+                                waitTimeMinutes: event.target.value,
+                              })
+                            }
+                          >
+                            {this.state.orderObj.wait_time_minutes ? (
+                              <option>
+                                {this.state.orderObj.wait_time_minutes &&
+                                  (this.state.orderObj.wait_time_minutes === 60
+                                    ? "1 hour"
+                                    : `${this.state.orderObj.wait_time_minutes} minutes`)}
+                              </option>
+                            ) : (
+                              <>
+                                <option value="15">15 minutes</option>
+                                <option value="30">30 minutes</option>
+                                <option value="45">45 minutes</option>
+                                <option value="60">1 hour</option>
+                              </>
+                            )}
+                          </select>
+                        </label>
+                      </>
+                    ) : (
+                      <h1 id="selectText">
+                        Select a name from the Client Queue to view order
+                        details.
+                      </h1>
+                    )}
                   </form>
                 ) : (
                   <ManualOrder
@@ -229,7 +254,7 @@ class Dashboard extends Component {
                 )}
               </Card>
             </Col>
-            <Col id="thirdCol" xs={12} sm={12} lg={4} xl={4}>
+            <Col id="thirdCol" xs={12} sm={12} md={12} lg={4} xl={4}>
               <Card id="thirdCard">
                 <form className="dashForm">
                   <h1 id="thirdColTitle">Clients Checked In</h1>
