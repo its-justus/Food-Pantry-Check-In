@@ -24,31 +24,51 @@
 button {
   background-color: transparent;
   border: none;
-  color: black;
+  color: #424B54;
+  font-family: 'Heebo', sans-serif;
 }
 
 thead {
   font-size: 25px;
 }
 
+tbody {
+  color: #424B54;
+  font-size: 18px;
+}
+
 .dashForm {
   margin-top: 20px;
 }
 
-#addClient {
+#addClient, #checkInClient{
   float: right;
-}
-
-#checkInClient {
-  float: right;
-  background-color: #3ca342;
-  border: 1px solid #3ca342;
+  background-color: white;
+  color: #B13324;
+  border: none;
   transition: 200ms;
+  font-family: 'Heebo', sans-serif;
+  font-weight: bold;
 }
 
-#checkInClient:hover {
-  background-color: #328a36;
-  border: 1px solid #328a36;
+#cancelButtonDiv {
+  display: inline-block;
+}
+
+#cancelButton {
+  background-color: white;
+  color: #B13324;
+  border: none;
+  transition: 200ms;
+  font-family: 'Heebo', sans-serif; 
+  font-weight: bold;
+  margin-left: 15px;
+  float: right;
+}
+
+#checkInClient:hover, #addClient:hover, #cancelButton:hover {
+  background-color: transparent;
+  color: white;
   transition: 200ms;
 }
 
@@ -61,6 +81,8 @@ thead {
   color: white;
   font-size: 30px;
   display: inline-block;
+  font-weight: bold;
+  margin-bottom: -10px;
 }
 
 #firstColHeader {  
@@ -76,16 +98,20 @@ thead {
   color: white;
   font-size: 30px;
   display: inline-block;
+  font-weight: bold;
+  margin-bottom: -10px;
 }
 
 #secondColManualTitle {
   color: white;
   font-size: 30px;
   display: inline-block;  
+  font-weight: bold;
+  margin-bottom: -10px;
 }
 
 #secondColManualHeader {
-  background-color: #0071f8;
+  background-color: #424B54;
   padding: 10px;
   margin: 0px;
   width: 100%;
@@ -93,7 +119,7 @@ thead {
 }
 
 #secondColHeader {
-  background-color: #99e0f7;
+  background-color: #8AA8A1;
   padding: 10px;
   margin: 0px;
   margin-top: -20px;
@@ -104,32 +130,32 @@ thead {
 #firstCard, #secondCard, #thirdCard {
   height: 675px;
   overflow: scroll;
+  font-family: 'Heebo', sans-serif;
 }
 
 #dashBody {
   margin-top: 20px;
   margin-left: 20px;
-  margin-bottom: 75px;
+  font-family: 'Heebo', sans-serif;
+  color: #424B54;
 }
 
 #thirdCol {
-  /* border-left: 1px solid lightgray; */
   height: 675px;
   overflow: scroll;
 }
 
 #thirdColTitle {
   color: white;
-  background-color: #99d498;
-  padding: 10px;
+  background-color: #9AC2C5;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
   font-size: 30px;
   margin: 0px;
   margin-top: -20px;
-}
-
-#checkedInItem{
-  border-bottom: 1px solid #99d498;
-  font-size: 20px;
+  font-weight: bold;
 }
 
 #orangeDiv {
@@ -138,10 +164,17 @@ thead {
   margin-top: 20px;
 }
 
+#homeIcon {
+  margin-top: -20px;
+  margin-right: 10px;
+}
+
 #dashboardTitle {
   display: inline-block;
-  font-family: 'Signika', sans-serif;
+  font-family: 'Heebo', sans-serif;
   font-weight: bolder;
+  color: #424B54;
+  font-size: 45px;
 }
 
 .clientInformation {
@@ -150,4 +183,63 @@ thead {
 
 .selectedOrder {
   background-color: #dedede;
+}
+
+#selectText {
+  margin: 50px;
+  font-family: 'Heebo', sans-serif;
+  font-weight: bolder;
+  color: #424B54;
+  font-size: 35px;
+  text-align: center;
+}
+
+#times {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #faaf46;
+}
+
+#waitTimeLabel {
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 20px;  
+  color: #424B54;
+}
+
+#houseHoldIdInput {
+  border: 0.5px solid black;
+  border-radius: 5px;
+  border: 1px solid #faaf46;
+}
+
+#idManualLabel {
+  margin-top: 25px;
+}
+
+#parkingNumberManual {
+  font-size: 18px;
+  border-radius: 5px;
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #faaf46;
+}
+
+#submitButtonManual {
+  font-size: 18px;
+  color: white;
+  background-color: #B13324;
+  border: 1px solid #B13324;
+  border-radius: 50px;
+  width: 30%;
+  transition: 200ms; 
+  font-family: 'Heebo', sans-serif;
+}
+
+#infoName, #infoId {
+  font-family: 'Heebo', sans-serif;
+  font-weight: bold;
+  color: #424B54;;
 }

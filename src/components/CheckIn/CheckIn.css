@@ -44,7 +44,7 @@
 #clientInfo {
   margin: 25px auto;
   text-align: center;
-  font-family: 'Catamaran', sans-serif;
+  font-family: 'Heebo', sans-serif;
   color: #424B54;
 }
 
@@ -76,14 +76,19 @@
   border: 1px solid #faaf46;
 }
 
+#waitTimeLabel {
+  font-size: 20px;
+  margin: 0;
+}
+
 #checkInButton {
   color: white;
   font-size: 18px;
-  background-color: #00C2D1;
-  border: 1px solid #00C2D1;
+  background-color: #B13324;
+  border: 1px solid #B13324;
   border-radius: 50px;
   transition: 200ms;
-  font-family: 'Catamaran', sans-serif;
+  font-family: 'Heebo', sans-serif;
   margin-top: 10px;
   margin-bottom: 10px;
   float: right;
@@ -96,7 +101,7 @@
 
 #lastStep {
   font-size: 25px;
-  font-family: 'Catamaran', sans-serif;
+  font-family: 'Heebo', sans-serif;
   color: #8AA8A1;
   font-weight: bolder;
 }
@@ -137,12 +142,12 @@ textarea {
 #submitButton {
   color: white;
   font-size: 18px;
-  background-color: #00C2D1;
-  border: 1px solid #00C2D1;
+  background-color: #B13324;
+  border: 1px solid #B13324;
   border-radius: 50px;
   width: 25%;
   transition: 200ms;
-  font-family: 'Catamaran', sans-serif;
+  font-family: 'Heebo', sans-serif;
   margin-top: 10px;
   margin-bottom: 10px;
   float: right;
@@ -156,12 +161,12 @@ textarea {
 #backButton {
   color: white;
   font-size: 18px;
-  background-color: #00C2D1;
-  border: 1px solid #00C2D1;
+  background-color: #B13324;
+  border: 1px solid #B13324;
   border-radius: 50px;
   width: 25%;
   transition: 200ms;
-  font-family: 'Catamaran', sans-serif;
+  font-family: 'Heebo', sans-serif;
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -169,7 +174,7 @@ textarea {
 #thankYou {
   text-align: left;
   font-size: 25px;
-  font-family: 'Catamaran', sans-serif;
+  font-family: 'Heebo', sans-serif;
   margin-top: 25px;
 }
 
@@ -196,5 +201,5 @@ textarea {
   border: 1px solid #B13324;
   border-radius: 50px;
   transition: 200ms; 
-  font-family: 'Catamaran', sans-serif;
+  font-family: 'Heebo', sans-serif;
 }

@@ -3,21 +3,22 @@ import { connect } from "react-redux";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
+import "./Dashboard.css";
 
 //this component is for the dashboard view that is seen by the volunteers
 class ManualOrder extends Component {
   state = {
-    locationID: '',
+    locationID: "",
     dietaryRestrictions: "",
     walkingHome: false,
     pregnant: false,
     childBirthday: false,
     snap: false,
-    other: '',
-    waitTime: '',
-    houseHoldId: '',
-    waitTimeMinutes: '15',
-    pickup_name: '',
+    other: "",
+    waitTime: "",
+    houseHoldId: "",
+    waitTimeMinutes: "15",
+    pickup_name: "",
   };
 
   render() {
@@ -27,7 +28,7 @@ class ManualOrder extends Component {
           <Row id="clientInfoRow">
             <div id="secondColManualHeader">
               <h1 id="secondColManualTitle">
-                Enter information to check-in a client.
+                Manually check in a client.
               </h1>
               <button
                 id="cancelButton"
@@ -37,57 +38,50 @@ class ManualOrder extends Component {
                 Cancel
               </button>
             </div>
-            <div id="clientInfoManual">
-              <label htmlFor="houseHoldIdManual">
-                Enter Household ID:
-                <br></br>
-                <input
-                  type="number"
-                  name="houseHoldIdManual"
-                  value={this.state.houseHoldId}
-                  onChange={(event) =>
-                    this.setState({ houseHoldId: event.target.value })
-                  }
-                />
-              </label>
-            </div>
-          </Row>
-          <div id="orangeBox"></div>
-          <Row>
-            <div id="clientInputManual">
-              <form>
-                <label htmlFor="name" id="parkingLabel">
-                  Choose parking spot:
-                  <br></br>
-                  <select
-                    name="parking"
-                    value={this.state.locationID}
-                    id="parkingNumber"
-                    onChange={(event) =>
-                      this.setState({ locationID: event.target.value })
-                    }
-                  >
-                    <>
-                      {this.props.parkingLocations.map((location, index) => (
-                        <option
-                          value={location.id}
-                          key={`parking-locations-${index}`}
-                        >
-                          {location.description}
-                        </option>
-                      ))}
-                    </>
-                  </select>
-                  <br></br>
-                </label>
-              </form>
-            </div>
           </Row>
           <Form.Row xs={12}>
             <>
               <div id="clientQuestions">
+                <label id="idManualLabel" htmlFor="houseHoldIdManual">
+                  Enter Household ID:
+                  <br></br>
+                  <input
+                    type="number"
+                    name="houseHoldIdManual"
+                    id="houseHoldIdInput"
+                    value={this.state.houseHoldId}
+                    onChange={(event) =>
+                      this.setState({ houseHoldId: event.target.value })
+                    }
+                  />
+                </label>
+                <form>
+                  <label htmlFor="name" id="parkingLabelManual">
+                    Choose parking spot:
+                    <br></br>
+                    <select
+                      name="parking"
+                      value={this.state.locationID}
+                      id="parkingNumberManual"
+                      onChange={(event) =>
+                        this.setState({ locationID: event.target.value })
+                      }
+                    >
+                      <>
+                        {this.props.parkingLocations.map((location, index) => (
+                          <option
+                            value={location.id}
+                            key={`parking-locations-${index}`}
+                          >
+                            {location.description}
+                          </option>
+                        ))}
+                      </>
+                    </select>
+                  </label>
+                </form>
                 <label htmlFor="pickup_name" id="nameLabel">
-                  Please enter the name here:
+                  Name of person picking up:
                   <br></br>
                   <textarea
                     rows="2"
@@ -99,7 +93,7 @@ class ManualOrder extends Component {
                         pickup_name: event.target.value,
                       })
                     }
-                    placeholder="Enter name of person picking up"
+                    placeholder="Full Name"
                   ></textarea>
                 </label>
                 <br></br>
@@ -135,7 +129,8 @@ class ManualOrder extends Component {
                 </label>
                 <br></br>
                 <label htmlFor="birthday" className="checkboxLabel">
-                  Is there a child in the household with a birthday in the next
+                  Is there a child in the household with a birthday in the next{" "}
+                  <br></br>
                   2 months?
                   <input
                     type="checkbox"
@@ -194,7 +189,7 @@ class ManualOrder extends Component {
                 </label>
                 <br />
                 <button
-                  id="submitButton"
+                  id="submitButtonManual"
                   onClick={() => {
                     this.props.dispatch({
                       type: "CLEAR_ORDER_PLACEMENT_ERROR",
@@ -230,7 +225,7 @@ class ManualOrder extends Component {
 const mapStateToProps = (state) => ({
   activeOrders: state.activeOrders,
   completeOrders: state.completeOrders,
-  parkingLocations: state.parkingLocations
+  parkingLocations: state.parkingLocations,
 });
 
 export default connect(mapStateToProps)(ManualOrder);
