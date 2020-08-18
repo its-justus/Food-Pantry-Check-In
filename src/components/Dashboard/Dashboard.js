@@ -28,6 +28,7 @@ class Dashboard extends Component {
     },
     waitTimeMinutes: '15',
     showClientInfo: true,
+    hideInfo: true,
   };
 
   componentDidMount = () => {

@@ -84,8 +84,8 @@
 #checkInButton {
   color: white;
   font-size: 18px;
-  background-color: #00C2D1;
-  border: 1px solid #00C2D1;
+  background-color: #B13324;
+  border: 1px solid #B13324;
   border-radius: 50px;
   transition: 200ms;
   font-family: 'Heebo', sans-serif;
@@ -142,8 +142,8 @@ textarea {
 #submitButton {
   color: white;
   font-size: 18px;
-  background-color: #00C2D1;
-  border: 1px solid #00C2D1;
+  background-color: #B13324;
+  border: 1px solid #B13324;
   border-radius: 50px;
   width: 25%;
   transition: 200ms;
@@ -161,8 +161,8 @@ textarea {
 #backButton {
   color: white;
   font-size: 18px;
-  background-color: #00C2D1;
-  border: 1px solid #00C2D1;
+  background-color: #B13324;
+  border: 1px solid #B13324;
   border-radius: 50px;
   width: 25%;
   transition: 200ms;

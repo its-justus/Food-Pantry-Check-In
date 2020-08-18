@@ -43,6 +43,7 @@ thead {
   border: none;
   transition: 200ms;
   font-family: 'Heebo', sans-serif;
+  font-weight: bold;
 }
 
 #cancelButton {
@@ -51,6 +52,7 @@ thead {
   border: none;
   transition: 200ms;
   font-family: 'Heebo', sans-serif; 
+  font-weight: bold;
 }
 
 #checkInClient:hover, #addClient:hover, #cancelButton:hover {
@@ -101,7 +103,7 @@ thead {
 }
 
 #secondColHeader {
-  background-color: #8AA8A1;
+  background-color: #faaf46;
   padding: 10px;
   margin: 0px;
   margin-top: -20px;
@@ -126,7 +128,7 @@ thead {
 
 #thirdColTitle {
   color: white;
-  background-color: #00C2D1;
+  background-color: #faaf46;
   padding-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
