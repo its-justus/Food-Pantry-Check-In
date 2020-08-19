@@ -7,6 +7,7 @@ import Table from "react-bootstrap/Table";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import Card from "react-bootstrap/Card";
 import ManualOrder from "./ManualOrder";
+import HomeIcon from "@material-ui/icons/Home";
 import "./Dashboard.css";
 
 //this component is for the dashboard view that is seen by the volunteers
@@ -66,11 +67,16 @@ class Dashboard extends Component {
         <Container fluid id="dashContainer">
           <Row>
             <div id="orangeDiv">
-              <h1>Dashboard</h1>
+              <HomeIcon
+                fontSize="large"
+                style={{ fill: "#424B54" }}
+                id="homeIcon"
+              />
+              <h1 id="dashboardTitle">Dashboard</h1>
             </div>
           </Row>
           <Row id="dashRow">
-            <Col id="firstCol" xs={12} sm={12} lg={4} xl={4}>
+            <Col id="firstCol" xs={12} sm={12} md={12} lg={4} xl={4}>
               <Card id="firstCard">
                 <form className="dashForm">
                   <div id="firstColHeader">
@@ -90,7 +96,10 @@ class Dashboard extends Component {
                         <tr>
                           <td
                             id="queItem"
-                            className={cur.id === this.state.orderObj.id && 'selectedOrder'}
+                            className={
+                              cur.id === this.state.orderObj.id &&
+                              "selectedOrder"
+                            }
                             onClick={() => this.setLocalStateObj(cur)}
                           >
                             {cur.pickup_name
@@ -104,110 +113,148 @@ class Dashboard extends Component {
                 </form>
               </Card>
             </Col>
-            <Col id="secondCol" xs={12} sm={12} lg={4} xl={4}>
+            <Col id="secondCol" xs={12} sm={12} md={12} lg={4} xl={4}>
               <Card id="secondCard">
                 {this.state.showClientInfo ? (
                   <form className="dashForm">
                     <div id="secondColHeader">
                       <h1 id="secondColTitle">Client Information</h1>
                       <button
-                        disabled={!this.state.orderObj.account_id || this.state.orderObj.checkout_at}
+                        disabled={
+                          !this.state.orderObj.account_id ||
+                          this.state.orderObj.checkout_at
+                        }
                         id="checkInClient"
                         className="btn btn-large btn-primary"
-                        onClick={event => {
+                        onClick={(event) => {
                           event.preventDefault();
                           this.setState({
                             orderObj: {
-                              id: '',
-                              name: '',
-                              account_id: '',
-                              walking_home: '',
-                              child_birthday: '',
-                              dietary_restrictions: ' ',
-                              snap: '',
-                              other: ' ',
-                              pickup_name: '',
-                              checkout_at: ' ',
-                              wait_time_minutes: ''
+                              id: "",
+                              name: "",
+                              account_id: "",
+                              walking_home: "",
+                              child_birthday: "",
+                              dietary_restrictions: "",
+                              snap: "",
+                              other: "",
+                              pickup_name: "",
+                              checkout_at: "",
+                              wait_time_minutes: "",
                             },
-                            waitTimeMinutes: '15'
+                            waitTimeMinutes: "15",
                           });
                           this.props.dispatch({
                             type: "ORDER_CHECKOUT",
                             payload: {
                               id: this.state.orderObj.id,
                               waitTimeMinutes: this.state.waitTimeMinutes,
-                            }
-                          })
+                            },
+                          });
                         }}
                       >
                         Check In
                       </button>
                     </div>
-                    <body id="dashBody">
-                      {this.state.orderObj.pickup_name && <h3>Person picking it up: {this.state.orderObj.pickup_name}</h3>}
-                      <h3>Name: {this.state.orderObj.name}</h3>
-                      <h4>Household ID: {this.state.orderObj.account_id}</h4>
-                      <br />
-                      <p className="clientInformation">
-                        Walking home: <b>{String(this.state.orderObj.walking_home)}</b>
-                      </p>
-                      <p className="clientInformation">
-                        Child birthday coming up:{" "}
-                        <b>{String(this.state.orderObj.child_birthday)}</b>
-                      </p>
-                      <p className="clientInformation">
-                        Someone at home is pregnant:{" "}
-                        <b>{String(this.state.orderObj.child_birthday)}</b>
-                      </p>
-                      <p className="clientInformation">
-                        Dietary restrictions:{" "}
-                        <b>{this.state.orderObj.dietary_restrictions || 'None'}</b>
-                      </p>
-                      <p className="clientInformation">
-                        SNAP: <b>{String(this.state.orderObj.snap)}</b>
-                      </p>
-                      <p className="clientInformation">
-                        Other needs: <b>{this.state.orderObj.other || 'None'}</b>
-                      </p>
-                    </body>
-                    <label for="waitTime">
-                      {!this.state.orderObj.checkout_at && 'Please choose a wait time: '}
-                      <select
-                        name="waitTime"
-                        id="times"
-                        disabled={this.state.orderObj.checkout_at}
-                        value={this.state.waitTimeMinutes}
-                        onChange={(event) =>
-                          this.setState({
-                            waitTimeMinutes: event.target.value,
-                          })
-                        }
-                      >
-                        {this.state.orderObj.wait_time_minutes ?
-                          <option>{this.state.orderObj.wait_time_minutes
-                            && (this.state.orderObj.wait_time_minutes === 60 ? '1 hour'
-                              : `${this.state.orderObj.wait_time_minutes} minutes`)}
-                          </option>
-                          :
-                          <>
-                            <option value="15">15 minutes</option>
-                            <option value="30">30 minutes</option>
-                            <option value="45">45 minutes</option>
-                            <option value="60">1 hour</option>
-                          </>
-                        }ß
-                      </select>
-                    </label>
+                    {this.state.orderObj.id ? (
+                      <>
+                        <body id="dashBody">
+                          {this.state.orderObj.pickup_name && (
+                            <h3>
+                              Person picking it up:{" "}
+                              {this.state.orderObj.pickup_name}
+                            </h3>
+                          )}
+                          <h3 id="infoName">Name: {this.state.orderObj.name}</h3>
+                          <h4 id="infoId">
+                            Household ID: {this.state.orderObj.household_id}
+                          </h4>
+                          <br />
+                          <p className="clientInformation">
+                            Walking home:{" "}
+                            <b>
+                              {this.state.orderObj.walking_home ? "Yes" : "No"}
+                            </b>
+                          </p>
+                          <p className="clientInformation">
+                            Child birthday coming up:{" "}
+                            <b>
+                              {this.state.orderObj.child_birthday
+                                ? "Yes"
+                                : "No"}
+                            </b>
+                          </p>
+                          <p className="clientInformation">
+                            Someone at home is pregnant:{" "}
+                            <b>
+                              {this.state.orderObj.child_birthday
+                                ? "Yes"
+                                : "No"}
+                            </b>
+                          </p>
+                          <p className="clientInformation">
+                            Dietary restrictions:{" "}
+                            <b>
+                              {this.state.orderObj.dietary_restrictions ||
+                                "None"}
+                            </b>
+                          </p>
+                          <p className="clientInformation">
+                            SNAP:{" "}
+                            <b>{this.state.orderObj.snap ? "Yes" : "No"}</b>
+                          </p>
+                          <p className="clientInformation">
+                            Other needs:{" "}
+                            <b>{this.state.orderObj.other || "None"}</b>
+                          </p>
+                        </body>
+                        <label id="waitTimeLabel" for="waitTime">
+                          {!this.state.orderObj.checkout_at &&
+                            "Please choose a wait time: "}
+                          <select
+                            name="waitTime"
+                            id="times"
+                            disabled={this.state.orderObj.checkout_at}
+                            value={this.state.waitTimeMinutes}
+                            onChange={(event) =>
+                              this.setState({
+                                waitTimeMinutes: event.target.value,
+                              })
+                            }
+                          >
+                            {this.state.orderObj.wait_time_minutes ? (
+                              <option>
+                                {this.state.orderObj.wait_time_minutes &&
+                                  (this.state.orderObj.wait_time_minutes === 60
+                                    ? "1 hour"
+                                    : `${this.state.orderObj.wait_time_minutes} minutes`)}
+                              </option>
+                            ) : (
+                              <>
+                                <option value="15">15 minutes</option>
+                                <option value="30">30 minutes</option>
+                                <option value="45">45 minutes</option>
+                                <option value="60">1 hour</option>
+                              </>
+                            )}
+                          </select>
+                        </label>
+                      </>
+                    ) : (
+                      <h1 id="selectText">
+                        Select a name from the Client Queue to view order
+                        details.
+                      </h1>
+                    )}
                   </form>
                 ) : (
-                    <ManualOrder
-                      toggleShowClientInfo={this.toggleShowClientInfo}
-                    />
-                  )}
+                  <ManualOrder
+                    toggleShowClientInfo={this.toggleShowClientInfo}
+                  />
+                )}
               </Card>
             </Col>
-            <Col id="thirdCol" xs={12} sm={12} lg={4} xl={4}>
+            <Col id="thirdCol" xs={12} sm={12} md={12} lg={4} xl={4}>
               <Card id="thirdCard">
                 <form className="dashForm">
                   <h1 id="thirdColTitle">Clients Checked In</h1>
@@ -215,8 +262,12 @@ class Dashboard extends Component {
                     <tbody>
                       {this.props.completeOrders?.map((complete) => (
                         <tr id="checkedInRow">
-                          <td id="checkedInItem"
-                            className={complete.id === this.state.orderObj.id && 'selectedOrder'}
+                          <td
+                            id="checkedInItem"
+                            className={
+                              complete.id === this.state.orderObj.id &&
+                              "selectedOrder"
+                            }
                             onClick={() => this.setLocalStateObj(complete)}
                           >
                             {complete.pickup_name
