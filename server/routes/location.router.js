@@ -10,6 +10,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
   const description = req.body.description;
 
   const accessLevel = req.user.access_level;
+  // If the current user doesn't have a high enough access level return unauthorized.
   if (accessLevel < 10) {
     res.sendStatus(401);
     return;
@@ -42,6 +43,7 @@ router.put('/:id', rejectUnauthenticated, async (req, res) => {
   const description = req.body.description;
 
   const accessLevel = req.user.access_level;
+  // If the current user doesn't have a high enough access level return unauthorized.
   if (accessLevel < 10) {
     res.sendStatus(401);
     return;
@@ -90,6 +92,7 @@ router.delete('/:id', rejectUnauthenticated, async (req, res) => {
   const id = req.params.id;
 
   const accessLevel = req.user.access_level;
+  // If the current user doesn't have a high enough access level return unauthorized.
   if (accessLevel < 10) {
     res.sendStatus(401);
     return;
