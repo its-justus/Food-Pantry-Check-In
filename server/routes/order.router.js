@@ -7,6 +7,7 @@ const pool = require('../modules/pool');
 
 router.get('/', rejectUnauthenticated, async (req, res) => {
   const accessLevel = req.user.access_level;
+  // If the current user doesn't have a high enough access level return unauthorized.
   if (accessLevel < 10) {
     res.sendStatus(401);
     return;
@@ -27,6 +28,7 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
 
 router.get('/active', rejectUnauthenticated, async (req, res) => {
   const accessLevel = req.user.access_level;
+  // If the current user doesn't have a high enough access level return unauthorized.
   if (accessLevel < 10) {
     res.sendStatus(401);
     return;
@@ -50,6 +52,7 @@ router.get('/active', rejectUnauthenticated, async (req, res) => {
 
 router.get('/complete/today', rejectUnauthenticated, async (req, res) => {
   const accessLevel = req.user.access_level;
+  // If the current user doesn't have a high enough access level return unauthorized.
   if (accessLevel < 10) {
     res.sendStatus(401);
     return;
@@ -104,6 +107,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
   const other = req.body.other;
   let waitTimeMinutes = null;
 
+  // If the current user doesn't have a high enough access level return unauthorized.
   if (accessLevel >= 10) {
     try {
       waitTimeMinutes = Number(req.body.wait_time_minutes);
@@ -170,6 +174,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 
 router.put('/checkout/:id', async (req, res) => {
   const accessLevel = req.user.access_level;
+  // If the current user doesn't have a high enough access level return unauthorized.
   if (accessLevel < 10) {
     res.sendStatus(401);
     return;
@@ -211,6 +216,7 @@ router.put('/checkout/:id', async (req, res) => {
 
 router.delete('/:id', rejectUnauthenticated, async (req, res) => {
   const accessLevel = req.user.access_level;
+  // If the current user doesn't have a high enough access level return unauthorized.
   if (accessLevel < 100) {
     res.sendStatus(401);
     return;
