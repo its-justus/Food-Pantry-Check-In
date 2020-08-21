@@ -70,6 +70,15 @@ describe('PUT /api/account/1', () => {
   });
 });
 
+describe('PUT /api/account/update-approved/1', () => {
+  it('Reject account updating while logged out with a bad request', async (done) => {
+    await newUser
+      .put('/api/account/update-approved/1')
+      .expect(403);
+    done();
+  });
+});
+
 describe('DELETE /api/account/1', () => {
   it('Reject account deletion while logged out', async (done) => {
     await newUser
@@ -151,9 +160,19 @@ describe('GET /api/account/1', () => {
 });
 
 describe('PUT /api/account/1', () => {
-  it('Reject put info for specific user when sending bad info', async (done) => {
+  it('Reject put info for specific user because current user is not an admin', async (done) => {
     await newUser
       .put('/api/account/1')
+      .send({})
+      .expect(403);
+    done();
+  });
+});
+
+describe('PUT /api/account/update-approved/1', () => {
+  it('Reject put info for specific user because current user is not an admin', async (done) => {
+    await newUser
+      .put('/api/account/update-approved/1')
       .send({})
       .expect(403);
     done();
@@ -226,7 +245,17 @@ describe(`PUT /api/account/${newUserId}`, () => {
   });
 });
 
-const updateUser = {
+describe(`PUT /api/account/update-approved/${newUserId}`, () => {
+  it('Reject info for the newly added client because of a bad request', async (done) => {
+    await adminUser
+      .put(`/api/account/${newUserId}`)
+      .send({})
+      .expect(400);
+    done();
+  });
+});
+
+const approveUser = {
   [id]: expect.any(Number),
   [name]: newUserName,
   [email]: newUserEmail,
@@ -234,6 +263,26 @@ const updateUser = {
   [active]: true,
   [approved]: true
 };
+
+const updateUser = {
+  [id]: expect.any(Number),
+  [name]: newUserName,
+  [email]: newUserEmail,
+  [accessLevel]: 1,
+  [active]: false,
+  [approved]: false
+};
+
+describe(`PUT /api/account/update-approved/${newUserId}`, () => {
+  it('Edit info for the newly added client', async (done) => {
+    const res = await adminUser
+      .put(`/api/account/update-approved/${newUserId}`)
+      .send(approveUser)
+      .expect(200);
+    expect(res.body).toEqual(approveUser);
+    done();
+  });
+});
 
 describe(`PUT /api/account/${newUserId}`, () => {
   it('Edit info for the newly added client', async (done) => {
