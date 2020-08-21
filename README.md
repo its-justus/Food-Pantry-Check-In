@@ -15,6 +15,7 @@ To see the fully functional site, please visit:
 
 ## Demo
 These are the screenshots for the demo app
+
 Login
 ![Login](./images/Login.png)
 Checkin
