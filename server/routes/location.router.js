@@ -39,7 +39,8 @@ router.post("/", rejectUnauthenticated, async (req, res) => {
     conn.release(); // required so we don't use up the entire connection pool
     res.status(201).send(locationInsertResults.rows[0]);
   } catch (error) {
-    await conn.query("ROLLBACK");
+		await conn.query("ROLLBACK");
+		conn.release();
     console.log("Error POST /api/location", error);
     res.sendStatus(500);
   }
@@ -77,7 +78,8 @@ router.put("/:id", rejectUnauthenticated, async (req, res) => {
     conn.release();
     res.status(200).send(result.rows[0]);
   } catch (error) {
-    conn.query("ROLLBACK");
+		conn.query("ROLLBACK");
+		conn.release();
     console.log(`Error PUT /api/location/${id}`, error);
     res.sendStatus(500);
   }
@@ -97,7 +99,8 @@ router.get("/", async (req, res) => {
     conn.release();
     res.status(200).send(result.rows);
   } catch (error) {
-    conn.query("ROLLBACK");
+		conn.query("ROLLBACK");
+		conn.release();
     console.log("Error GET /api/location/", error);
     res.sendStatus(500);
   }
@@ -128,7 +131,8 @@ router.delete("/:id", rejectUnauthenticated, async (req, res) => {
     conn.release();
     res.sendStatus(204);
   } catch (error) {
-    conn.query("ROLLBACK");
+		conn.query("ROLLBACK");
+		conn.release();
     console.log(`Error DELETE /api/location/${id}`, error);
     res.sendStatus(500);
   }
