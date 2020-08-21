@@ -16,11 +16,11 @@ To see the fully functional site, please visit:
 ## Demo
 These are the screenshots for the demo app
 Login
-(./images/Login.png)
+![Login](./images/Login.png)
 Checkin
-(./images/Checkin.png)
+![Checkin](./images/Checkin.png)
 DashBoard
-(./images/Dashboard.png)
+![Dashboard](./images/Dashboard.png)
 
 ## Prerequisites
 
@@ -47,8 +47,8 @@ The npm run client command will open up a new browser tab for you!
 4. They can proceed to logout while they wait and once food is delivered to them, a staff member puts their name on the completed order pickup list.
 
 ## Code Samples
-(./images/CodeSample.png)
-(./images/CodeSample1.png)
+![Code  sample](./images/CodeSample.png)
+![Code sample 2](./images/CodeSample1.png)
 
 
 ### Node
