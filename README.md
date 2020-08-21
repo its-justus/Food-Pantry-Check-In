@@ -33,7 +33,13 @@ Requirements
 For development, you will only need Node.js installed on your environement. And please use the appropriate Editorconfig plugin for your Editor (not mandatory).
 
 ## INSTALL
-1. Create a database named your_database_name,
+1. Create a database name, if you want to use a remote database then create .env file with:
+
+```
+DATABASE_URL=url
+```
+
+
 The queries in the tables.sql file are set up to create all the necessary tables and populate the needed data to allow the application to run correctly. The project is built on Postgres, so you will need to make sure to have that installed. We recommend using Postico to run those queries as that was used to create the queries,
 2. Open up your editor of choice and run an npm install
 3. Run npm run server in your terminal
@@ -72,4 +78,4 @@ $ npm --version  :6.14.5
 Thanks to [Emerging Digital Academy](https://www.emergingacademy.org/course/fullstack) in Fargo ND who equipped and helped us to make this application a reality.
 
 # Contributors 
-Ian Johnson, Bailey Niemiller, Luke Johnson, & Daniel Simango.
+[Ian Johnson](https://github.com/its-justus), [Bailey Niemiller](https://github.com/baileyniemiller), [Luke Johnson](https://github.com/its-justus), & [Daniel Simango](https://github.com/Danielsimmz).
