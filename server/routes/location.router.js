@@ -135,7 +135,7 @@ router.delete("/:id", rejectUnauthenticated, async (req, res) => {
 		conn.release();
     console.log(`Error DELETE /api/location/${id}`, error);
     res.sendStatus(500);
-  }
+  } 
 });
 
 module.exports = router;
