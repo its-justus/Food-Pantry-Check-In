@@ -29,9 +29,7 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
     const query = {};
     query.text = sqlSelect.user.getUserInfoQuery;
     query.values = [id];
-    await conn.query('BEGIN');
     const result = await conn.query(query.text, query.values);
-    await conn.query('COMMIT');
     conn.release();
     if (result.rows[0]) {
       res.status(200).send(result.rows[0]);
@@ -39,8 +37,30 @@ router.get('/:id', rejectUnauthenticated, async (req, res) => {
       res.sendStatus(400);
     }
   } catch (error) {
-    conn.query('ROLLBACK');
     console.log(`Error GET /api/account/${id}`, error);
+    res.sendStatus(500);
+  }
+});
+
+router.get('/pending-approval', rejectUnauthenticated, async (req, res) => {
+  const accessLevel = req.user.access_level;
+  // If the current user doesn't have a high enough access level return unauthorized.
+  if (accessLevel < 10) {
+    res.sendStatus(403);
+    return;
+  }
+  const conn = await pool.connect();
+  try {
+    const result = await conn.query(`SELECT id, "name", email, active, approved
+                                     FROM account WHERE approved = FALSE AND active = TRUE;`);
+    conn.release();
+    if (result.rows[0]) {
+      res.status(200).send(result.rows);
+    } else {
+      res.sendStatus(400);
+    }
+  } catch (error) {
+    console.log('Error GET /api/account/pending-approval', error);
     res.sendStatus(500);
   }
 });
@@ -80,6 +100,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// A volunteer can either decline or accept an account request.
 router.put('/:id', rejectUnauthenticated, async (req, res) => {
   const id = req.params.id;
   const name = req.body.name;

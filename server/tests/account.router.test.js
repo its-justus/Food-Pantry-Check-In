@@ -61,6 +61,15 @@ describe('GET /api/account/1', () => {
   });
 });
 
+describe('GET /api/account/pending-approval', () => {
+  it('Reject get info for users while logged out', async (done) => {
+    await newUser
+      .get('/api/account/pending-approval')
+      .expect(403);
+    done();
+  });
+});
+
 describe('PUT /api/account/1', () => {
   it('Reject account updating while logged out with a bad request', async (done) => {
     await newUser
@@ -159,6 +168,15 @@ describe('GET /api/account/1', () => {
   });
 });
 
+describe('GET /api/account/pending-approval', () => {
+  it('Reject get info for users because current user is not an admin', async (done) => {
+    await newUser
+      .get('/api/account/pending-approval')
+      .expect(403);
+    done();
+  });
+});
+
 describe('PUT /api/account/1', () => {
   it('Reject put info for specific user because current user is not an admin', async (done) => {
     await newUser
@@ -234,6 +252,17 @@ describe(`GET /api/account/${newUserId}`, () => {
     done();
   });
 });
+
+// describe('GET /api/account/pending-approval', () => {
+//   it('Get info for the newly added client', async (done) => {
+//     const res = await adminUser
+//       .get('/api/account/pending-approval')
+//       .expect(200);
+//     console.log(res.body);
+//     // expect(Array(res.body).length > 0);
+//     done();
+//   });
+// });
 
 describe(`PUT /api/account/${newUserId}`, () => {
   it('Reject info for the newly added client because of a bad request', async (done) => {
