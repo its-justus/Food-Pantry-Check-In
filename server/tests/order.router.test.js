@@ -55,7 +55,8 @@ describe('Normal client with access level 1 for /api/order', () => {
         access_level: 1,
         household_id: '2',
         latest_order: null,
-        active: true
+        active: true,
+        approved: true
       });
       done();
     });

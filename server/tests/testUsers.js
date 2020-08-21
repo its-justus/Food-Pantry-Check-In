@@ -15,6 +15,7 @@ module.exports = {
     accessLevel: 100,
     householdID: null,
     latestOrder: null,
-    active: true
+    active: true,
+    approved: true
   }
 };

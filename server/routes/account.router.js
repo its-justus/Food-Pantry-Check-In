@@ -86,13 +86,20 @@ router.put('/:id', rejectUnauthenticated, async (req, res) => {
   const email = req.body.email;
   const accessLevel = req.body.access_level;
   const active = req.body.active;
+  const approved = req.body.approved;
 
   if (req.user.access_level < 100) {
     res.sendStatus(403);
     return;
   }
 
-  if (!id || !name || !email || !accessLevel || !active) {
+  if (
+    typeof name !== 'string' ||
+    typeof email !== 'string' ||
+    typeof accessLevel !== 'number' ||
+    typeof active !== 'boolean' ||
+    typeof approved !== 'boolean'
+  ) {
     res.sendStatus(400);
     return;
   }
@@ -100,9 +107,10 @@ router.put('/:id', rejectUnauthenticated, async (req, res) => {
   const conn = await pool.connect();
   try {
     const query = {};
-    query.text = `UPDATE "account" SET "name" = $1, "email" = $2, "access_level" = $3, "active" = $4
-                  WHERE id = $5 RETURNING id, "name", email, access_level, active;`;
-    query.values = [name, email, accessLevel, active, id];
+    query.text = `UPDATE "account" SET "name" = $1, "email" = $2, "access_level" = $3,
+                  "active" = $4, "approved" = $5 WHERE id = $6 
+                  RETURNING id, "name", email, access_level, active, approved;`;
+    query.values = [name, email, accessLevel, active, approved, id];
     await conn.query('BEGIN');
     const result = await conn.query(query.text, query.values);
     await conn.query('COMMIT');

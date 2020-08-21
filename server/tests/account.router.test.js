@@ -196,10 +196,11 @@ describe('GET /api/account/', () => {
       [id]: 1,
       [name]: adminInfo.name,
       [email]: adminInfo.adminEmail,
-      access_level: adminInfo.accessLevel,
+      [accessLevel]: adminInfo.accessLevel,
       [householdID]: adminInfo.householdID,
       [latestOrder]: adminInfo.latestOrder,
-      [active]: adminInfo.active
+      [active]: adminInfo.active,
+      [approved]: adminInfo.approved
     });
     done();
   });
@@ -230,7 +231,8 @@ const updateUser = {
   [name]: newUserName,
   [email]: newUserEmail,
   [accessLevel]: 1,
-  [active]: true
+  [active]: true,
+  [approved]: true
 };
 
 describe(`PUT /api/account/${newUserId}`, () => {
