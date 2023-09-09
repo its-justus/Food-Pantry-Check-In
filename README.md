@@ -5,6 +5,9 @@
 ![TOP_LANGUAGE](https://img.shields.io/github/languages/top/scottbromander/the_marketplace.svg?style=flat-square)
 ![FORKS](https://img.shields.io/github/forks/scottbromander/the_marketplace.svg?style=social)
 
+ARCHIVE NOTICE:
+I am archiving this repo as it is quite old at this point and hasn't seen any additional work since it's original creation. - Ian
+
 ## Description
 
 Duration: 2 Week Sprint
